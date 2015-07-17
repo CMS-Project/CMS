@@ -1,0 +1,69 @@
+2015-07-17 14:40:36  [5480] [BEGIN] [databaseId:0]
+2015-07-17 14:40:36  [5480] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:40:36  [5480] [COMMIT] [databaseId:0]
+2015-07-17 14:41:06  [5736] [BEGIN] [databaseId:0]
+2015-07-17 14:41:06  [5736] SELECT * FROM cms WHERE numberID = '000001' AND password = '123'
+2015-07-17 14:41:06  [5736] [COMMIT] [databaseId:0]
+2015-07-17 14:41:10  [5736] [BEGIN] [databaseId:0]
+2015-07-17 14:41:10  [5736] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:41:10  [5736] [COMMIT] [databaseId:0]
+2015-07-17 14:41:28  [5736] [BEGIN] [databaseId:0]
+2015-07-17 14:41:28  [5736] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:41:28  [5736] [COMMIT] [databaseId:0]
+2015-07-17 14:44:45  [4640] [BEGIN] [databaseId:0]
+2015-07-17 14:44:45  [4640] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:44:45  [4640] [COMMIT] [databaseId:0]
+2015-07-17 14:44:54  [4640] [BEGIN] [databaseId:0]
+2015-07-17 14:44:54  [4640] SELECT * FROM cms WHERE numberID = 'Lisi' AND password = '123'
+2015-07-17 14:44:54  [4640] [COMMIT] [databaseId:0]
+2015-07-17 14:47:10  [5840] [BEGIN] [databaseId:0]
+2015-07-17 14:47:10  [5840] SELECT * FROM cms WHERE numberID = '000001' AND password = '123'
+2015-07-17 14:47:10  [5840] [COMMIT] [databaseId:0]
+2015-07-17 14:49:56  [6592] [BEGIN] [databaseId:0]
+2015-07-17 14:49:56  [6592] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:49:56  [6592] [COMMIT] [databaseId:0]
+2015-07-17 14:50:03  [6592] [BEGIN] [databaseId:0]
+2015-07-17 14:50:03  [6592] SELECT * FROM cms WHERE numberID = '000001' AND password = '123' AND role = 1
+2015-07-17 14:50:03  [6592] [COMMIT] [databaseId:0]
+2015-07-17 14:51:27  [4364] [BEGIN] [databaseId:0]
+2015-07-17 14:51:27  [4364] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:51:27  [4364] [COMMIT] [databaseId:0]
+2015-07-17 14:51:39  [4508] [BEGIN] [databaseId:0]
+2015-07-17 14:51:39  [4508] SELECT * FROM cms WHERE numberID = 'Lisi' AND password = '123' AND role = '1'
+2015-07-17 14:51:39  [4508] [COMMIT] [databaseId:0]
+2015-07-17 14:58:30  [3132] [BEGIN] [databaseId:0]
+2015-07-17 14:58:30  [3132] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role` FROM cms
+2015-07-17 14:58:30  [3132] [COMMIT] [databaseId:0]
+2015-07-17 14:58:39  [3132] [BEGIN] [databaseId:0]
+2015-07-17 14:58:39  [3132] SELECT * FROM cms WHERE numberID = 'Lisi' AND password = '123' AND role = ''
+2015-07-17 14:58:39  [3132] [COMMIT] [databaseId:0]
+2015-07-17 14:58:52  [5308] [BEGIN] [databaseId:0]
+2015-07-17 14:58:52  [5308] SELECT * FROM cms WHERE numberID = '000001' AND password = '123' AND role = ''
+2015-07-17 14:58:52  [5308] [COMMIT] [databaseId:0]
+2015-07-17 15:13:02  [6616] [BEGIN] [databaseId:0]
+2015-07-17 15:13:02  [6616] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-17 15:13:02  [6616] [COMMIT] [databaseId:0]
+2015-07-17 15:13:12  [6616] [BEGIN] [databaseId:0]
+2015-07-17 15:13:12  [6616] SELECT * FROM cms WHERE numberID = '000001' AND password = '123' AND role = ''
+2015-07-17 15:13:12  [6616] [COMMIT] [databaseId:0]
+2015-07-17 15:13:15  [6616] [BEGIN] [databaseId:0]
+2015-07-17 15:13:15  [6616] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-17 15:13:15  [6616] [COMMIT] [databaseId:0]
+2015-07-17 15:13:23  [6616] [BEGIN] [databaseId:0]
+2015-07-17 15:13:23  [6616] SELECT * FROM cms WHERE numberID = 'Lisi' AND password = 'qqq'
+2015-07-17 15:13:23  [6616] [COMMIT] [databaseId:0]
+2015-07-17 15:13:28  [6616] [BEGIN] [databaseId:0]
+2015-07-17 15:13:28  [6616] SELECT * FROM cms WHERE numberID = 'Lisi' AND password = '123'
+2015-07-17 15:13:28  [6616] [COMMIT] [databaseId:0]
+2015-07-17 15:19:01  [5344] [BEGIN] [databaseId:0]
+2015-07-17 15:19:01  [5344] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-17 15:19:01  [5344] [COMMIT] [databaseId:0]
+2015-07-17 15:19:09  [5344] [BEGIN] [databaseId:0]
+2015-07-17 15:19:09  [5344] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-17 15:19:09  [5344] [COMMIT] [databaseId:0]
+2015-07-17 15:20:02  [4084] [BEGIN] [databaseId:0]
+2015-07-17 15:20:02  [4084] SELECT * FROM cms WHERE numberID = '000001' AND password = '123' AND role = ''
+2015-07-17 15:20:02  [4084] [COMMIT] [databaseId:0]
+2015-07-17 15:20:15  [3888] [BEGIN] [databaseId:0]
+2015-07-17 15:20:15  [3888] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-17 15:20:15  [3888] [COMMIT] [databaseId:0]

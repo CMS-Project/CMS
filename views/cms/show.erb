@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<%#include "cms.h" %>
+<% tfetch(Cms, cms); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Cms</h1>
+<dt>NumberID</dt><dd><%= cms.numberID() %></dd><br />
+<dt>Name</dt><dd><%= cms.name() %></dd><br />
+<dt>Nickname</dt><dd><%= cms.nickname() %></dd><br />
+<dt>Password</dt><dd><%= cms.password() %></dd><br />
+<dt>ID</dt><dd><%= cms.id() %></dd><br />
+<dt>Phone</dt><dd><%= cms.phone() %></dd><br />
+<dt>Belong</dt><dd><%= cms.belong() %></dd><br />
+<dt>User Number</dt><dd><%= cms.userNumber() %></dd><br />
+<dt>Role</dt><dd><%= cms.role() %></dd><br />
+
+<%== linkTo("Edit", urla("edit", cms.numberID())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

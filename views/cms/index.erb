@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<%#include "cms.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>CMS SYSTEM</h1>
+
+<%== linkTo("Administrator_Login", urla("admin_login")) %><br />
+<br />
+
+<%== linkTo("Operator_Login", urla("operator_login")) %><br />
+<br />
+
+
+
+</body>
+</html>

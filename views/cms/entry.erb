@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<%#include "cms.h" %>
+<% tfetch(QVariantMap, cms); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>New Cms</h1>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>NumberID<br /><input name="cms[numberID]" value="<%= cms["numberID"] %>" /></label>
+  </p>
+  <p>
+    <label>Name<br /><input name="cms[name]" value="<%= cms["name"] %>" /></label>
+  </p>
+  <p>
+    <label>Nickname<br /><input name="cms[nickname]" value="<%= cms["nickname"] %>" /></label>
+  </p>
+  <p>
+    <label>Password<br /><input name="cms[password]" value="<%= cms["password"] %>" /></label>
+  </p>
+  <p>
+    <label>ID<br /><input name="cms[id]" value="<%= cms["id"] %>" /></label>
+  </p>
+  <p>
+    <label>Phone<br /><input name="cms[phone]" value="<%= cms["phone"] %>" /></label>
+  </p>
+  <p>
+    <label>Belong<br /><input name="cms[belong]" value="<%= cms["belong"] %>" /></label>
+  </p>
+  <p>
+    <label>User Number<br /><input name="cms[userNumber]" value="<%= cms["userNumber"] %>" /></label>
+  </p>
+  <p>
+    <label>Role<br /><input name="cms[role]" value="<%= cms["role"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

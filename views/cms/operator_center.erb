@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<%#include "cms.h" %>
+<% tfetch(Cms, cms); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Operator Center</h1>
+
+<ul>
+<ol><%== linkTo("DD", urla("#")) %></ol>
+<ol><%== linkTo("EE", urla("#")) %></ol>
+<ol><%== linkTo("FF", urla("#")) %></ol>
+</ul>
+
+</body>
+</html>

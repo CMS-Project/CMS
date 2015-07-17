@@ -1,0 +1,16 @@
+HEADERS += cms_admin_centerView.moc
+SOURCES += cms_admin_centerView.cpp
+HEADERS += cms_admin_loginView.moc
+SOURCES += cms_admin_loginView.cpp
+HEADERS += cms_editView.moc
+SOURCES += cms_editView.cpp
+HEADERS += cms_entryView.moc
+SOURCES += cms_entryView.cpp
+HEADERS += cms_indexView.moc
+SOURCES += cms_indexView.cpp
+HEADERS += cms_operator_centerView.moc
+SOURCES += cms_operator_centerView.cpp
+HEADERS += cms_operator_loginView.moc
+SOURCES += cms_operator_loginView.cpp
+HEADERS += cms_showView.moc
+SOURCES += cms_showView.cpp

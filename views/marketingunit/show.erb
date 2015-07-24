@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<%#include "marketingunit.h" %>
+<% tfetch(Marketingunit, marketingunit); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Marketingunit</h1>
+<dt>交易单元编号</dt><dd><%= marketingunit.muid() %></dd><br />
+<dt>估值</dt><dd><%= marketingunit.muvalue() %></dd><br />
+<dt>简称</dt><dd><%= marketingunit.musname() %></dd><br />
+<dt>长名称</dt><dd><%= marketingunit.muname() %></dd><br />
+<dt>日期</dt><dd><%= marketingunit.mudate() %></dd><br />
+
+<%== linkTo("修改", urla("edit", marketingunit.muid())) %> |
+<%== linkTo("返回", urla("index")) %>
+
+</body>
+</html>

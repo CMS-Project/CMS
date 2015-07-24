@@ -29,6 +29,7 @@ SUBTARGETS    =  \
 
 sub-_src-qmake_all:  FORCE
 	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+<<<<<<< HEAD
 	cd _src\ && $(QMAKE) C:\Users\Administrator\CMS??\0724\views\_src\_src.pro "CONFIG+=debug" -o Makefile
 	cd _src\ && $(MAKE) -f Makefile qmake_all
 sub-_src: FORCE
@@ -52,6 +53,31 @@ sub-_src-install_subtargets: FORCE
 sub-_src-uninstall_subtargets: FORCE
 	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
 	cd _src\ && ( if not exist Makefile $(QMAKE) C:\Users\Administrator\CMS??\0724\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile uninstall
+=======
+	cd _src\ && $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile
+	cd _src\ && $(MAKE) -f Makefile qmake_all
+sub-_src: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile
+sub-_src-make_first: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile 
+sub-_src-all: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile all
+sub-_src-clean: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile clean
+sub-_src-distclean: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-_src-install_subtargets: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile install
+sub-_src-uninstall_subtargets: FORCE
+	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile uninstall
+>>>>>>> bac03fa... add admin/operator Create Update Delete
 
 Makefile: views.pro C:/Qt/Qt5.5.0/5.5/mingw492_32/mkspecs/win32-g++/qmake.conf C:/Qt/Qt5.5.0/5.5/mingw492_32/mkspecs/features/spec_pre.prf \
 		C:/Qt/Qt5.5.0/5.5/mingw492_32/mkspecs/qdevice.pri \
@@ -317,17 +343,29 @@ uninstall_subtargets: sub-_src-uninstall_subtargets FORCE
 
 sub-_src-debug:
 	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+<<<<<<< HEAD
 	cd _src\ && ( if not exist Makefile $(QMAKE) C:\Users\Administrator\CMS??\0724\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile debug
+=======
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile debug
+>>>>>>> bac03fa... add admin/operator Create Update Delete
 debug: sub-_src-debug
 
 sub-_src-release:
 	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+<<<<<<< HEAD
 	cd _src\ && ( if not exist Makefile $(QMAKE) C:\Users\Administrator\CMS??\0724\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile release
+=======
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile release
+>>>>>>> bac03fa... add admin/operator Create Update Delete
 release: sub-_src-release
 
 sub-_src-check:
 	@if not exist _src\ mkdir _src\ & if not exist _src\ exit 1
+<<<<<<< HEAD
 	cd _src\ && ( if not exist Makefile $(QMAKE) C:\Users\Administrator\CMS??\0724\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile check
+=======
+	cd _src\ && ( if not exist Makefile $(QMAKE) D:\scala\cms_system\views\_src\_src.pro "CONFIG+=debug" -o Makefile ) && $(MAKE) -f Makefile check
+>>>>>>> bac03fa... add admin/operator Create Update Delete
 check: sub-_src-check
 install:install_subtargets  FORCE
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<%#include "admins.h" %>
+<% tfetch(QVariantMap, admins); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Admins</h1>
+
+<%== formTag(urla("save", admins["adminID"]), Tf::Post) %>
+  <p>
+    <label>AdminID<br /><input type="text" name="admins[adminID]" value="<%= admins["adminID"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>AdminName<br /><input type="text" name="admins[adminName]" value="<%= admins["adminName"] %>" /></label>
+  </p>
+  <p>
+    <label>AdminPassword<br /><input type="text" name="admins[adminPassword]" value="<%= admins["adminPassword"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", admins["adminID"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

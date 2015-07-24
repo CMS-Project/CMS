@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%#include "cms.h" %>
-<% tfetch(Cms, cms); %>
+<% tfetch(QString, adminID); %>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -13,7 +13,8 @@
 <h1>Administrator Center</h1>
 
 <ul>
-<ol><%== linkTo("AA", urla("#")) %></ol>
+<ol>欢迎您，<%=adminID%></ol>
+<ol><%== linkTo("AA", urla("list_operator",adminID)) %></ol>
 <ol><%== linkTo("BB", urla("#")) %></ol>
 <ol><%== linkTo("CC", urla("#")) %></ol>
 </ul>

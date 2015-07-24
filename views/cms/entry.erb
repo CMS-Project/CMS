@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%#include "cms.h" %>
-<% tfetch(QVariantMap, cms); %>
+<%#include "operators.h" %>
+<% tfetch(QVariantMap, operators); %>
+<% tfetch(QString,adminID); %>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -10,42 +12,39 @@
 <p style="color: red"><%=$ error %></p>
 <p style="color: green"><%=$ notice %></p>
 
-<h1>New Cms</h1>
+<h1>New Operators</h1>
 
 <%== formTag(urla("create"), Tf::Post) %>
   <p>
-    <label>NumberID<br /><input name="cms[numberID]" value="<%= cms["numberID"] %>" /></label>
+    <label>OperatorID<br /><input name="operators[operatorID]" value="<%= operators["operatorID"] %>" /></label>
   </p>
   <p>
-    <label>Name<br /><input name="cms[name]" value="<%= cms["name"] %>" /></label>
+    <label>OperatorName<br /><input name="operators[operatorName]" value="<%= operators["operatorName"] %>" /></label>
   </p>
   <p>
-    <label>Nickname<br /><input name="cms[nickname]" value="<%= cms["nickname"] %>" /></label>
+    <label>OperatorNickname<br /><input name="operators[operatorNickname]" value="<%= operators["operatorNickname"] %>" /></label>
   </p>
   <p>
-    <label>Password<br /><input name="cms[password]" value="<%= cms["password"] %>" /></label>
+    <label>OperatorPassword<br /><input type="password" name="operators[operatorPassword]" value="<%= operators["operatorPassword"] %>" /></label>
   </p>
   <p>
-    <label>ID<br /><input name="cms[id]" value="<%= cms["id"] %>" /></label>
+    <label>OperatorPhone<br /><input name="operators[operatorPhone]" value="<%= operators["operatorPhone"] %>" /></label>
   </p>
   <p>
-    <label>Phone<br /><input name="cms[phone]" value="<%= cms["phone"] %>" /></label>
+    <label>ID<br /><input name="operators[id]" value="<%= operators["id"] %>" /></label>
   </p>
   <p>
-    <label>Belong<br /><input name="cms[belong]" value="<%= cms["belong"] %>" /></label>
+    <label>OperatorRole<br /><input name="operators[operatorRole]" value="<%= operators["operatorRole"] %>" /></label>
   </p>
   <p>
-    <label>User Number<br /><input name="cms[userNumber]" value="<%= cms["userNumber"] %>" /></label>
-  </p>
-  <p>
-    <label>Role<br /><input name="cms[role]" value="<%= cms["role"] %>" /></label>
+    <label>OperatorStatus<br /><input name="operators[operatorStatus]" value="<%= operators["operatorStatus"] %>" /></label>
   </p>
   <p>
     <input type="submit" value="Create" />
   </p>
 </form>
 
-<%== linkTo("Back", urla("index")) %>
+<%== linkTo("Back", urla("list_operator",adminID)) %>
 
 </body>
 </html>

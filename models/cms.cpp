@@ -1,6 +1,7 @@
 #include <TreeFrogModel>
 #include "cms.h"
 #include "cmsobject.h"
+#include "operators.h"
 
 Cms::Cms()
     : TAbstractModel(), d(new CmsObject)
@@ -124,7 +125,7 @@ bool Cms::adminlogin(const QVariantMap &values)
     QString t = values["numberID"].toString();
     QString b = values["password"].toString();
     TSqlQuery query;
-    query.exec("SELECT * FROM cms WHERE numberID = '"+t+"' AND password = '"+b+"' AND role = '"+0+"'");
+   query.exec("SELECT * FROM admins WHERE adminID = '"+t+"' AND adminPassword = '"+b+"' ");
    if(query.next()){
        return true;
     }
@@ -136,12 +137,101 @@ bool Cms::operatorlogin(const QVariantMap &values)
     QString t = values["numberID"].toString();
     QString b = values["password"].toString();
     TSqlQuery query;
-    query.exec("SELECT * FROM cms WHERE numberID = '"+t+"' AND password = '"+b+"' AND role ='"+1+"'");
+    query.exec("SELECT * FROM operators WHERE operatorID = '"+t+"' AND operatorPassword = '"+b+"' ");
    if(query.next()){
        return true;
     }
     return false;
 }
+
+bool Cms::insert_connection(const QString &adminID, const QString &operatorID)
+{
+    TSqlQuery query;
+    query.prepare("INSERT INTO connection (adminID,operatorID)  VALUE (:adminID, :operatorID)");
+    query.bindValue(":adminID",adminID);
+    query.bindValue(":operatorID",operatorID);
+    if(query.exec())
+        return true;
+    else
+        return false;
+}
+
+bool Cms::remove_connection(const QString &adminID, const QString &operatorID)
+{
+    TSqlQuery query;
+    bool result = query.exec("DELETE FROM connection WHERE adminID = '"+adminID+"' AND operatorID = '"+operatorID+"'");
+    return result;
+
+}
+
+bool Cms::delete_operator(const QString &operatorID)
+{
+    TSqlQuery query;
+    if( query.exec("DELETE FROM connection WHERE operatorID = '"+operatorID+"'") )
+    {
+      if( query.exec("DELETE FROM operators WHERE operatorID = '"+operatorID+"'") )
+      {
+          return true;
+      }else{
+          return false;
+      }
+    }else{
+        return false;
+    }
+}
+
+bool Cms::change_status(const QString &operatorID)
+{
+    QString status = "";
+    TSqlQuery query;
+    query.exec("SELECT operatorStatus FROM operators WHERE operatorID = '"+operatorID+"'");
+    if(query.next()){
+        status = query.value(0).toString();
+        if(status.compare("正常") == 0){
+            status = "冻结";
+        }else{
+            status  = "正常";
+        }
+        if( query.exec("UPDATE operators set operatorStatus = '"+status+"' WHERE operatorID = '"+operatorID+"'") )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+
+//void Cms::list_operator(const QString &adminID)
+//{
+//    QList<Operators> operator_list;
+//    TSqlQuery query;
+//    query.exec("SELECT * FROM operators left join connection on operators.operatorsID = connection.operatorsID WHERE connection.adminID = '"+adminID+"'");
+//    while(query.next()){
+//      //  QList<Operators> operator_list;
+//        //for()
+//      //  {
+
+//       // }
+//        Operators a;
+//        a.setOperatorID(query.value(1).toString());
+//        a.setOperatorName(query.value(2).toString());
+//        a.setOperatorNickname(query.value(3).toString());
+//        a.setOperatorNumber(query.value(4).toString());
+//        a.setOperatorPassword(query.value(5).toString());
+//        a.setId(query.value(6).toString());
+//        a.setOperatorPhone(query.value(7).toString());
+//        a.setOperatorRole(query.value(8).toString());
+//        a.setOperatorStatus(query.value(9).toString());
+
+//        operator_list.append(a);
+
+//    }
+
+//  //  return;
+
+//}
 
 Cms Cms::create(const QString &numberID, const QString &name, const QString &nickname, const QString &password, const QString &id, double phone, const QString &belong, const QString &userNumber, double role)
 {

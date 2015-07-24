@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<%#include "cms.h" %>
+<%#include "operators.h" %>
+<%tfetch(QString,adminID)%>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Operator List</h1>
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+   <tr>
+      <th>OperatorID</th>
+      <th>OperatorNickname</th>
+      <th>OperatorStatus</th>
+   </tr>
+<% tfetch(QList<Operators>,operator_list);%>
+<% for(const auto &i : operator_list) {%>
+    <tr>
+       <td><%= i.operatorID() %></td>
+       <td><%= i.operatorNickname()  %></td>
+       <td><%= i.operatorStatus() %></td>
+       <td><%== linkTo("Remove", urla("remove", i.operatorID()), Tf::Post, "confirm('Are you sure?')") %></td>
+       <td><%== linkTo("Delete", urla("delete_operator", i.operatorID()), Tf::Post, "confirm('Are you sure?')") %></td>
+       <td><%== linkTo("Edit", urla("edit", i.operatorID())) %></td>
+       <td><%== linkTo("ChangeStatus", urla("change_status", i.operatorID())) %></td>
+    </tr>
+
+<% } %>
+
+</table>
+
+ <%== linkTo("Creat",urla("entry"))%>
+ <%== linkTo("Refresh",urla("refresh"))%>
+ <%== linkTo("back",urla("operator_center",adminID))%>
+</body>
+</html>

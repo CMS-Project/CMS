@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<%#include "marketingunit.h" %>
+<% tfetch(QVariantMap, marketingunit); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>修改交易单元</h1>
+
+<%== formTag(urla("save", marketingunit["muid"]), Tf::Post) %>
+  <p>
+    <label>交易单元编号<br /><input type="text" name="marketingunit[muid]" value="<%= marketingunit["muid"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>交易单元估值<br /><input type="text" name="marketingunit[muvalue]" value="<%= marketingunit["muvalue"] %>" /></label>
+  </p>
+  <p>
+    <label>简称<br /><input type="text" name="marketingunit[musname]" value="<%= marketingunit["musname"] %>" /></label>
+  </p>
+  <p>
+    <label>长名称<br /><input type="text" name="marketingunit[muname]" value="<%= marketingunit["muname"] %>" /></label>
+  </p>
+  <p>
+    <label>日期<br /><input type="text" name="marketingunit[mudate]" value="<%= marketingunit["mudate"] %>"readonly="readonly" /></label>
+  </p>
+  <p>
+    <input type="submit" value="保存" />
+  </p>
+</form>
+
+<%== linkTo("查看", urla("show", marketingunit["muid"])) %> |
+<%== linkTo("返回", urla("index")) %>
+</body>
+</html>

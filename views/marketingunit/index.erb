@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<%#include "marketingunit.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>交易单元列表</h1>
+<p style="color: red"><%=$ error %></p>
+
+<% tfetch(Marketingunit, marketingunit); %>
+<%== formTag(urla("searching"), Tf::Post) %>
+  <p>
+    <label>交易单元编号<br /><input type="txet" name="muid"/></label>
+    <input type="submit" value="查找" />
+  </p>
+</form>
+
+
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>交易单元编号</th>
+    <th>估值</th>
+    <th>简称</th>
+    <th>长名称</th>
+    <th>日期</th>
+  </tr>
+<% tfetch(QList<Marketingunit>, marketingunitList); %>
+<% for (const auto &i : marketingunitList) { %>
+  <tr>
+    <td><%= i.muid() %></td>
+    <td><%= i.muvalue() %></td>
+    <td><%= i.musname() %></td>
+    <td><%= i.muname() %></td>
+    <td><%= i.mudate() %></td>
+    <td>
+      <%== linkTo("查看", urla("show", i.muid())) %>
+      <%== linkTo("修改", urla("edit", i.muid())) %>
+    </td>
+  </tr>
+<% } %>
+</table>
+<br />
+</body>
+</html>

@@ -1,3 +1,13 @@
-* {padding:0px; margin:0px;}
+﻿* {padding:0px; margin:0px;}
 a:link, a:visited, a:hover {text-decoration:none; color:black;}
 li {list-style-type:none;}
+.ftitle{
+	font-size:14px;
+	font-weight:bold;
+	padding:5px 0;
+	margin-bottom:10px;
+	border-bottom:1px solid #ccc;
+}
+.fitem{
+	margin-bottom:5px;
+}

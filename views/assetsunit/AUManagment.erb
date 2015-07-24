@@ -1,0 +1,139 @@
+<!doctype html>
+<%#include "assetsunit.h" %>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="/common.css">
+	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+	<style type="text/css">
+        .fitem label{
+            display:inline-block;
+            width:80px;
+        }
+    </style>
+</head>
+<body style="padding:4px">
+	<ul>
+		<li style="float:left;padding-right:10px;">
+			<!-- table-left -->
+			<table id="table1" class="easyui-datagrid" style="width:350px;height:450px;"
+					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getAssetsUnitManagerList',method:'get',toolbar:'#tb1'">
+				<thead>
+					<tr>
+						<th data-options="field:'managerID',width:110">资产管理人</th>
+						<th data-options="field:'assetsUnitID',width:110">资产单元</th>
+						<th data-options="field:'assetsUnitShortname',width:110" editor="{type:'text', options:{required:true}}">资产单元</th>
+					</tr>
+				</thead>
+			</table>
+			<div id="tb1" style="padding:2px 5px;">
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newManager()">添加</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editManager()">修改</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteManager()">删除</a>
+				<input class="easyui-searchbox" data-options="prompt:'Please Input Value',searcher:doSearch" style="width:158px"></input>
+			</div>
+
+			<div id="dlg" class="easyui-dialog" style="width:315px;height:215px;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons">
+				<div class="ftitle">资产单元</div>
+				<form id="fm" method="post">
+					<div class="fitem">
+						<label>资产管理人:</label>
+						<input id="input_m" name="assetsUnit[managerID]" validType="number" class="easyui-textbox" required="true">
+					</div>
+					<div class="fitem">
+						<label>资产单元ID:</label>
+						<input id="input_au" name="assetsUnit[assetsUnitID]" validType="number" class="easyui-textbox" required="true">
+					</div>
+					<div class="fitem">
+						<label>资产单元简称:</label>
+						<input name="assetsUnit[assetsUnitShortname]" validType="text" class="easyui-textbox" required="true">
+					</div>
+				</form>
+			</div>
+			<div id="dlg-buttons">
+				<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveManager()" style="width:90px">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+			</div>
+		</li>
+		<li>
+			<!-- table-right -->
+			<table class="easyui-datagrid" style="width:350px;height:450px;"
+					data-options="fitColumns:true,rownumbers:false,singleSelect:true,url:'',method:'get',toolbar:'#tb2'">
+				<thead>
+					<tr>
+						<th data-options="field:'col_name',width:110">资产单元ID</th>
+						<th data-options="field:'col_name',width:110">交易单元ID</th>
+						<th data-options="field:'col_name',width:110">交易单元简称</th>
+					</tr>
+				</thead>
+			</table>
+			<div id="tb2" style="padding:2px 5px;">
+					<input class="easyui-searchbox" data-options="prompt:'Please Input Value',searcher:doSearch" style="width:340px"></input>
+					<script>
+						function doSearch(value){
+							alert('You input: ' + value);
+						}
+					</script>
+			</div>
+		</li>
+		<li style="margin-left:630px;margin-top:10px;">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').('reload')">刷新</a>
+		</li>
+	</ul>
+	<script>
+		var url;
+		function doSearch(value){
+			alert('You input: ' + value);
+		}
+		function newManager(){
+			url = '/AssetsUnit/createAssetsUnit';
+			$('#dlg').dialog('open').dialog('setTitle','资产单元管理');
+			$('#fm').form('clear');
+		}
+		function editManager(){
+			url = '/AssetsUnit/editAssetsUnit';
+			var row = $('#table1').datagrid('getSelected');
+			if(row){
+				$('#dlg').dialog('open').dialog('setTitle','资产单元管理');
+				$('#fm').form('clear');
+
+				$('#fm').form('load',{
+					'assetsUnit[managerID]':row['managerID'],
+					'assetsUnit[assetsUnitID]':row['assetsUnitID'],
+					'assetsUnit[assetsUnitShortname]':row['assetsUnitShortname']
+				});
+			}
+		}
+		function saveManager(){
+			$('#fm').form('submit',{
+				url:url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+					$('#dlg').dialog('close');        // close the dialog
+					$('#table1').datagrid('reload');    // reload the user data	
+                }
+            });
+		}
+		function deleteManager(){
+            var row = $('#table1').datagrid('getSelected');
+            if (row){
+				$.messager.defaults.ok='确定'
+				$.messager.defaults.cancel='取消';
+                $.messager.confirm('删除','是否删除该资产单元?',function(r){
+                    if (r){
+                        $.post('/Assetsunit/removeAssetsUnit/',{assetsUnitID:row['assetsUnitID']},function(result){
+                                $('#table1').datagrid('reload');    // reload the user data
+                        },'text');
+                    }
+                });
+            }
+        }
+	</script>
+ </body>
+</html>

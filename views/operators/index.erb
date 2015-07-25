@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<%#include "operators.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Operators</h1>
+
+<%== linkTo("New entry", urla("entry")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>OperatorID</th>
+    <th>OperatorName</th>
+    <th>OperatorNickname</th>
+    <th>OperatorPassword</th>
+    <th>OperatorPhone</th>
+    <th>ID</th>
+    <th>OperatorRole</th>
+    <th>OperatorStatus</th>
+  </tr>
+<% tfetch(QList<Operators>, operatorsList); %>
+<% for (const auto &i : operatorsList) { %>
+  <tr>
+    <td><%= i.operatorID() %></td>
+    <td><%= i.operatorName() %></td>
+    <td><%= i.operatorNickname() %></td>
+    <td><%= i.operatorPassword() %></td>
+    <td><%= i.operatorPhone() %></td>
+    <td><%= i.id() %></td>
+    <td><%= i.operatorRole() %></td>
+    <td><%= i.operatorStatus() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.operatorID())) %>
+      <%== linkTo("Edit", urla("edit", i.operatorID())) %>
+      <%== linkTo("Remove", urla("remove", i.operatorID()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

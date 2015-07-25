@@ -1178,6 +1178,7 @@
 2015-07-22 16:46:45  [7072] [BEGIN] [databaseId:0]
 2015-07-22 16:46:45  [7072] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '000001'
 2015-07-22 16:46:45  [7072] [COMMIT] [databaseId:0]
+<<<<<<< HEAD
 2015-07-23 14:23:46  [6576] [BEGIN] [databaseId:0]
 2015-07-23 14:23:46  [6576] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
 2015-07-23 14:23:46  [6576] [COMMIT] [databaseId:0]
@@ -1428,3 +1429,231 @@
 2015-07-24 15:09:45  [7636] SELECT `MUid`, `MUvalue`, `MUsname`, `MUname`, `MUdate` FROM marketingunit WHERE MUid=1 LIMIT 1
 2015-07-24 15:09:48  [7636] SELECT `MUid`, `MUvalue`, `MUsname`, `MUname`, `MUdate` FROM marketingunit
 2015-07-24 15:12:30  [7980] SELECT `MUid`, `MUvalue`, `MUsname`, `MUname`, `MUdate` FROM marketingunit
+=======
+2015-07-24 14:29:07  [5708] (Query failed) [Unable to find table cms] 
+2015-07-24 14:29:53  [5624] (Query failed) [MySQL server has gone away] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 14:30:16  [6916] (Query failed) [MySQL server has gone away] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 14:30:24  [6916] (Query failed) [MySQL server has gone away] SELECT * FROM admins WHERE adminID = '000001' AND adminPassword = '123' 
+2015-07-24 14:35:02  [6272] (Query failed) [Unable to find table cms] 
+2015-07-24 14:35:15  [5272] (Query failed) [MySQL server has gone away] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 14:35:17  [5272] (Query failed) [Unable to find table cms] 
+2015-07-24 14:37:14  [6724] [BEGIN] [databaseId:0]
+2015-07-24 14:37:14  [6724] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 14:37:14  [6724] [COMMIT] [databaseId:0]
+2015-07-24 14:37:20  [6724] [BEGIN] [databaseId:0]
+2015-07-24 14:37:20  [6724] SELECT * FROM admins WHERE adminID = '000001' AND adminPassword = '123456' 
+2015-07-24 14:37:20  [6724] [COMMIT] [databaseId:0]
+2015-07-24 14:38:34  [3856] [BEGIN] [databaseId:0]
+2015-07-24 14:38:34  [3856] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 14:38:34  [3856] [COMMIT] [databaseId:0]
+2015-07-24 14:38:40  [3856] [BEGIN] [databaseId:0]
+2015-07-24 14:38:40  [3856] SELECT * FROM admins WHERE adminID = '000001' AND adminPassword = '123456' 
+2015-07-24 14:38:40  [3856] [COMMIT] [databaseId:0]
+2015-07-24 14:39:05  [5968] [BEGIN] [databaseId:0]
+2015-07-24 14:39:05  [5968] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 14:39:05  [5968] [COMMIT] [databaseId:0]
+2015-07-24 14:39:09  [5968] [BEGIN] [databaseId:0]
+2015-07-24 14:39:09  [5968] SELECT * FROM admins WHERE adminID = '000001' AND adminPassword = '123' 
+2015-07-24 14:39:09  [5968] [COMMIT] [databaseId:0]
+2015-07-24 14:39:11  [5968] [BEGIN] [databaseId:0]
+2015-07-24 14:39:11  [5968] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '000001'
+2015-07-24 14:39:11  [5968] [COMMIT] [databaseId:0]
+2015-07-24 14:39:23  [880] [BEGIN] [databaseId:0]
+2015-07-24 14:39:23  [880] SELECT * FROM admins WHERE adminID = '000002' AND adminPassword = '123' 
+2015-07-24 14:39:23  [880] [COMMIT] [databaseId:0]
+2015-07-24 14:39:25  [880] [BEGIN] [databaseId:0]
+2015-07-24 14:39:25  [880] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '000002'
+2015-07-24 14:39:25  [880] [COMMIT] [databaseId:0]
+2015-07-24 14:42:28  [6344] (Query failed) [Unable to find table cms] 
+2015-07-24 14:42:55  [1460] (Query failed) [MySQL server has gone away] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 14:44:31  [900] (Query failed) [Unable to find table cms] 
+2015-07-24 15:01:14  [7164] [BEGIN] [databaseId:0]
+2015-07-24 15:01:14  [7164] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:01:14  [7164] [COMMIT] [databaseId:0]
+2015-07-24 15:01:21  [7164] [BEGIN] [databaseId:0]
+2015-07-24 15:01:21  [7164] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 15:01:21  [7164] [COMMIT] [databaseId:0]
+2015-07-24 15:01:23  [7164] [BEGIN] [databaseId:0]
+2015-07-24 15:01:23  [7164] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:01:23  [7164] [COMMIT] [databaseId:0]
+2015-07-24 15:01:50  [3764] [BEGIN] [databaseId:0]
+2015-07-24 15:01:50  [3764] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:01:50  [3764] [COMMIT] [databaseId:0]
+2015-07-24 15:02:09  [4564] [BEGIN] [databaseId:0]
+2015-07-24 15:02:09  [4564] INSERT INTO operators (`operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus`) VALUES ('Zhaolaba', '赵老八', 'Zhaolaoba', '123', '112', '513122199111160982', '1', '正常')
+2015-07-24 15:02:09  [4564] INSERT INTO connection (adminID,operatorID)  VALUE (?, ?)
+2015-07-24 15:02:09  [4564] [COMMIT] [databaseId:0]
+2015-07-24 15:02:09  [4564] [BEGIN] [databaseId:0]
+2015-07-24 15:02:09  [4564] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:02:09  [4564] [COMMIT] [databaseId:0]
+2015-07-24 15:02:16  [4564] [BEGIN] [databaseId:0]
+2015-07-24 15:02:16  [4564] SELECT `operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus` FROM operators WHERE operatorID='Zhaolaba' LIMIT 1
+2015-07-24 15:02:16  [4564] [COMMIT] [databaseId:0]
+2015-07-24 15:02:37  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:37  [3984] SELECT `operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus` FROM operators WHERE operatorID='Zhaolaba' LIMIT 1
+2015-07-24 15:02:37  [3984] UPDATE operators SET operatorStatus='冻结' WHERE operatorID='Zhaolaba'
+2015-07-24 15:02:37  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:02:37  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:37  [3984] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:02:37  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:02:40  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:40  [3984] SELECT operatorStatus FROM operators WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:02:40  [3984] UPDATE operators set operatorStatus = '正常' WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:02:40  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:02:40  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:40  [3984] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:02:40  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:02:42  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:42  [3984] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:02:42  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:02:43  [3984] [BEGIN] [databaseId:0]
+2015-07-24 15:02:43  [3984] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:02:43  [3984] [COMMIT] [databaseId:0]
+2015-07-24 15:03:15  [7688] [BEGIN] [databaseId:0]
+2015-07-24 15:03:15  [7688] DELETE FROM connection WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:03:15  [7688] DELETE FROM operators WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:03:15  [7688] [COMMIT] [databaseId:0]
+2015-07-24 15:03:15  [7688] [BEGIN] [databaseId:0]
+2015-07-24 15:03:15  [7688] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:03:15  [7688] [COMMIT] [databaseId:0]
+2015-07-24 15:03:56  [7056] [BEGIN] [databaseId:0]
+2015-07-24 15:03:56  [7056] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:03:56  [7056] [COMMIT] [databaseId:0]
+2015-07-24 15:04:04  [7056] [BEGIN] [databaseId:0]
+2015-07-24 15:04:04  [7056] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 15:04:04  [7056] [COMMIT] [databaseId:0]
+2015-07-24 15:04:11  [7056] [BEGIN] [databaseId:0]
+2015-07-24 15:04:11  [7056] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:04:11  [7056] [COMMIT] [databaseId:0]
+2015-07-24 15:04:48  [876] [BEGIN] [databaseId:0]
+2015-07-24 15:04:48  [876] INSERT INTO operators (`operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus`) VALUES ('Zhaolaba', '赵老八', 'Zhaolaoba', '123', '112', '513122199111160982', '1', '正常')
+2015-07-24 15:04:48  [876] INSERT INTO connection (adminID,operatorID)  VALUE (?, ?)
+2015-07-24 15:04:48  [876] [COMMIT] [databaseId:0]
+2015-07-24 15:04:48  [876] [BEGIN] [databaseId:0]
+2015-07-24 15:04:48  [876] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:04:48  [876] [COMMIT] [databaseId:0]
+2015-07-24 15:04:53  [876] [BEGIN] [databaseId:0]
+2015-07-24 15:04:53  [876] SELECT `operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus` FROM operators WHERE operatorID='Zhaolaba' LIMIT 1
+2015-07-24 15:04:53  [876] [COMMIT] [databaseId:0]
+2015-07-24 15:05:04  [7492] [BEGIN] [databaseId:0]
+2015-07-24 15:05:04  [7492] SELECT `operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus` FROM operators WHERE operatorID='Zhaolaba' LIMIT 1
+2015-07-24 15:05:04  [7492] UPDATE operators SET operatorStatus='冻结' WHERE operatorID='Zhaolaba'
+2015-07-24 15:05:05  [7492] [COMMIT] [databaseId:0]
+2015-07-24 15:05:05  [7492] [BEGIN] [databaseId:0]
+2015-07-24 15:05:05  [7492] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:05:05  [7492] [COMMIT] [databaseId:0]
+2015-07-24 15:05:07  [7492] [BEGIN] [databaseId:0]
+2015-07-24 15:05:07  [7492] SELECT operatorStatus FROM operators WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:05:07  [7492] UPDATE operators set operatorStatus = '正常' WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:05:07  [7492] [COMMIT] [databaseId:0]
+2015-07-24 15:05:07  [7492] [BEGIN] [databaseId:0]
+2015-07-24 15:05:07  [7492] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:05:07  [7492] [COMMIT] [databaseId:0]
+2015-07-24 15:05:39  [4632] [BEGIN] [databaseId:0]
+2015-07-24 15:05:39  [4632] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:05:39  [4632] [COMMIT] [databaseId:0]
+2015-07-24 15:05:45  [4632] [BEGIN] [databaseId:0]
+2015-07-24 15:05:45  [4632] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:05:45  [4632] [COMMIT] [databaseId:0]
+2015-07-24 15:06:12  [4112] [BEGIN] [databaseId:0]
+2015-07-24 15:06:12  [4112] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:06:12  [4112] [COMMIT] [databaseId:0]
+2015-07-24 15:14:12  [8076] [BEGIN] [databaseId:0]
+2015-07-24 15:14:12  [8076] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:14:12  [8076] [COMMIT] [databaseId:0]
+2015-07-24 15:14:18  [8076] [BEGIN] [databaseId:0]
+2015-07-24 15:14:18  [8076] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:14:18  [8076] [COMMIT] [databaseId:0]
+2015-07-24 15:22:07  [836] [BEGIN] [databaseId:0]
+2015-07-24 15:22:07  [836] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:22:07  [836] [COMMIT] [databaseId:0]
+2015-07-24 15:22:31  [844] [BEGIN] [databaseId:0]
+2015-07-24 15:22:31  [844] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:22:31  [844] [COMMIT] [databaseId:0]
+2015-07-24 15:22:46  [2820] [BEGIN] [databaseId:0]
+2015-07-24 15:22:46  [2820] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:22:46  [2820] [COMMIT] [databaseId:0]
+2015-07-24 15:22:53  [2820] [BEGIN] [databaseId:0]
+2015-07-24 15:22:53  [2820] SELECT * FROM operators WHERE operatorID = 'Lisi' AND operatorPassword = '123' 
+2015-07-24 15:22:53  [2820] [COMMIT] [databaseId:0]
+2015-07-24 15:31:26  [7260] [BEGIN] [databaseId:0]
+2015-07-24 15:31:26  [7260] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:31:26  [7260] [COMMIT] [databaseId:0]
+2015-07-24 15:31:43  [7820] [BEGIN] [databaseId:0]
+2015-07-24 15:31:43  [7820] SELECT * FROM operators WHERE operatorID = 'Lisi' AND operatorPassword = '123' 
+2015-07-24 15:31:43  [7820] [COMMIT] [databaseId:0]
+2015-07-24 15:31:45  [7820] [BEGIN] [databaseId:0]
+2015-07-24 15:31:45  [7820] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:31:45  [7820] [COMMIT] [databaseId:0]
+2015-07-24 15:33:31  [6776] [BEGIN] [databaseId:0]
+2015-07-24 15:33:31  [6776] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:33:31  [6776] [COMMIT] [databaseId:0]
+2015-07-24 15:33:37  [6776] [BEGIN] [databaseId:0]
+2015-07-24 15:33:37  [6776] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 15:33:37  [6776] [COMMIT] [databaseId:0]
+2015-07-24 15:33:40  [6776] [BEGIN] [databaseId:0]
+2015-07-24 15:33:40  [6776] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:33:40  [6776] [COMMIT] [databaseId:0]
+2015-07-24 15:34:13  [436] [BEGIN] [databaseId:0]
+2015-07-24 15:34:13  [436] SELECT * FROM operators WHERE operatorID = 'Zhaolaba' AND operatorPassword = '123' 
+2015-07-24 15:34:13  [436] [COMMIT] [databaseId:0]
+2015-07-24 15:34:31  [6064] [BEGIN] [databaseId:0]
+2015-07-24 15:34:31  [6064] SELECT * FROM operators WHERE operatorID = 'Zhaolaba' AND operatorPassword = '123' 
+2015-07-24 15:34:31  [6064] [COMMIT] [databaseId:0]
+2015-07-24 15:34:39  [6064] [BEGIN] [databaseId:0]
+2015-07-24 15:34:39  [6064] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:34:39  [6064] [COMMIT] [databaseId:0]
+2015-07-24 15:34:46  [6064] [BEGIN] [databaseId:0]
+2015-07-24 15:34:46  [6064] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:34:46  [6064] [COMMIT] [databaseId:0]
+2015-07-24 15:35:14  [6732] [BEGIN] [databaseId:0]
+2015-07-24 15:35:14  [6732] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 15:35:14  [6732] [COMMIT] [databaseId:0]
+2015-07-24 15:35:16  [6732] [BEGIN] [databaseId:0]
+2015-07-24 15:35:16  [6732] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:35:16  [6732] [COMMIT] [databaseId:0]
+2015-07-24 15:35:19  [6732] [BEGIN] [databaseId:0]
+2015-07-24 15:35:19  [6732] DELETE FROM connection WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:35:19  [6732] DELETE FROM operators WHERE operatorID = 'Zhaolaba'
+2015-07-24 15:35:19  [6732] [COMMIT] [databaseId:0]
+2015-07-24 15:35:19  [6732] [BEGIN] [databaseId:0]
+2015-07-24 15:35:19  [6732] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:35:19  [6732] [COMMIT] [databaseId:0]
+2015-07-24 15:35:41  [568] [BEGIN] [databaseId:0]
+2015-07-24 15:35:41  [568] INSERT INTO operators (`operatorID`, `operatorName`, `operatorNickname`, `operatorPassword`, `operatorPhone`, `ID`, `operatorRole`, `operatorStatus`) VALUES ('Zhaolaoba', '赵老八', 'Zhaolaoba', '123', '112', '513122199111160982', '1', '正常')
+2015-07-24 15:35:41  [568] INSERT INTO connection (adminID,operatorID)  VALUE (?, ?)
+2015-07-24 15:35:41  [568] [COMMIT] [databaseId:0]
+2015-07-24 15:35:41  [568] [BEGIN] [databaseId:0]
+2015-07-24 15:35:41  [568] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:35:41  [568] [COMMIT] [databaseId:0]
+2015-07-24 15:41:22  [5344] [BEGIN] [databaseId:0]
+2015-07-24 15:41:22  [5344] SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '001'
+2015-07-24 15:41:22  [5344] [COMMIT] [databaseId:0]
+2015-07-24 15:41:35  [1332] [BEGIN] [databaseId:0]
+2015-07-24 15:41:35  [1332] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:41:35  [1332] [COMMIT] [databaseId:0]
+2015-07-24 15:41:41  [1332] [BEGIN] [databaseId:0]
+2015-07-24 15:41:41  [1332] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:41:41  [1332] [COMMIT] [databaseId:0]
+2015-07-24 15:41:43  [1332] [BEGIN] [databaseId:0]
+2015-07-24 15:41:43  [1332] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:41:43  [1332] [COMMIT] [databaseId:0]
+2015-07-24 15:41:45  [1332] [BEGIN] [databaseId:0]
+2015-07-24 15:41:45  [1332] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:41:45  [1332] [COMMIT] [databaseId:0]
+2015-07-24 15:41:47  [1332] [BEGIN] [databaseId:0]
+2015-07-24 15:41:47  [1332] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:41:47  [1332] [COMMIT] [databaseId:0]
+2015-07-24 15:43:45  [4356] [BEGIN] [databaseId:0]
+2015-07-24 15:43:45  [4356] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:43:45  [4356] [COMMIT] [databaseId:0]
+2015-07-24 15:43:53  [4356] [BEGIN] [databaseId:0]
+2015-07-24 15:43:53  [4356] SELECT * FROM operators WHERE operatorID = 'Zhaolaoba' AND operatorPassword = '123' 
+2015-07-24 15:43:53  [4356] [COMMIT] [databaseId:0]
+2015-07-24 15:44:47  [6984] [BEGIN] [databaseId:0]
+2015-07-24 15:44:47  [6984] SELECT `numberID`, `name`, `nickname`, `password`, `ID`, `phone`, `belong`, `user_number`, `role`, `status` FROM cms
+2015-07-24 15:44:47  [6984] [COMMIT] [databaseId:0]
+2015-07-24 15:44:56  [6984] [BEGIN] [databaseId:0]
+2015-07-24 15:44:56  [6984] SELECT * FROM admins WHERE adminID = '001' AND adminPassword = '123456' 
+2015-07-24 15:44:56  [6984] [COMMIT] [databaseId:0]
+>>>>>>> bac03fa... add admin/operator Create Update Delete

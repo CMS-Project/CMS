@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<%#include "operators.h" %>
+<% tfetch(QVariantMap, operators); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>New Operators</h1>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>OperatorID<br /><input name="operators[operatorID]" value="<%= operators["operatorID"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorName<br /><input name="operators[operatorName]" value="<%= operators["operatorName"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorNickname<br /><input name="operators[operatorNickname]" value="<%= operators["operatorNickname"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorPassword<br /><input name="operators[operatorPassword]" value="<%= operators["operatorPassword"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorPhone<br /><input name="operators[operatorPhone]" value="<%= operators["operatorPhone"] %>" /></label>
+  </p>
+  <p>
+    <label>ID<br /><input name="operators[id]" value="<%= operators["id"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorRole<br /><input name="operators[operatorRole]" value="<%= operators["operatorRole"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorStatus<br /><input name="operators[operatorStatus]" value="<%= operators["operatorStatus"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

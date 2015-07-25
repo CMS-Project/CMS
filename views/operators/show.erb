@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<%#include "operators.h" %>
+<% tfetch(Operators, operators); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Operators</h1>
+<dt>OperatorID</dt><dd><%= operators.operatorID() %></dd><br />
+<dt>OperatorName</dt><dd><%= operators.operatorName() %></dd><br />
+<dt>OperatorNickname</dt><dd><%= operators.operatorNickname() %></dd><br />
+<dt>OperatorPassword</dt><dd><%= operators.operatorPassword() %></dd><br />
+<dt>OperatorPhone</dt><dd><%= operators.operatorPhone() %></dd><br />
+<dt>ID</dt><dd><%= operators.id() %></dd><br />
+<dt>OperatorRole</dt><dd><%= operators.operatorRole() %></dd><br />
+<dt>OperatorStatus</dt><dd><%= operators.operatorStatus() %></dd><br />
+
+<%== linkTo("Edit", urla("edit", operators.operatorID())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

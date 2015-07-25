@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<%#include "admins.h" %>
+<% tfetch(Admins, admins); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Admins</h1>
+<dt>AdminID</dt><dd><%= admins.adminID() %></dd><br />
+<dt>AdminName</dt><dd><%= admins.adminName() %></dd><br />
+<dt>AdminPassword</dt><dd><%= admins.adminPassword() %></dd><br />
+
+<%== linkTo("Edit", urla("edit", admins.adminID())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%#include "cms.h" %>
-<% tfetch(Cms, cms); %>
+<% tfetch(QString, operatorID); %>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -13,6 +13,7 @@
 <h1>Operator Center</h1>
 
 <ul>
+<ol>欢迎您，<%=operatorID%></ol>
 <ol><%== linkTo("DD", urla("#")) %></ol>
 <ol><%== linkTo("EE", urla("#")) %></ol>
 <ol><%== linkTo("FF", urla("#")) %></ol>

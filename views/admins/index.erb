@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<%#include "admins.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Admins</h1>
+
+<%== linkTo("New entry", urla("entry")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>AdminID</th>
+    <th>AdminName</th>
+    <th>AdminPassword</th>
+  </tr>
+<% tfetch(QList<Admins>, adminsList); %>
+<% for (const auto &i : adminsList) { %>
+  <tr>
+    <td><%= i.adminID() %></td>
+    <td><%= i.adminName() %></td>
+    <td><%= i.adminPassword() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.adminID())) %>
+      <%== linkTo("Edit", urla("edit", i.adminID())) %>
+      <%== linkTo("Remove", urla("remove", i.adminID()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

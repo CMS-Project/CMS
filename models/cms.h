@@ -50,6 +50,10 @@ public:
     static Cms create(const QVariantMap &values);
     static bool adminlogin(const QVariantMap &values);
     static bool operatorlogin(const QVariantMap &values);
+    static bool insert_connection(const QString &adminID, const QString &operatorID);
+    static bool remove_connection(const QString &adminID, const QString &operatorID);
+    static bool delete_operator(const QString &operatorID);
+    static bool change_status(const QString &operatorID);
     static Cms get(const QString &numberID);
     static int count();
     static QList<Cms> getAll();

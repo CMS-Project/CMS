@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <%#include "cms.h" %>
+<% tfetch(QString, notice); %>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
 </head>
 <body>
+<p style="color: green"><%= notice %></p>
 
 <h1>CMS SYSTEM</h1>
 

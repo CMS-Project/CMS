@@ -61,8 +61,6 @@ void AssetsunitController::getAssetsUnitManagerList()
     sort = sort.isNull() ? "" : " order by aum.managerID " + sort;
 
     TSqlQuery query;
-//    query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
-//               where aum.managerID = au.managerID");  // Query execution
     if(value.isNull() || value.isEmpty()) {
         query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID" + sort);  // Query execution
@@ -147,8 +145,6 @@ void AssetsunitController::getMarketingUnitList(){
     QString sort = httpRequest().queryItemValue("order");
     sort = sort.isNull() ? "" : " order by mu.SrcUnitID " + sort;
     TSqlQuery query;
-/*    query.exec("select SrcUnitID,mu.MUid, MUsname from CMS.marketingunit as mu, CMS.tradeRecord as tr \
-               where  mu.MUid = tr.MUid");  // Query executio*/
 
     if(value.isNull() || value.isEmpty()) {
         query.exec("select SrcUnitID,mu.MUid, MUsname from CMS.marketingunit as mu, CMS.tradeRecord as tr \
@@ -186,7 +182,6 @@ void AssetsunitController::editMarketingUnit(){
     Marketingunit mu = Marketingunit::get(id);
 
     mu.setMusname(name);
-//    mu.setMuname(name);
 
     if(mu.save()) {
         renderText("Ok");

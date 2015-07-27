@@ -65,33 +65,60 @@
 		</li>
 		<li>
 			<!-- table-right -->
-			<table class="easyui-datagrid" style="width:350px;height:450px;"
-					data-options="fitColumns:true,rownumbers:false,singleSelect:true,url:'',method:'get',toolbar:'#tb2'">
+			<table id="table2" class="easyui-datagrid" style="width:350px;height:450px;"
+					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getMarketingUnitList',method:'get',toolbar:'#tb2'">
 				<thead>
 					<tr>
-						<th data-options="field:'col_name',width:110">资产单元ID</th>
-						<th data-options="field:'col_name',width:110">交易单元ID</th>
-						<th data-options="field:'col_name',width:110">交易单元简称</th>
+						<th data-options="field:'m_assetsUnitID',width:110">资产单元ID</th>
+						<th data-options="field:'marketingUnitID',width:110">交易单元ID</th>
+						<th data-options="field:'marketingUnitShortname',width:110">交易单元简称</th>
 					</tr>
 				</thead>
 			</table>
 			<div id="tb2" style="padding:2px 5px;">
-					<input class="easyui-searchbox" data-options="prompt:'Please Input Value',searcher:doSearch" style="width:340px"></input>
-					<script>
-						function doSearch(value){
-							alert('You input: ' + value);
-						}
-					</script>
+				    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMarketingUnit()">修改</a>
+					<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category1',searcher:doSearch_table2" style="width:270px"></input>
+					<div id="s_category1">
+					<div data-options="name:'m_assetsUnitID'">资产单元ID</div>
+					<div data-options="name:'marketingUnitID'">交易单元ID</div>
+				</div>
+			</div>
+
+			<div id="dlg1" class="easyui-dialog" style="width:315px;height:215px;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons">
+				<div class="ftitle">交易单元</div>
+				<form id="fm1" method="post">
+					<div class="fitem">
+						<label>资产单元ID:</label>
+						<input id="input_ma" name="marketingUnit[m_assetsUnitID]" validType="number" class="easyui-textbox" required="true">
+					</div>
+					<div class="fitem">
+						<label>交易单元ID:</label>
+						<input id="input_mm" name="marketingUnit[marketingUnitID]" validType="number" class="easyui-textbox" required="true">
+					</div>
+					<div class="fitem">
+						<label>交易单元简称:</label>
+						<input name="marketingUnit[marketingUnitShortname]" validType="text" class="easyui-textbox" required="true">
+					</div>
+				</form>
+			</div>
+			<div id="dlg-buttons">
+				<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveMU()" style="width:90px">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">取消</a>
 			</div>
 		</li>
 		<li style="margin-left:630px;margin-top:10px;">
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').datagrid('reload')">刷新</a>
+			
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').('reload')">刷新</a>
 		</li>
 	</ul>
 	<script>
 		var url;
 		function doSearch_table1(val, name){
 			$('#table1').datagrid({queryParams:{category:name, value:val}});
+		}
+		function doSearch_table2(val, name){
+			$('#table2').datagrid({queryParams:{category:name, value:val}});
 		}
 		function newManager(){
 			url = '/AssetsUnit/createAssetsUnit';
@@ -138,6 +165,32 @@
                 });
             }
         }
+        function editMarketingUnit(){
+        	url = '/AssetsUnit/editMarketingUnit';
+			var row = $('#table2').datagrid('getSelected');
+			if(row){
+				$('#dlg1').dialog('open').dialog('setTitle','交易单元管理');
+				$('#fm1').form('clear');
+
+				$('#fm1').form('load',{
+					'marketingUnit[marketingUnitID]':row['marketingUnitID'],
+					'marketingUnit[m_assetsUnitID]':row['m_assetsUnitID'],
+					'marketingUnit[marketingUnitShortname]':row['marketingUnitShortname']
+				});
+			}
+        }
+        function saveMU(){
+			$('#fm1').form('submit',{
+				url:url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+					$('#dlg1').dialog('close');        // close the dialog
+					$('#table2').datagrid('reload');    // reload the user data	
+                }
+            });
+		}
 	</script>
  </body>
 </html>

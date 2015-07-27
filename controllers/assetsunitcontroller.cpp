@@ -54,9 +54,23 @@ void AssetsunitController::getAssetsUnitManagerList()
     QJsonObject json;
     int i = 0;
 
+    QString category = httpRequest().queryItemValue("category");
+    QString value = httpRequest().queryItemValue("value");
+    QString sort = httpRequest().queryItemValue("order");
+    sort = sort.isNull() ? "" : " order by aum.managerID " + sort;
+
     TSqlQuery query;
-    query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
-               where aum.managerID = au.managerID");  // Query execution
+    if(value.isNull() || value.isEmpty()) {
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+                   where aum.managerID = au.managerID" + sort);  // Query execution
+    }else if(category == "managerID"){
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+                   where aum.managerID = au.managerID and aum.managerID = " + value);
+    }else if(category == "assetsUnitID"){
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+                   where aum.managerID = au.managerID and assetsUnitID = " + value);
+    }
+
     while (query.next()) {
         QJsonObject obj;
         obj.insert("managerID", query.value(0).toInt());

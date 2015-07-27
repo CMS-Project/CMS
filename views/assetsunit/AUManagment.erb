@@ -23,7 +23,7 @@
 					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getAssetsUnitManagerList',method:'get',toolbar:'#tb1'">
 				<thead>
 					<tr>
-						<th data-options="field:'managerID',width:110">资产管理人</th>
+						<th data-options="field:'managerID',width:110,sortable:true">资产管理人</th>
 						<th data-options="field:'assetsUnitID',width:110">资产单元</th>
 						<th data-options="field:'assetsUnitShortname',width:110" editor="{type:'text', options:{required:true}}">资产单元</th>
 					</tr>
@@ -33,7 +33,11 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newManager()">添加</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editManager()">修改</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteManager()">删除</a>
-				<input class="easyui-searchbox" data-options="prompt:'Please Input Value',searcher:doSearch" style="width:158px"></input>
+				<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category',searcher:doSearch_table1" style="width:158px"></input>
+				<div id="s_category">
+					<div data-options="name:'managerID'">资产管理人</div>
+					<div data-options="name:'assetsUnitID'">资产单元</div>
+				</div>
 			</div>
 
 			<div id="dlg" class="easyui-dialog" style="width:315px;height:215px;padding:10px 20px"
@@ -81,13 +85,13 @@
 			</div>
 		</li>
 		<li style="margin-left:630px;margin-top:10px;">
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').('reload')">刷新</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').datagrid('reload')">刷新</a>
 		</li>
 	</ul>
 	<script>
 		var url;
-		function doSearch(value){
-			alert('You input: ' + value);
+		function doSearch_table1(val, name){
+			$('#table1').datagrid({queryParams:{category:name, value:val}});
 		}
 		function newManager(){
 			url = '/AssetsUnit/createAssetsUnit';

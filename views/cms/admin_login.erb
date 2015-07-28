@@ -1,32 +1,58 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%#include "cms.h" %>
 <% tfetch(QVariantMap, cms); %>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<style>
+body{
+  font-family: Tahoma,Verdana,Arial;
+  color:#999;
+  font-size: 12px;
+}
+#txtstyle{
+  background-color: #CCCCFF;
+  border:#6666FF 1px solid;
+  color:#0066FF;
+}
+#buttonstyle{
+  border:1px #93bee2 dotted;
+  background-color: #E0E0E0;
+  color: #138AD9;
+}
+</style>
 </head>
+
 <body>
 <p style="color: red"><%=$ error %></p>
-<p style="color: green"><%=$ notice %></p>
-
-<h1>Administrator Login</h1>
-
 <%== formTag(urla("adminlogin"), Tf::Post) %>
-  <p>
-    <label>NumberID<br /><input name="cms[numberID]" value="<%= cms["numberID"] %>" /></label>
-  </p>
-
-  <p>
-    <label>Password<br /><input type="password" name="cms[password]" value="<%= cms["password"] %>" /></label>
-  </p>
- 
-  <p>
-    <input type="submit" value="Login" />
-  </p>
-</form>
-
-<%== linkTo("Back", urla("index")) %>
-
+  <table width="500" border="0" align="center"  cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="50" align="left" style="font-size:20px;color:blue">管理员登录</td>
+    </tr>
+    <tr>
+      <td>管理员编号：</td>
+    </tr>
+    <tr>
+      <td height="25"><label for="cms[numberID]"></label>
+      <input name="cms[numberID]" type="text" id="txtstyle" size="15" maxlength="10" /></td>
+    </tr>
+    <tr>
+      <td>密　　　码：</td>
+    </tr>
+    <tr>
+      <td height="25"><label for="cms[password]"></label>
+      <input name="cms[password]" type="password" id="txtstyle" size="20" maxlength="15" /></td>
+    </tr>
+    <tr>
+      <td height="30" valign="bottom"><input type="submit" name="tijiao" id="buttonstyle" value="提交" />
+      <input type="reset" name="chongzhi" id="buttonstyle" value="重置" /></td>
+    </tr>
+    <tr>
+      <td height="30" valign="middle"><%== linkTo("返回", urla("index")) %></td>
+    </tr>
+  </table>
+  </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%#include "cms.h" %>
 <%#include "operators.h" %>
 <% tfetch(QVariantMap, operators); %>
@@ -7,43 +7,73 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+  <style type="text/css">
+#form1 table tr td {
+  font-size: small;
+}
+</style>
 </head>
 <body>
 <p style="color: red"><%=$ error %></p>
 <p style="color: green"><%=$ notice %></p>
 
-<h1>Editing Operators</h1>
-
 <%== formTag(urla("save", operators["operatorID"]), Tf::Post) %>
-  <p>
-    <label>OperatorID<br /><input type="text" name="operators[operatorID]" value="<%= operators["operatorID"] %>" style="border-style:none" readonly="readonly" /></label>
-  </p>
-  <p>
-    <label>OperatorName<br /><input type="text" name="operators[operatorName]" value="<%= operators["operatorName"] %>" /></label>
-  </p>
-  <p>
-    <label>OperatorNickname<br /><input type="text" name="operators[operatorNickname]" value="<%= operators["operatorNickname"] %>" /></label>
-  </p>
-  <p>
-    <label>OperatorPassword<br /><input type="text" name="operators[operatorPassword]" value="<%= operators["operatorPassword"] %>" /></label>
-  </p>
-  <p>
-    <label>OperatorPhone<br /><input type="text" name="operators[operatorPhone]" value="<%= operators["operatorPhone"] %>" /></label>
-  </p>
-  <p>
-    <label>ID<br /><input type="text" name="operators[id]" value="<%= operators["id"] %>" /></label>
-  </p>
-  <p>
-    <label>OperatorRole<br /><input type="text" name="operators[operatorRole]" value="<%= operators["operatorRole"] %>" /></label>
-  </p>
-  <p>
-    <label>OperatorStatus<br /><input type="text" name="operators[operatorStatus]" value="<%= operators["operatorStatus"] %>" /></label>
-  </p>
-  <p>
-    <input type="submit" value="Update" />
-  </p>
+ <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="35" colspan="2" align="center" bgcolor="#FFFF33" style="font-size: medium">操作员信息修改</td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">操作员编号：</td>
+      <td height="30"><label for="operators[operatorID]"></label>
+      <input name="operators[operatorID]" type="text" id="operators[operatorID]" size="15" maxlength="10" value="<%= operators["operatorID"] %>" readonly="readonly"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">操作员名字：</td>
+      <td height="30"><label for="operators[operatorName]"></label>
+      <input name="operators[operatorName]" type="text" id="operators[operatorName]" size="15" maxlength="10" value="<%= operators["operatorName"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">操作员简称：</td>
+      <td height="30"><label for="operators[operatorNickname]"></label>
+      <input name="operators[operatorNickname]" type="text" id="operators[operatorNickname]" size="15" maxlength="10" value="<%= operators["operatorNickname"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">密码：</td>
+      <td height="30"><label for="operators[operatorPassword]"></label>
+      <input name="operators[operatorPassword]" type="password" id="operators[operatorPassword]" size="20" maxlength="15" value="<%= operators["operatorPassword"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">电话：</td>
+      <td height="30"><label for="operators[operatorPhone]"></label>
+      <input name="operators[operatorPhone]" type="text" id="operators[operatorPhone]" size="15" maxlength="12" value="<%= operators["operatorPhone"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">证件号码：</td>
+      <td height="30"><label for="operators[id]"></label>
+      <input name="operators[id]" type="text" id="operators[id]" size="20" maxlength="20" value="<%= operators["id"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">角色：</td>
+      <td height="30"><label for="operators[operatorRole]"></label>
+      <input name="operators[operatorRole]" type="text" id="operators[operatorRole]" size="5" maxlength="5" value="<%= operators["operatorRole"] %>"/></td>
+    </tr>
+    <tr>
+      <td width="125" height="30" align="right">状态：</td>
+      <td height="30"><label for="operators[operatorStatus]"></label>
+      <input name="operators[operatorStatus]" type="text" id="operators[operatorStatus]" size="5" maxlength="5" value="<%= operators["operatorStatus"] %>"/></td>
+    </tr>
+    <tr>
+      <td height="25" colspan="2" align="right" bgcolor="#FFFF33">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" name="tijiao" id="tijiao" value="提交" />
+        　
+          <input type="reset" name="chongxie" id="chongxie" value="重写" /></td>
+    </tr>
+    <tr>
+      <td height="25" colspan="2" align="center" valign="bottom"><%== linkTo("Back", urla("list_operator",adminID)) %></td>
+    </tr>
+  </table>
 </form>
-
-<%== linkTo("Back", urla("list_operator",adminID)) %>
 </body>
 </html>

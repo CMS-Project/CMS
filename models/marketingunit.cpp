@@ -28,6 +28,11 @@ int Marketingunit::muid() const
     return d->MUid;
 }
 
+void Marketingunit::setMuid(int muid)
+{
+    d->MUid = muid;
+}
+
 int Marketingunit::muvalue() const
 {
     return d->MUvalue;
@@ -136,3 +141,21 @@ const TModelObject *Marketingunit::modelData() const
 {
     return d.data();
 }
+
+QList<Marketingunit> Marketingunit::listofmu(){
+
+    QList<Marketingunit> list;
+    TSqlQuery query;
+    query.exec("SELECT destUnitID,srcUnitID,M.MUid,MUvalue,MUdate FROM  assetsUnitMmanager AS A JOIN assetsUnit AS B ON A.managerID =B.managerID JOIN tradeRecord AS T ON B.assetsUnitID = T.srcUnitID JOIN marketingunit AS M ON T.MUid=M.MUid;");
+    while(query.next()){
+        Marketingunit a;
+        a.setMuid(query.value(2).toInt());
+        a.setMuname(query.value(0).toString());
+        a.setMusname(query.value(1).toString());
+        a.setMuvalue(query.value(3).toInt());
+        a.setMudate(query.value(4).toDate());
+        list.append(a);
+    }
+    return list;
+}
+

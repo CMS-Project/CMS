@@ -1,41 +1,121 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%#include "cms.h" %>
 <%#include "operators.h" %>
 <%tfetch(QString,adminID)%>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<style>
+
+.table1{
+  border:1px solid #429fff;
+  border-collapse:collapse;
+  }
+  
+.cap{
+  height:42px;
+  font-family: Tahoma,Verdana,Arial;
+  background-color:#66FFFF;
+  font-size: 20px;
+  text-align:left;
+  vertical-align:top;
+  }
+
+.table1 th{
+  font-family:Tahoma,Verdana,Arial;
+  border: 1px solid #00FF33;
+  background-color: #66FF99;
+  font-size: 15px;
+  font-weight: normal;
+  }
+.table1 td{
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+  vertical-align:bottom;  
+  } 
+.table2 a{
+  /*border:1px #93bee2 dotted;*/
+  background-color: #E0E0E0;
+  color: #138AD9;
+  width:70px;
+  }
+
+</style>
+<script language="javascript">
+ var curtab = null;
+ var str = null;
+ function do_onclick(tab){
+   if(curtab != null) curtab.style.backgroundColor = "white"; 
+    tab.style.backgroundColor = "#E0E0E0";
+    curtab = tab; 
+    var tds = curtab.cells;
+        str =  tds[1].innerHTML;  
+ }
+function  xiugai(){
+  if(str != null)
+    document.getElementById('xiugai').href = "/Cms/edit/"+str;
+
+}
+
+ function dongjie(){
+   if(str != null)
+       document.getElementById('dongjie').href = "/Cms/change_status/"+str;
+ }
+
+function shanchu(){
+  if (str != null){
+    if (confirm("确定要删除吗")){
+      document.getElementById('shanchu').href = "/Cms/delete_operator/"+str;
+   }
+  }
+}
+
+function tichu(){
+  if (str != null) {
+      if (confirm("确定要剔除吗")) {
+        document.getElementById('tichu').href = "/Cms/remove/"+str;
+      }
+  }
+}
+</script>
 </head>
 <body>
-<p style="color: red"><%=$ error %></p>
-<p style="color: green"><%=$ notice %></p>
-
-<h1>Operator List</h1>
-<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
-   <tr>
-      <th>OperatorID</th>
-      <th>OperatorNickname</th>
-      <th>OperatorStatus</th>
-   </tr>
+<div id="div1">
+<table class="table1">
+    <caption class="cap">
+    操作员列表
+    </caption>
+    <tr>
+      <th width="151" height="30" align="center" >操作员管理人编号</th>
+      <th width="127" align="center">操作员编号</th>
+      <th width="127" align="center">操作员简称</th>
+      <th width="55" align="center">状态</th>
+    </tr>
 <% tfetch(QList<Operators>,operator_list);%>
 <% for(const auto &i : operator_list) {%>
-    <tr>
-       <td><%= i.operatorID() %></td>
-       <td><%= i.operatorNickname()  %></td>
-       <td><%= i.operatorStatus() %></td>
-       <td><%== linkTo("Remove", urla("remove", i.operatorID()), Tf::Post, "confirm('Are you sure?')") %></td>
-       <td><%== linkTo("Delete", urla("delete_operator", i.operatorID()), Tf::Post, "confirm('Are you sure?')") %></td>
-       <td><%== linkTo("Edit", urla("edit", i.operatorID())) %></td>
-       <td><%== linkTo("ChangeStatus", urla("change_status", i.operatorID())) %></td>
+    <tr onclick="do_onclick(this)">
+    <td align="center"><%= adminID%></td>
+    <td align="left"><%= i.operatorID() %></td>
+    <td align="left"><%= i.operatorNickname()  %></td>
+    <td align="left"><%= i.operatorStatus() %></td>
     </tr>
-
 <% } %>
-
-</table>
-
- <%== linkTo("Creat",urla("entry"))%>
- <%== linkTo("Refresh",urla("refresh"))%>
- <%== linkTo("back",urla("operator_center",adminID))%>
-</body>
+  </table>
+  </div>
+  <div id="div2">
+  <table class="table2">
+    <tr>
+      <td><a href="/Cms/entry">新建</a></td>
+      <td><a href="" id="xiugai" onclick="xiugai();"/>修改</a></td>
+      <td><%== linkTo("刷新",urla("refresh"))%></td>
+    </tr>
+    <tr>
+      <td><a href="" id="dongjie"  onclick="dongjie();"/>冻结/解冻</a></td>
+      <td><a href="" id="shanchu"  onclick="shanchu();"/>删除</a></td>
+      <td><a href="" id="tichu"    onclick="tichu();"/>剔除</td>
+    </tr>
+    </table>
+    </div>
 </html>

@@ -22,6 +22,8 @@ public slots:
     void index2();
     void searching();
     void showsearch(const QString &pk);
+    void reportform();
+    void showform(const QString &pk);
 
 private:
     void renderEntry(const QVariantMap &marketingunit = QVariantMap());

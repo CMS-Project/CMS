@@ -1,6 +1,15 @@
 #include "marketingunitcontroller.h"
 #include "marketingunit.h"
-
+#include "assetsunitcontroller.h"
+#include <assetsunit.h>
+#include <QStringList>
+#include <QDateTime>
+#include <QVariant>
+#include <QSharedDataPointer>
+#include <TGlobal>
+#include <TAbstractModel>
+#include <TSqlQuery>
+#include <TActionController>
 
 MarketingunitController::MarketingunitController(const MarketingunitController &)
     : ApplicationController()
@@ -110,21 +119,56 @@ void MarketingunitController::index2(){
 }
 
 void MarketingunitController::searching(){
-    QString val = httpRequest().formItemValue("muid");
-     QString error;
-    auto marketingunit = Marketingunit::get(val.toInt());
-    if (marketingunit.isNull()) {
-        error = "关键字不存在";
-        tflash(error);
-        redirect(urla("index"));
-        return;
+    QString val = httpRequest().formItemValue("search");
+        QString error=val;
+        QString a;
+        bool o=false;
+        auto marketingunit = Marketingunit::get(val.toInt());
+        if (marketingunit.isNull()) {
+        TSqlQuery query;
+        query.exec("SELECT MUid,MUvalue,MUsname,MUname,MUdate FROM CMS.marketingunit WHERE MUsname = '"+val+"';");  // Query execution
+        while (query.next()) {
+         a= query.value(0).toString();
+         o=true;
+        }
+        if(o){
+            redirect(urla("showsearch", a));
+        }else{
+            error="can't find";
+            tflash(error);
+            redirect(urla("index"));
+            return;
+        }
     }else{
-    redirect(urla("showsearch", val));}
+            redirect(urla("showsearch", val));}
 }
 
 void MarketingunitController::showsearch(const QString &pk){
     auto marketingunit = Marketingunit::get(pk.toInt());
     texport(marketingunit);
+    render();
+}
+
+void MarketingunitController::reportform(){
+    QList<Marketingunit> marketingunitList = Marketingunit::listofmu();
+    texport(marketingunitList);
+    render();
+}
+
+void MarketingunitController::showform(const QString &pk){
+   QString b,c;
+    TSqlQuery query;
+    query.exec("SELECT srcUnitID,destUnitID FROM CMS.tradeRecord WHERE MUid = '"+pk+"';");
+      while (query.next()){
+          b=query.value(0).toString();
+          c=query.value(1).toString();
+          }
+    auto asunit=AssetsUnit::get(b.toInt());
+    auto marketingunit = Marketingunit::get(pk.toInt());
+    auto assunit=AssetsUnit::get(c.toInt());
+    texport(marketingunit);
+    texport(asunit);
+    texport(assunit);
     render();
 }
 

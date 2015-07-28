@@ -7,42 +7,33 @@
 </head>
 <body>
 
-<h1>交易单元列表</h1>
+<h1>交易单元统计报表</h1>
 <p style="color: red"><%=$ error %></p>
-
-<% tfetch(Marketingunit, marketingunit); %>
-<%== formTag(urla("searching"), Tf::Post) %>
-  <p>
-    <label>编号或简称<br /><input type="txet" name="search"/></label>
-    <input type="submit" value="查找" />
-  </p>
-</form>
 
 
 <table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
   <tr>
-    <th>交易单元编号</th>
-    <th>估值</th>
-    <th>简称</th>
-    <th>长名称</th>
+    <th>目标资产单元</th>
+    <th>来源资产单元</th>
+    <th>交易单元</th>
+    <th>总值</th>
     <th>日期</th>
   </tr>
 <% tfetch(QList<Marketingunit>, marketingunitList); %>
 <% for (const auto &i : marketingunitList) { %>
   <tr>
+    <td><%= i.muname() %></td>
+    <td><%= i.musname() %></td>
     <td><%= i.muid() %></td>
     <td><%= i.muvalue() %></td>
-    <td><%= i.musname() %></td>
-    <td><%= i.muname() %></td>
     <td><%= i.mudate() %></td>
     <td>
-      <%== linkTo("查看", urla("show", i.muid())) %>
-      <%== linkTo("修改", urla("edit", i.muid())) %>
+      <%== linkTo("查看详情", urla("showform", i.muid())) %>
     </td>
   </tr>
 <% } %>
 </table>
 <br />
-<%== linkTo("刷新", urla("index")) %>
+<%== linkTo("刷新", urla("reportform")) %>
 </body>
 </html>

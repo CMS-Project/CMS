@@ -1,24 +1,66 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%#include "cms.h" %>
 <% tfetch(QString, adminID); %>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#apDiv1 {
+	position: absolute;
+	background-image: url("/BG/centerbg.jpg");
+	width: 800px;
+	height: 360px;
+	z-index: 1;
+	left: 281px;
+	top: 100px;
+	border: 1px solid #00CCFF;
+}
+#span1{
+	position: absolute;
+	left: 5px;
+	top: 0px;	
+}
+#span2{
+	position: absolute;
+	left: 227px;
+	top: 0px;
+	width: 274px;
+	height: 71px;
+}
+#span3{
+	position: absolute;
+	left: 230px;
+	top: 94px;
+	}
+#p2{
+	font-family: "Comic Sans MS", cursive;
+	text-align: center;
+	font-size: 30px;
+	color: #3333FF;
+	font-style: italic;
+}
+li{
+	list-style-type:none;
+}
+</style>
 </head>
+
 <body>
-<p style="color: red"><%=$ error %></p>
-<p style="color: green"><%=$ notice %></p>
-
-<h1>Administrator Center</h1>
-
+<div id="apDiv1">
+<span id="span1">
+<p style="text-align: left;color: #003399; font-size: 14px;" align="left">欢迎您，<%=adminID%></p>
+</span>
+<span id="span2">
+<p id="p2">管理员中心</p>
+</span>
+<span id="span3">
 <ul>
-<ol>欢迎您，<%=adminID%></ol>
-<ol><%== linkTo("操作员管理", urla("list_operator",adminID)) %></ol>
-<ol><%== linkTo("BB", urla("#")) %></ol>
-<ol><%== linkTo("CC", urla("#")) %></ol>
+<li>
+<a href="/Cms/list_operator/<%=adminID%>">操作员管理</a>
+</li>
 </ul>
-
-
+</span>
+</div>
 </body>
 </html>

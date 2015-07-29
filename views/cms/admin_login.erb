@@ -6,9 +6,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
 <style>
+.div1{
+  position: absolute;
+  top: 150px;
+  width: 180px;
+  height: 250px;
+  left: 460px;
+  }
+.login{
+  position: absolute;
+  border: 1px solid #429fff;
+  background-image: url("/BG/loginbg.jpg");
+  top: 30px;
+  width: 142px;
+  height: 192px;
+  left: 18px;
+}
 body{
-  font-family: Tahoma,Verdana,Arial;
-  color:#999;
+  font-family: Tahoma, Verdana, Arial;
+  color: #06C;
   font-size: 12px;
 }
 #txtstyle{
@@ -25,9 +41,12 @@ body{
 </head>
 
 <body>
-<p style="color: red"><%=$ error %></p>
 <%== formTag(urla("adminlogin"), Tf::Post) %>
-  <table width="500" border="0" align="center"  cellpadding="0" cellspacing="0">
+<div class="div1">
+<p style="color: red" align="center"><%=$ error %></p>
+<div class="login">
+<span>
+  <table width="107" border="0" align="center"  cellpadding="0" cellspacing="0">
     <tr>
       <td height="50" align="left" style="font-size:20px;color:blue">管理员登录</td>
     </tr>
@@ -43,16 +62,19 @@ body{
     </tr>
     <tr>
       <td height="25"><label for="cms[password]"></label>
-      <input name="cms[password]" type="password" id="txtstyle" size="20" maxlength="15" /></td>
+      <input name="cms[password]" type="password" id="txtstyle" size="15" maxlength="15" /></td>
     </tr>
     <tr>
-      <td height="30" valign="bottom"><input type="submit" name="tijiao" id="buttonstyle" value="提交" />
+      <td height="30" align="center" valign="bottom"><input type="submit" name="tijiao" id="buttonstyle" value="提交" />
       <input type="reset" name="chongzhi" id="buttonstyle" value="重置" /></td>
     </tr>
     <tr>
-      <td height="30" valign="middle"><%== linkTo("返回", urla("index")) %></td>
+      <td height="30" align="center" valign="middle"><%== linkTo("返回", urla("index")) %></td>
     </tr>
   </table>
+  </span>
+</div>
+</div>
   </form>
 </body>
 </html>

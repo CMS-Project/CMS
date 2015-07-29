@@ -7,13 +7,75 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
 <style>
-
+.maxdiv{
+  position: absolute;
+  background-image:url("/BG/nlistbg.jpg");
+  top: 100px;
+  left: 250px;
+  width: 940px;
+  height: 330px;
+  } 
+.div1{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  }
+.div2{
+  position: absolute;
+  top: 0px;
+  left:480px;
+  width: 460px;
+  } 
+.div3{
+  position: absolute;
+  top: 74px;
+  left: 0px;
+  width: 460;
+  height: 180px;
+  border:1px solid #429fff;
+  overflow-y:scroll;
+  }
+.div4{
+  position: absolute;
+  top: 260px;
+  left: 0px;
+  }
+.div5{
+  position: absolute;
+  top: 74px;
+  left: 0px;
+  width: 460;
+  height: 180px;
+  border:1px solid #429fff;
+  overflow-y:scroll;
+  }
+.div6{
+  position: absolute;
+  top: 260px;
+  left: 0px;
+  font-size: 16px;
+  }
+.fanhui{
+  position: absolute;
+  left: -38px;
+  top: 307px;
+  width: 50px;
+  }     
 .table1{
   border:1px solid #429fff;
   border-collapse:collapse;
   }
-  
-.cap{
+.intable1{
+  border-collapse:collapse;
+  }
+.table3{
+  border:1px solid #429fff;
+  border-collapse:collapse;
+  }
+.intable3{
+  border-collapse:collapse;
+  }  
+caption{
   height:42px;
   font-family: Tahoma,Verdana,Arial;
   background-color:#66FFFF;
@@ -21,27 +83,31 @@
   text-align:left;
   vertical-align:top;
   }
-
-.table1 th{
+th{
   font-family:Tahoma,Verdana,Arial;
   border: 1px solid #00FF33;
   background-color: #66FF99;
   font-size: 15px;
   font-weight: normal;
   }
-.table1 td{
+.intable1 td{
   font-family:Tahoma,Verdana,Arial;
   font-size: small;
   height:20px;
   vertical-align:bottom;  
   } 
-.table2 a{
-  /*border:1px #93bee2 dotted;*/
+.intable3 td{
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+  vertical-align:bottom;  
+  } 
+a{
+  font-size: 16px;
   background-color: #E0E0E0;
-  color: #138AD9;
+  color: #0033FF;
   width:70px;
   }
-
 </style>
 <script language="javascript">
  var curtab = null;
@@ -82,29 +148,33 @@ function tichu(){
 </script>
 </head>
 <body>
-<div id="div1">
+<div class="maxdiv">
+<div class="div1">
 <table class="table1">
-    <caption class="cap">
+    <caption>
     操作员列表
     </caption>
     <tr>
-      <th width="151" height="30" align="center" >操作员管理人编号</th>
-      <th width="127" align="center">操作员编号</th>
-      <th width="127" align="center">操作员简称</th>
-      <th width="55" align="center">状态</th>
+      <th width="135" height="30" align="center" >操作员管理人编号</th>
+      <th width="115" align="center">操作员编号</th>
+      <th width="115" align="center">操作员简称</th>
+      <th width="80" align="center">状态</th>
     </tr>
+  </table>
+  <div class="div3">
+  <table class="intable1"> 
 <% tfetch(QList<Operators>,operator_list);%>
 <% for(const auto &i : operator_list) {%>
-    <tr onclick="do_onclick(this)">
-    <td align="center"><%= adminID%></td>
-    <td align="left"><%= i.operatorID() %></td>
-    <td align="left"><%= i.operatorNickname()  %></td>
-    <td align="left"><%= i.operatorStatus() %></td>
-    </tr>
+    <tr height="30px" onclick="do_onclick(this)">
+    <td width="151" align="center" valign="top" ><%= adminID%></td>
+    <td width="127" align="left"><%= i.operatorID() %></td>
+    <td width="127" align="left"><%= i.operatorNickname()  %></td>
+    <td width="55" align="left"><%= i.operatorStatus() %></td>
+    </tr> 
 <% } %>
   </table>
   </div>
-  <div id="div2">
+  <div class="div4">
   <table class="table2">
     <tr>
       <td><a href="/Cms/entry">新建</a></td>
@@ -116,6 +186,40 @@ function tichu(){
       <td><a href="" id="shanchu"  onclick="shanchu();"/>删除</a></td>
       <td><a href="" id="tichu"    onclick="tichu();"/>剔除</td>
     </tr>
+  </table>
+  </div>
+</div>
+<div class="div2">
+    <table class="table3">
+    <caption>
+    操作员权限列表
+    </caption>
+    <tr>
+      <th width="151" height="30" align="center" >资产单元编号</th>
+      <th width="309" align="left">交易单元编号</th>
+    </tr>
+    </table>
+  <div class="div5">
+    <table class="intable3">
+    <tr height="30px">
+      <td width="151" align="center" valign="top"><input type="checkbox" name="checkbox" id="checkbox" />101</td>
+      <td width="309" align="left">101</td>    
+    </tr>
     </table>
     </div>
+    <div class="div6">
+    <table width="460">
+    <tr>
+    <td><a href="" id="tijiao" onclick="">提交</a></td>
+    <td align="right" font-size="16px" ><input type="radio" name="radio" id="radio1" value="资产单元" />资产单元
+        <input type="radio" name="radio" id="radio2" value="交易单元" />交易单元
+    </td>
+    </tr>
+    </table>
+  </div>
+  <div class="fanhui">
+  <a href="/Cms/admin_center/<%=adminID%>">上一页</a>
+  </div>
+</div>
+</div>
 </html>

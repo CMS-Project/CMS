@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%#include "marketingunit.h" %>
+<%#include "assetsunit.h" %>
 <% tfetch(Marketingunit, marketingunit); %>
+
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -16,9 +18,16 @@
 <dt>简称</dt><dd><%= marketingunit.musname() %></dd><br />
 <dt>长名称</dt><dd><%= marketingunit.muname() %></dd><br />
 <dt>日期</dt><dd><%= marketingunit.mudate() %></dd><br />
+<% tfetch(AssetsUnit, asunit); %>
+<dt>来源资产单元编号</dt><dd><%= asunit.assetsUnitID() %></dd><br />
+<dt>来源管理人编号</dt><dd><%= asunit.managerID() %></dd><br />
+<dt>来源资产单元简称</dt><dd><%= asunit.assetsUnitShortname() %></dd><br />
+<% tfetch(AssetsUnit, assunit); %>
+<dt>目标资产单元编号</dt><dd><%= assunit.assetsUnitID() %></dd><br />
+<dt>目标管理人编号</dt><dd><%= assunit.managerID() %></dd><br />
+<dt>目标资产单元简称</dt><dd><%= assunit.assetsUnitShortname() %></dd><br />
 
-<%== linkTo("修改", urla("edit", marketingunit.muid())) %> |
-<%== linkTo("返回", urla("index")) %>
+<%== linkTo("返回", urla("reportform")) %>
 
 </body>
 </html>

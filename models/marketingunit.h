@@ -22,6 +22,7 @@ public:
     ~Marketingunit();
 
     int muid() const;
+    void setMuid(int muid);
     int muvalue() const;
     void setMuvalue(int muvalue);
     QString musname() const;
@@ -43,6 +44,7 @@ public:
     static int count();
     static QList<Marketingunit> getAll();
     static QJsonArray getAllJson();
+    static QList<Marketingunit> listofmu();
 
 private:
     QSharedDataPointer<MarketingunitObject> d;

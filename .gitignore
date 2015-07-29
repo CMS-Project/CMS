@@ -1,0 +1,8 @@
+/db/*
+/helpers/*
+/lib/*
+/log/*
+/tmp/*
+/views/_src/*
+/views/Makefile
+/Makefile

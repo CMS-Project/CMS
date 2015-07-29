@@ -11,8 +11,8 @@ AssetsunitController::AssetsunitController(const AssetsunitController &)
 
 void AssetsunitController::index()
 {
-	QString operatorID = session()["operatorID"].toString();
-	texport(operatorID);
+    QString operatorID = session()["operatorID"].toString();
+    texport(operatorID);
     render();
 }
 
@@ -72,6 +72,9 @@ void AssetsunitController::getAssetsUnitManagerList()
     }else if(category == "assetsUnitID"){
         query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and assetsUnitID = " + value);
+    }else if(category == "assetsUnitShortname"){
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+                   where aum.managerID = au.managerID and assetsUnitShortname = '" + value + "'");
     }
 
     while (query.next()) {

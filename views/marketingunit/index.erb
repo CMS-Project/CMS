@@ -18,14 +18,14 @@
   </p>
 </form>
 
-
 <table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
   <tr>
-    <th>交易单元编号</th>
-    <th>估值</th>
-    <th>简称</th>
-    <th>长名称</th>
-    <th>日期</th>
+    <th>MUid</th>
+    <th>MUvalue</th>
+    <th>MUsname</th>
+    <th>MUname</th>
+    <th>MUdate</th>
+    <th>ManagerID</th>
   </tr>
 <% tfetch(QList<Marketingunit>, marketingunitList); %>
 <% for (const auto &i : marketingunitList) { %>
@@ -35,14 +35,14 @@
     <td><%= i.musname() %></td>
     <td><%= i.muname() %></td>
     <td><%= i.mudate() %></td>
+    <td><%= i.managerID() %></td>
     <td>
-      <%== linkTo("查看", urla("show", i.muid())) %>
-      <%== linkTo("修改", urla("edit", i.muid())) %>
+      <%== linkTo("Show", urla("show", i.muid())) %>
+      <%== linkTo("Edit", urla("edit", i.muid())) %>
     </td>
   </tr>
 <% } %>
 </table>
-<br />
-<%== linkTo("刷新", urla("index")) %>
+
 </body>
 </html>

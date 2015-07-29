@@ -114,10 +114,6 @@ void MarketingunitController::remove(const QString &pk)
     redirect(urla("index"));
 }
 
-void MarketingunitController::index2(){
-    render();
-}
-
 void MarketingunitController::searching(){
     QString val = httpRequest().formItemValue("search");
         QString error=val;
@@ -156,20 +152,20 @@ void MarketingunitController::reportform(){
 }
 
 void MarketingunitController::showform(const QString &pk){
-   QString b,c;
-    TSqlQuery query;
-    query.exec("SELECT srcUnitID,destUnitID FROM CMS.tradeRecord WHERE MUid = '"+pk+"';");
-      while (query.next()){
-          b=query.value(0).toString();
-          c=query.value(1).toString();
-          }
-    auto asunit=AssetsUnit::get(b.toInt());
-    auto marketingunit = Marketingunit::get(pk.toInt());
-    auto assunit=AssetsUnit::get(c.toInt());
-    texport(marketingunit);
-    texport(asunit);
-    texport(assunit);
-    render();
+    QString b,c;
+     TSqlQuery query;
+     query.exec("SELECT srcUnitID,destUnitID FROM CMS.tradeRecord WHERE MUid = '"+pk+"';");
+       while (query.next()){
+           b=query.value(0).toString();
+           c=query.value(1).toString();
+           }
+     auto asunit=AssetsUnit::get(b.toInt());
+     auto marketingunit = Marketingunit::get(pk.toInt());
+     auto assunit=AssetsUnit::get(c.toInt());
+     texport(marketingunit);
+     texport(asunit);
+     texport(assunit);
+     render();
 }
 
 // Don't remove below this line

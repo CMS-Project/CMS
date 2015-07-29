@@ -10,30 +10,33 @@
 <p style="color: red"><%=$ error %></p>
 <p style="color: green"><%=$ notice %></p>
 
-<h1>修改交易单元</h1>
+<h1>Editing Marketingunit</h1>
 
 <%== formTag(urla("save", marketingunit["muid"]), Tf::Post) %>
   <p>
-    <label>交易单元编号<br /><input type="text" name="marketingunit[muid]" value="<%= marketingunit["muid"] %>" readonly="readonly" /></label>
+    <label>MUid<br /><input type="text" name="marketingunit[muid]" value="<%= marketingunit["muid"] %>" readonly="readonly" /></label>
   </p>
   <p>
-    <label>交易单元估值<br /><input type="text" name="marketingunit[muvalue]" value="<%= marketingunit["muvalue"] %>" /></label>
+    <label>MUvalue<br /><input type="text" name="marketingunit[muvalue]" value="<%= marketingunit["muvalue"] %>" /></label>
   </p>
   <p>
-    <label>简称<br /><input type="text" name="marketingunit[musname]" value="<%= marketingunit["musname"] %>" /></label>
+    <label>MUsname<br /><input type="text" name="marketingunit[musname]" value="<%= marketingunit["musname"] %>" /></label>
   </p>
   <p>
-    <label>长名称<br /><input type="text" name="marketingunit[muname]" value="<%= marketingunit["muname"] %>" /></label>
+    <label>MUname<br /><input type="text" name="marketingunit[muname]" value="<%= marketingunit["muname"] %>" /></label>
   </p>
   <p>
-    <label>日期<br /><input type="text" name="marketingunit[mudate]" value="<%= marketingunit["mudate"] %>"readonly="readonly" /></label>
+    <label>MUdate<br /><input type="text" name="marketingunit[mudate]" value="<%= marketingunit["mudate"] %>" /></label>
   </p>
   <p>
-    <input type="submit" value="保存" />
+    <label>ManagerID<br /><input type="text" name="marketingunit[managerID]" value="<%= marketingunit["managerID"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Update" />
   </p>
 </form>
 
-<%== linkTo("查看", urla("show", marketingunit["muid"])) %> |
-<%== linkTo("返回", urla("index")) %>
+<%== linkTo("Show", urla("show", marketingunit["muid"])) %> |
+<%== linkTo("Back", urla("index")) %>
 </body>
 </html>

@@ -10,15 +10,16 @@
 <p style="color: red"><%=$ error %></p>
 <p style="color: green"><%=$ notice %></p>
 
-<h1>查看</h1>
-<dt>交易单元编号</dt><dd><%= marketingunit.muid() %></dd><br />
-<dt>估值</dt><dd><%= marketingunit.muvalue() %></dd><br />
-<dt>简称</dt><dd><%= marketingunit.musname() %></dd><br />
-<dt>长名称</dt><dd><%= marketingunit.muname() %></dd><br />
-<dt>日期</dt><dd><%= marketingunit.mudate() %></dd><br />
+<h1>Showing Marketingunit</h1>
+<dt>MUid</dt><dd><%= marketingunit.muid() %></dd><br />
+<dt>MUvalue</dt><dd><%= marketingunit.muvalue() %></dd><br />
+<dt>MUsname</dt><dd><%= marketingunit.musname() %></dd><br />
+<dt>MUname</dt><dd><%= marketingunit.muname() %></dd><br />
+<dt>MUdate</dt><dd><%= marketingunit.mudate() %></dd><br />
+<dt>ManagerID</dt><dd><%= marketingunit.managerID() %></dd><br />
 
-<%== linkTo("修改", urla("edit", marketingunit.muid())) %> |
-<%== linkTo("返回", urla("index")) %>
+<%== linkTo("Edit", urla("edit", marketingunit.muid())) %> |
+<%== linkTo("Back", urla("index")) %>
 
 </body>
 </html>

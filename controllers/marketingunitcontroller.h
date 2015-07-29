@@ -19,11 +19,11 @@ public slots:
     void edit(const QString &pk);
     void save(const QString &pk);
     void remove(const QString &pk);
-    void index2();
     void searching();
     void showsearch(const QString &pk);
     void reportform();
     void showform(const QString &pk);
+
 
 private:
     void renderEntry(const QVariantMap &marketingunit = QVariantMap());

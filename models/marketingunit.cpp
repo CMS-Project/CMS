@@ -7,6 +7,7 @@ Marketingunit::Marketingunit()
 {
     d->MUid = 0;
     d->MUvalue = 0;
+    d->managerID = 0;
 }
 
 Marketingunit::Marketingunit(const Marketingunit &other)
@@ -73,19 +74,30 @@ void Marketingunit::setMudate(const QDate &mudate)
     d->MUdate = mudate;
 }
 
+int Marketingunit::managerID() const
+{
+    return d->managerID;
+}
+
+void Marketingunit::setManagerID(int managerID)
+{
+    d->managerID = managerID;
+}
+
 Marketingunit &Marketingunit::operator=(const Marketingunit &other)
 {
     d = other.d;  // increments the reference count of the data
     return *this;
 }
 
-Marketingunit Marketingunit::create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate)
+Marketingunit Marketingunit::create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int managerID)
 {
     MarketingunitObject obj;
     obj.MUvalue = muvalue;
     obj.MUsname = musname;
     obj.MUname = muname;
     obj.MUdate = mudate;
+    obj.managerID = managerID;
     if (!obj.create()) {
         return Marketingunit();
     }
@@ -158,4 +170,3 @@ QList<Marketingunit> Marketingunit::listofmu(){
     }
     return list;
 }
-

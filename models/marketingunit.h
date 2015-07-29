@@ -31,6 +31,8 @@ public:
     void setMuname(const QString &muname);
     QDate mudate() const;
     void setMudate(const QDate &mudate);
+    int managerID() const;
+    void setManagerID(int managerID);
     Marketingunit &operator=(const Marketingunit &other);
 
     bool create() { return TAbstractModel::create(); }
@@ -38,7 +40,7 @@ public:
     bool save()   { return TAbstractModel::save(); }
     bool remove() { return TAbstractModel::remove(); }
 
-    static Marketingunit create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate);
+    static Marketingunit create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int managerID);
     static Marketingunit create(const QVariantMap &values);
     static Marketingunit get(int muid);
     static int count();

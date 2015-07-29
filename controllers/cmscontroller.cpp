@@ -114,7 +114,7 @@ void CmsController::operatorlogin()
        // tflash(notice);
         a = form["numberID"].toString();
         session().insert("operatorID",a);
-        redirect(urla("operator_center",a));
+        redirect(url("assetsunit","index"));
     }else{
         QString error = "NumberID or Password Error";
         tflash(error);

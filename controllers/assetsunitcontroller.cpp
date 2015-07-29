@@ -11,6 +11,8 @@ AssetsunitController::AssetsunitController(const AssetsunitController &)
 
 void AssetsunitController::index()
 {
+	QString operatorID = session()["operatorID"].toString();
+	texport(operatorID);
     render();
 }
 

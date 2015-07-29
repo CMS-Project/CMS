@@ -1,23 +1,66 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%#include "cms.h" %>
 <% tfetch(QString, notice); %>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<style type="text/css">
+#apDiv1 {
+	position: absolute;
+	width: 1024px;
+	height: 330px;
+	z-index: 1;
+	left: 193px;
+	top: 83px;
+	border: 1px solid #00CCFF;
+}
+#apDiv2 {
+	position: absolute;
+	width: 200px;
+	height: 115px;
+	z-index: 2;
+	left: 193px;
+	top: 169px;
+	border: 1px solid #00CCFF;
+}
+#apDiv3 {
+	position: absolute;
+	width: 200px;
+	height: 115px;
+	z-index: 2;
+	left: 566px;
+	top: 167px;
+	border: 1px solid #00CCFF;
+}
+#span1{
+	position: absolute;
+	left: 107px;
+	top: 15px;
+	width: 626px;
+	z-index: 1;
+}
+#p1{
+	font-family: "Comic Sans MS", cursive;
+	text-align: left;
+	font-size: 36px;
+	color: #3333FF;
+}
+</style>
 </head>
+
 <body>
-<p style="color: green"><%= notice %></p>
-
-<h1>CMS SYSTEM</h1>
-
-<%== linkTo("Administrator_Login", urla("admin_login")) %><br />
-<br />
-
-<%== linkTo("Operator_Login", urla("operator_login")) %><br />
-<br />
-
-
-
+<div id="apDiv1">
+<img src="/BG/newbg.jpg" width="1024" height="330" />
+  <span id="span1">
+  <p id="p1">Welcome to CMS system</p>
+  </span>
+  <div id="apDiv2">
+  <a href="/Cms/admin_login"><img src="/BG/admin_login.jpg" width="200" height="115" /> </a>
+  </div>
+    <div id="apDiv3">
+    <a href="/Cms/operator_login"><img src="/BG/operator_login.jpg" width="200" height="115" /></a>
+   </div>
+</div>
 </body>
 </html>

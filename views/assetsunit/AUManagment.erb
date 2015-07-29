@@ -19,13 +19,13 @@
 	<ul>
 		<li style="float:left;padding-right:10px;">
 			<!-- table-left -->
-			<table id="table1" class="easyui-datagrid" style="width:350px;height:450px;"
+			<table id="table1" class="easyui-datagrid" style="width:500px;height:450px;"
 					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getAssetsUnitManagerList',method:'get',toolbar:'#tb1'">
 				<thead>
 					<tr>
 						<th data-options="field:'managerID',width:110,sortable:true">资产管理人</th>
-						<th data-options="field:'assetsUnitID',width:110">资产单元</th>
-						<th data-options="field:'assetsUnitShortname',width:110" editor="{type:'text', options:{required:true}}">资产单元</th>
+						<th data-options="field:'assetsUnitID',width:110">资产单元ID</th>
+						<th data-options="field:'assetsUnitShortname',width:110">资产单元简称</th>
 					</tr>
 				</thead>
 			</table>
@@ -33,10 +33,11 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newManager()">添加</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editManager()">修改</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteManager()">删除</a>
-				<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category',searcher:doSearch_table1" style="width:158px"></input>
+				<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category',searcher:doSearch_table1" style="width:300px"></input>
 				<div id="s_category">
 					<div data-options="name:'managerID'">资产管理人</div>
-					<div data-options="name:'assetsUnitID'">资产单元</div>
+					<div data-options="name:'assetsUnitID'">资产单元ID</div>
+					<div data-options="name:'assetsUnitShortname'">资产单元简称</div>
 				</div>
 			</div>
 
@@ -65,7 +66,7 @@
 		</li>
 		<li>
 			<!-- table-right -->
-			<table id="table2" class="easyui-datagrid" style="width:350px;height:450px;"
+			<table id="table2" class="easyui-datagrid" style="width:500px;height:450px;"
 					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getMarketingUnitList',method:'get',toolbar:'#tb2'">
 				<thead>
 					<tr>
@@ -77,7 +78,7 @@
 			</table>
 			<div id="tb2" style="padding:2px 5px;">
 				    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMarketingUnit()">修改</a>
-					<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category1',searcher:doSearch_table2" style="width:270px"></input>
+					<input class="easyui-searchbox" data-options="prompt:'输入关键字',menu:'#s_category1',searcher:doSearch_table2" style="width:300px"></input>
 					<div id="s_category1">
 					<div data-options="name:'m_assetsUnitID'">资产单元ID</div>
 					<div data-options="name:'marketingUnitID'">交易单元ID</div>
@@ -107,9 +108,8 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">取消</a>
 			</div>
 		</li>
-		<li style="margin-left:630px;margin-top:10px;">
-			
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('#table1').('reload')">刷新</a>
+		<li style="margin-left:10x;margin-top:10px;">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('.easyui-table').datagrid('reload')">刷新</a>
 		</li>
 	</ul>
 	<script>

@@ -108,6 +108,7 @@ Marketingunit Marketingunit::create(const QVariantMap &values)
 {
     Marketingunit model;
     model.setProperties(values);
+    model.setMudate(QDate::currentDate());
     if (!model.d->create()) {
         model.d->clear();
     }

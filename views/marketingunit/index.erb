@@ -9,8 +9,6 @@
 
 <h1>交易单元列表</h1>
 <p style="color: red"><%=$ error %></p>
-
-<% tfetch(Marketingunit, marketingunit); %>
 <%== formTag(urla("searching"), Tf::Post) %>
   <p>
     <label>编号或简称<br /><input type="txet" name="search"/></label>
@@ -18,6 +16,7 @@
   </p>
 </form>
 
+<br />
 <table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
   <tr>
     <th>MUid</th>
@@ -25,7 +24,9 @@
     <th>MUsname</th>
     <th>MUname</th>
     <th>MUdate</th>
-    <th>ManagerID</th>
+    <th>SrcUnitID</th>
+    <th>DestUnitID</th>
+    <th>OperatorID</th>
   </tr>
 <% tfetch(QList<Marketingunit>, marketingunitList); %>
 <% for (const auto &i : marketingunitList) { %>
@@ -35,10 +36,13 @@
     <td><%= i.musname() %></td>
     <td><%= i.muname() %></td>
     <td><%= i.mudate() %></td>
-    <td><%= i.managerID() %></td>
+    <td><%= i.srcUnitID() %></td>
+    <td><%= i.destUnitID() %></td>
+    <td><%= i.operatorID() %></td>
     <td>
       <%== linkTo("Show", urla("show", i.muid())) %>
       <%== linkTo("Edit", urla("edit", i.muid())) %>
+      <%== linkTo("Remove", urla("remove", i.muid()), Tf::Post, "confirm('Are you sure?')") %>
     </td>
   </tr>
 <% } %>

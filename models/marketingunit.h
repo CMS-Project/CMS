@@ -31,8 +31,12 @@ public:
     void setMuname(const QString &muname);
     QDate mudate() const;
     void setMudate(const QDate &mudate);
-    int managerID() const;
-    void setManagerID(int managerID);
+    int srcUnitID() const;
+    void setSrcUnitID(int srcUnitID);
+    int destUnitID() const;
+    void setDestUnitID(int destUnitID);
+    QString operatorID() const;
+    void setOperatorID(const QString &operatorID);
     Marketingunit &operator=(const Marketingunit &other);
 
     bool create() { return TAbstractModel::create(); }
@@ -40,13 +44,14 @@ public:
     bool save()   { return TAbstractModel::save(); }
     bool remove() { return TAbstractModel::remove(); }
 
-    static Marketingunit create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int managerID);
+    static Marketingunit create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int srcUnitID, int destUnitID, const QString &operatorID);
     static Marketingunit create(const QVariantMap &values);
     static Marketingunit get(int muid);
     static int count();
     static QList<Marketingunit> getAll();
     static QJsonArray getAllJson();
     static QList<Marketingunit> listofmu();
+
 
 private:
     QSharedDataPointer<MarketingunitObject> d;

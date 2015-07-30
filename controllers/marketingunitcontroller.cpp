@@ -122,7 +122,7 @@ void MarketingunitController::searching(){
         auto marketingunit = Marketingunit::get(val.toInt());
         if (marketingunit.isNull()) {
         TSqlQuery query;
-        query.exec("SELECT MUid,MUvalue,MUsname,MUname,MUdate FROM CMS.marketingunit WHERE MUsname = '"+val+"';");  // Query execution
+        query.exec("SELECT MUid FROM CMS.marketingunit WHERE MUsname = '"+val+"';");  // Query execution
         while (query.next()) {
          a= query.value(0).toString();
          o=true;
@@ -146,7 +146,7 @@ void MarketingunitController::showsearch(const QString &pk){
 }
 
 void MarketingunitController::reportform(){
-    QList<Marketingunit> marketingunitList = Marketingunit::listofmu();
+    QList<Marketingunit> marketingunitList = Marketingunit::getAll();
     texport(marketingunitList);
     render();
 }
@@ -154,7 +154,7 @@ void MarketingunitController::reportform(){
 void MarketingunitController::showform(const QString &pk){
     QString b,c;
      TSqlQuery query;
-     query.exec("SELECT srcUnitID,destUnitID FROM CMS.tradeRecord WHERE MUid = '"+pk+"';");
+     query.exec("SELECT srcUnitID,destUnitID FROM CMS.marketingunit WHERE MUid = '"+pk+"';");
        while (query.next()){
            b=query.value(0).toString();
            c=query.value(1).toString();
@@ -167,6 +167,7 @@ void MarketingunitController::showform(const QString &pk){
      texport(assunit);
      render();
 }
+
 
 // Don't remove below this line
 T_REGISTER_CONTROLLER(marketingunitcontroller)

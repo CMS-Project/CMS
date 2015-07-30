@@ -13,7 +13,9 @@ public:
     QString MUsname;
     QString MUname;
     QDate MUdate;
-    int managerID;
+    int srcUnitID;
+    int destUnitID;
+    QString operatorID;
 
     enum PropertyIndex {
         Muid = 0,
@@ -21,7 +23,9 @@ public:
         Musname,
         Muname,
         Mudate,
-        ManagerID,
+        SrcUnitID,
+        DestUnitID,
+        OperatorID,
     };
 
     int primaryKeyIndex() const { return Muid; }
@@ -40,8 +44,12 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(QString, MUname)
     Q_PROPERTY(QDate MUdate READ getMUdate WRITE setMUdate)
     T_DEFINE_PROPERTY(QDate, MUdate)
-    Q_PROPERTY(int managerID READ getmanagerID WRITE setmanagerID)
-    T_DEFINE_PROPERTY(int, managerID)
+    Q_PROPERTY(int srcUnitID READ getsrcUnitID WRITE setsrcUnitID)
+    T_DEFINE_PROPERTY(int, srcUnitID)
+    Q_PROPERTY(int destUnitID READ getdestUnitID WRITE setdestUnitID)
+    T_DEFINE_PROPERTY(int, destUnitID)
+    Q_PROPERTY(QString operatorID READ getoperatorID WRITE setoperatorID)
+    T_DEFINE_PROPERTY(QString, operatorID)
 };
 
 #endif // MARKETINGUNITOBJECT_H

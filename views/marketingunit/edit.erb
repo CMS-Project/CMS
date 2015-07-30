@@ -26,10 +26,16 @@
     <label>MUname<br /><input type="text" name="marketingunit[muname]" value="<%= marketingunit["muname"] %>" /></label>
   </p>
   <p>
-    <label>MUdate<br /><input type="text" name="marketingunit[mudate]" value="<%= marketingunit["mudate"] %>" /></label>
+    <label>MUdate<br /><input type="text" name="marketingunit[mudate]" value="<%= marketingunit["mudate"] %>" readonly="readonly"/></label>
   </p>
   <p>
-    <label>ManagerID<br /><input type="text" name="marketingunit[managerID]" value="<%= marketingunit["managerID"] %>" /></label>
+    <label>SrcUnitID<br /><input type="text" name="marketingunit[srcUnitID]" value="<%= marketingunit["srcUnitID"] %>" /></label>
+  </p>
+  <p>
+    <label>DestUnitID<br /><input type="text" name="marketingunit[destUnitID]" value="<%= marketingunit["destUnitID"] %>" /></label>
+  </p>
+  <p>
+    <label>OperatorID<br /><input type="text" name="marketingunit[operatorID]" value="<%= marketingunit["operatorID"] %>" /></label>
   </p>
   <p>
     <input type="submit" value="Update" />

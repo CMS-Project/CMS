@@ -18,7 +18,9 @@
     <th>简称</th>
     <th>长名称</th>
     <th>日期</th>
-    <th>ManagerID</th>
+    <th>SrcUnitID</th>
+    <th>DestUnitID</th>
+    <th>OperatorID</th>
   </tr>
 <tr>
     <td><%= marketingunit.muid() %></td>
@@ -26,7 +28,10 @@
     <td><%= marketingunit.musname() %></td>
     <td><%= marketingunit.muname() %></td>
     <td><%= marketingunit.mudate() %></td>
-    <td><%= marketingunit.managerID() %></td>
+    <td><%= marketingunit.srcUnitID() %></td><br />
+    <td><%= marketingunit.destUnitID() %></td><br />
+    <td><%= marketingunit.operatorID() %></td><br />
+
  </tr>
 </table>
 <%== linkTo("修改", urla("edit", marketingunit.muid())) %> |

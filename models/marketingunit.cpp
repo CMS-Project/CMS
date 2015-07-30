@@ -7,7 +7,8 @@ Marketingunit::Marketingunit()
 {
     d->MUid = 0;
     d->MUvalue = 0;
-    d->managerID = 0;
+    d->srcUnitID = 0;
+    d->destUnitID = 0;
 }
 
 Marketingunit::Marketingunit(const Marketingunit &other)
@@ -33,6 +34,7 @@ void Marketingunit::setMuid(int muid)
 {
     d->MUid = muid;
 }
+
 
 int Marketingunit::muvalue() const
 {
@@ -74,14 +76,34 @@ void Marketingunit::setMudate(const QDate &mudate)
     d->MUdate = mudate;
 }
 
-int Marketingunit::managerID() const
+int Marketingunit::srcUnitID() const
 {
-    return d->managerID;
+    return d->srcUnitID;
 }
 
-void Marketingunit::setManagerID(int managerID)
+void Marketingunit::setSrcUnitID(int srcUnitID)
 {
-    d->managerID = managerID;
+    d->srcUnitID = srcUnitID;
+}
+
+int Marketingunit::destUnitID() const
+{
+    return d->destUnitID;
+}
+
+void Marketingunit::setDestUnitID(int destUnitID)
+{
+    d->destUnitID = destUnitID;
+}
+
+QString Marketingunit::operatorID() const
+{
+    return d->operatorID;
+}
+
+void Marketingunit::setOperatorID(const QString &operatorID)
+{
+    d->operatorID = operatorID;
 }
 
 Marketingunit &Marketingunit::operator=(const Marketingunit &other)
@@ -90,14 +112,16 @@ Marketingunit &Marketingunit::operator=(const Marketingunit &other)
     return *this;
 }
 
-Marketingunit Marketingunit::create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int managerID)
+Marketingunit Marketingunit::create(int muvalue, const QString &musname, const QString &muname, const QDate &mudate, int srcUnitID, int destUnitID, const QString &operatorID)
 {
     MarketingunitObject obj;
     obj.MUvalue = muvalue;
     obj.MUsname = musname;
     obj.MUname = muname;
     obj.MUdate = mudate;
-    obj.managerID = managerID;
+    obj.srcUnitID = srcUnitID;
+    obj.destUnitID = destUnitID;
+    obj.operatorID = operatorID;
     if (!obj.create()) {
         return Marketingunit();
     }
@@ -107,8 +131,8 @@ Marketingunit Marketingunit::create(int muvalue, const QString &musname, const Q
 Marketingunit Marketingunit::create(const QVariantMap &values)
 {
     Marketingunit model;
-    model.setProperties(values);
     model.setMudate(QDate::currentDate());
+    model.setProperties(values);
     if (!model.d->create()) {
         model.d->clear();
     }

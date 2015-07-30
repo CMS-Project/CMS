@@ -2,6 +2,7 @@
 
 #include <assetsunit.h>
 #include<marketingunit.h>
+#include <QDate>
 #include <TSqlQuery>
 #include <TActionController>
 
@@ -34,6 +35,7 @@ void AssetsunitController::AUView()
 void AssetsunitController::AUTransfer()
 {
     // write code
+    render("AUTransfer");
 }
 
 void AssetsunitController::AUOptLog()
@@ -152,14 +154,14 @@ void AssetsunitController::getMarketingUnitList(){
     TSqlQuery query;
 
     if(value.isNull() || value.isEmpty()) {
-        query.exec("select SrcUnitID,mu.MUid, MUsname from CMS.marketingunit as mu, CMS.tradeRecord as tr \
-                   where  mu.MUid = tr.MUid order by SrcUnitID");  // Query execution
+        query.exec("select SrcUnitID,MUid, MUsname from CMS.marketingunit as mu  \
+                    order by SrcUnitID");  // Query execution
     }else if(category == "m_assetsUnitID"){
-        query.exec("select SrcUnitID,mu.MUid, MUsname from CMS.marketingunit as mu, CMS.tradeRecord as tr \
-                   where  mu.MUid = tr.MUid and tr.SrcUnitID = " + value);
+        query.exec("select SrcUnitID,MUid, MUsname from CMS.marketingunit as mu  \
+                   where  tr.SrcUnitID = " + value);
     }else if(category == "marketingUnitID"){
-        query.exec("select SrcUnitID,mu.MUid, MUsname from CMS.marketingunit as mu, CMS.tradeRecord as tr \
-                   where  mu.MUid = tr.MUid and mu.MUid = " + value);
+        query.exec("select SrcUnitID,MUid, MUsname from CMS.marketingunit as mu \
+                   where  mu.MUid = " + value);
     }
 
 
@@ -189,6 +191,26 @@ void AssetsunitController::editMarketingUnit(){
     mu.setMusname(name);
 
     if(mu.save()) {
+        renderText("Ok");
+    }else{
+
+    }
+}
+void AssetsunitController::assetsTransfer(){
+    if (httpRequest().method() != Tf::Post) {
+        return;
+    }
+
+    QVariantMap assetsTF = httpRequest().formItems("assetsTF");
+    int value = assetsTF["MUvalue"].toInt();
+    QString sname = assetsTF["MUsname"].toString();
+    QString name = assetsTF["MUname"].toString();
+    QDate muDate =QDate::currentDate();
+    Marketingunit new_mu = Marketingunit::create(value,sname,name,muDate,123);
+
+
+
+    if(!new_mu.isNull()) {
         renderText("Ok");
     }else{
 

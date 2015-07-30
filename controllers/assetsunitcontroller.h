@@ -26,6 +26,7 @@ public slots:
     void removeAssetsUnit();
     void getMarketingUnitList();
     void editMarketingUnit();
+    void assetsTransfer();
 };
 
 T_DECLARE_CONTROLLER(AssetsunitController, assetsunitcontroller)

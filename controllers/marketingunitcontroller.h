@@ -20,9 +20,8 @@ public slots:
     void save(const QString &pk);
     void remove(const QString &pk);
     void searching();
-    void showsearch(const QString &pk);
     void reportform();
-    void showform(const QString &pk);
+    void showform();
 
 private:
     void renderEntry(const QVariantMap &marketingunit = QVariantMap());

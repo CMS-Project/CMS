@@ -34,7 +34,6 @@ void AssetsunitController::AUView()
 
 void AssetsunitController::AUTransfer()
 {
-    // write code
     render("AUTransfer");
 }
 
@@ -201,20 +200,16 @@ void AssetsunitController::assetsTransfer(){
         return;
     }
 
-//    QVariantMap assetsTF = httpRequest().formItems("assetsTF");
-//    int value = assetsTF["MUvalue"].toInt();
-//    QString sname = assetsTF["MUsname"].toString();
-//    QString name = assetsTF["MUname"].toString();
-//    QDate muDate =QDate::currentDate();
-//    Marketingunit new_mu = Marketingunit::create(value,sname,name,muDate,123);
-//
-//
-//
-//    if(!new_mu.isNull()) {
-//        renderText("Ok");
-//    }else{
-//
-//    }
+    QVariantMap form = httpRequest().formItems("assetsTransfer");
+    if(form["muname"].isNull()) form["muname"] = "";
+	form["operaotrID"] = session()["operatorID"].toInt();
+    Marketingunit marketingunit = Marketingunit::create(form);
+
+    if(!marketingunit.isNull()){
+        renderText("Ok");
+    }else{
+        renderText("Failed");
+    }
 }
 
 // Don't remove below this line

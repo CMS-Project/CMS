@@ -114,6 +114,7 @@
 	</ul>
 	<script>
 		var url;
+
 		function doSearch_table1(val, name){
 			$('#table1').datagrid({queryParams:{category:name, value:val}});
 		}
@@ -163,6 +164,7 @@
                     return $(this).form('validate');
                 },
                 success: function(result){
+					$('#response', parent.document).text(result);
 					$('#dlg').dialog('close');        // close the dialog
 					$('#table1').datagrid('reload');    // reload the user data	
                 }
@@ -175,7 +177,10 @@
 				$.messager.defaults.cancel='取消';
                 $.messager.confirm('删除','是否删除该资产单元?',function(r){
                     if (r){
-                        $.post('/Assetsunit/removeAssetsUnit/',{assetsUnitID:row['assetsUnitID']},function(result){
+                        $.post('/Assetsunit/removeAssetsUnit/',
+							{assetsUnitID:row['assetsUnitID']},
+							function(result){
+								$('#response', parent.document).text(result);
                                 $('#table1').datagrid('reload');    // reload the user data
                         },'text');
                     }
@@ -207,6 +212,7 @@
                     return $(this).form('validate');
                 },
                 success: function(result){
+					$('#response', parent.document).text(result);
 					$('#dlg1').dialog('close');        // close the dialog
 					$('#table2').datagrid('reload');    // reload the user data	
                 }

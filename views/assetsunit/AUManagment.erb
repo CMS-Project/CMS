@@ -91,11 +91,11 @@
 				<form id="fm1" method="post">
 					<div class="fitem">
 						<label>资产单元ID:</label>
-						<input id="input_ma" name="marketingUnit[m_assetsUnitID]" validType="number" class="easyui-textbox" required="true">
+						<input id="input_ma" name="marketingUnit[m_assetsUnitID]" validType="number" class="easyui-textbox" required="true" disabled>
 					</div>
 					<div class="fitem">
 						<label>交易单元ID:</label>
-						<input id="input_mm" name="marketingUnit[marketingUnitID]" validType="number" class="easyui-textbox" required="true">
+						<input id="input_mm" name="marketingUnit[marketingUnitID]" validType="number" class="easyui-textbox" required="true" disabled>
 					</div>
 					<div class="fitem">
 						<label>交易单元简称:</label>
@@ -109,7 +109,7 @@
 			</div>
 		</li>
 		<li style="margin-left:10x;margin-top:10px;">
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('.easyui-table').datagrid('reload')">刷新</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('.easyui-datagrid').datagrid('reload')">刷新</a>
 		</li>
 	</ul>
 	<script>
@@ -122,8 +122,20 @@
 		}
 		function newManager(){
 			url = '/AssetsUnit/createAssetsUnit';
-			$('#dlg').dialog('open').dialog('setTitle','资产单元管理');
-			$('#fm').form('clear');
+			var row = $('#table1').datagrid('getSelected');
+			if(row){
+				$('#dlg').dialog('open').dialog('setTitle','资产单元管理');
+				$('#fm').form('clear');
+
+				$('#fm').form('load',{
+					'assetsUnit[managerID]':row['managerID'],
+				});
+
+				$('#input_m').combobox('disable');
+				$('#input_au').combobox('enable');
+			}else{
+				alert('未选择资产管理人');
+			}
 		}
 		function editManager(){
 			url = '/AssetsUnit/editAssetsUnit';
@@ -137,6 +149,11 @@
 					'assetsUnit[assetsUnitID]':row['assetsUnitID'],
 					'assetsUnit[assetsUnitShortname]':row['assetsUnitShortname']
 				});
+
+				$('#input_m').combobox('disable');
+				$('#input_au').combobox('disable');
+			}else{
+				alert('未选择资产单元');
 			}
 		}
 		function saveManager(){
@@ -163,7 +180,9 @@
                         },'text');
                     }
                 });
-            }
+            }else{
+				alert('未选择资产单元');
+			}
         }
         function editMarketingUnit(){
         	url = '/AssetsUnit/editMarketingUnit';
@@ -177,6 +196,8 @@
 					'marketingUnit[m_assetsUnitID]':row['m_assetsUnitID'],
 					'marketingUnit[marketingUnitShortname]':row['marketingUnitShortname']
 				});
+			}else{
+				alert('未选择交易单元');
 			}
         }
         function saveMU(){

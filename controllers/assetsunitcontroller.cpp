@@ -66,16 +66,16 @@ void AssetsunitController::getAssetsUnitManagerList()
 
     TSqlQuery query;
     if(value.isNull() || value.isEmpty()) {
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID" + sort);  // Query execution
     }else if(category == "managerID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and aum.managerID = " + value);
     }else if(category == "assetsUnitID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and assetsUnitID = " + value);
     }else if(category == "assetsUnitShortname"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsUnitMmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and assetsUnitShortname = '" + value + "'");
     }
 
@@ -201,20 +201,20 @@ void AssetsunitController::assetsTransfer(){
         return;
     }
 
-    QVariantMap assetsTF = httpRequest().formItems("assetsTF");
-    int value = assetsTF["MUvalue"].toInt();
-    QString sname = assetsTF["MUsname"].toString();
-    QString name = assetsTF["MUname"].toString();
-    QDate muDate =QDate::currentDate();
-    Marketingunit new_mu = Marketingunit::create(value,sname,name,muDate,123);
-
-
-
-    if(!new_mu.isNull()) {
-        renderText("Ok");
-    }else{
-
-    }
+//    QVariantMap assetsTF = httpRequest().formItems("assetsTF");
+//    int value = assetsTF["MUvalue"].toInt();
+//    QString sname = assetsTF["MUsname"].toString();
+//    QString name = assetsTF["MUname"].toString();
+//    QDate muDate =QDate::currentDate();
+//    Marketingunit new_mu = Marketingunit::create(value,sname,name,muDate,123);
+//
+//
+//
+//    if(!new_mu.isNull()) {
+//        renderText("Ok");
+//    }else{
+//
+//    }
 }
 
 // Don't remove below this line

@@ -7,39 +7,19 @@
 </head>
 <body>
 
-<h1>交易单元统计报表</h1>
+
 <p style="color: red"><%=$ error %></p>
+<%== formTag(urla("showform"), Tf::Post) %>
+  <p>
+    <label>start<br /><input type="date" name="start"/></label>
+  </p>
+  <p>
+    <label>end<br /><input type="date" name="end"/></label>
+  </p>
+  <p>
+    <input type="submit" value="search" />
+  </p>
+</form>
 
-
-<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
-  <tr>
-    <th>MUid</th>
-    <th>MUvalue</th>
-    <th>MUsname</th>
-    <th>MUname</th>
-    <th>MUdate</th>
-    <th>SrcUnitID</th>
-    <th>DestUnitID</th>
-    <th>OperatorID</th>
-  </tr>
-<% tfetch(QList<Marketingunit>, marketingunitList); %>
-<% for (const auto &i : marketingunitList) { %>
-  <tr>
-    <td><%= i.muid() %></td>
-    <td><%= i.muvalue() %></td>
-    <td><%= i.musname() %></td>
-    <td><%= i.muname() %></td>
-    <td><%= i.mudate() %></td>
-    <td><%= i.srcUnitID() %></td>
-    <td><%= i.destUnitID() %></td>
-    <td><%= i.operatorID() %></td>
-    <td>
-      <%== linkTo("查看详情", urla("showform", i.muid())) %>
-    </td>
-  </tr>
-<% } %>
-</table>
-<br />
-<%== linkTo("刷新", urla("reportform")) %>
 </body>
 </html>

@@ -1,33 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <%#include "marketingunit.h" %>
-<%#include "assetsunit.h" %>
-<% tfetch(Marketingunit, marketingunit); %>
+ <head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="/common.css">
+	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+	<style type="text/css">
 
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+#customers
+  {
+  width:510px;
+  border-collapse:collapse;
+  empty-cells: hide;
+  white-space: nowrap;
+  }
+
+#customers td, #customers th 
+  {
+  font-size:0.7em;
+  border:1px solid #95B8E7;
+  padding:3px 7px 2px 7px;
+  }
+
+#customers th 
+  {
+  font-size:0.7em;
+  text-align:center;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#F3F3F3;
+  color:black;
+  }
+
+#customers tr, #customers td
+  {
+  color:#000000;
+  }
+</style>
 </head>
-<body>
-<p style="color: red"><%=$ error %></p>
-<p style="color: green"><%=$ notice %></p>
-
-<h1>查看</h1>
-<dt>交易单元编号</dt><dd><%= marketingunit.muid() %></dd><br />
-<dt>估值</dt><dd><%= marketingunit.muvalue() %></dd><br />
-<dt>简称</dt><dd><%= marketingunit.musname() %></dd><br />
-<dt>长名称</dt><dd><%= marketingunit.muname() %></dd><br />
-<dt>日期</dt><dd><%= marketingunit.mudate() %></dd><br />
-<% tfetch(AssetsUnit, asunit); %>
-<dt>来源资产单元编号</dt><dd><%= asunit.assetsUnitID() %></dd><br />
-<dt>来源管理人编号</dt><dd><%= asunit.managerID() %></dd><br />
-<dt>来源资产单元简称</dt><dd><%= asunit.assetsUnitShortname() %></dd><br />
-<% tfetch(AssetsUnit, assunit); %>
-<dt>目标资产单元编号</dt><dd><%= assunit.assetsUnitID() %></dd><br />
-<dt>目标管理人编号</dt><dd><%= assunit.managerID() %></dd><br />
-<dt>目标资产单元简称</dt><dd><%= assunit.assetsUnitShortname() %></dd><br />
-
-<%== linkTo("返回", urla("reportform")) %>
-
+ <body style="margin-top:4px;padding-left:4px;">
+  <div class="easyui-tabs" style="width:100%;height:360px;" >
+    <div title="交易单元管理" style="width:600px;height:100%;padding:10px;">
+<table id="customers">
+<tr>
+<th>编号</th>
+<th>估值</th>
+<th>简称</th>
+<th>长名称</th>
+<th>日期</th>
+<th>源单元编号</th>
+<th>目标单元编号</th>
+<th>操作员编号</th>
+</tr>
+<% tfetch(QList<Marketingunit>, list); %>
+<% tfetch(int, c); %>
+<% for (const auto &i : list) { %>
+  <tr>
+    <td><%= i.muid() %></td>
+    <td><%= i.muvalue() %></td>
+    <td><%= i.musname() %></td>
+    <td><%= i.muname() %></td>
+    <td><%= i.mudate() %></td>
+    <td><%= i.srcUnitID() %></td>
+    <td><%= i.destUnitID() %></td>
+    <td><%= i.operatorID() %></td>
+  </tr>
+<% } %>
+    <tr>
+    <td>总值</td>
+    <td><%= c %></td>
+    </tr>
+</table>	
+  </div>  
+  </div>
+<div style="margin-top:4px">
+    <ul type="none">
+      <li style="float:left;"><a href="/marketingunit/reportform/" class="easyui-linkbutton" data-options="iconCls:'icon-back'" style="width:80px;">返回</a></li>
+           
+      </li>
+    </ul>
+  </div>
 </body>
 </html>
+

@@ -115,57 +115,99 @@ void MarketingunitController::remove(const QString &pk)
 }
 
 void MarketingunitController::searching(){
-    QString val = httpRequest().formItemValue("search");
-        QString error=val;
-        QString a;
-        bool o=false;
-        auto marketingunit = Marketingunit::get(val.toInt());
-        if (marketingunit.isNull()) {
-        TSqlQuery query;
-        query.exec("SELECT MUid FROM CMS.marketingunit WHERE MUsname = '"+val+"';");  // Query execution
-        while (query.next()) {
-         a= query.value(0).toString();
-         o=true;
-        }
-        if(o){
-            redirect(urla("showsearch", a));
-        }else{
-            error="can't find";
+        QString val = httpRequest().formItemValue("search");
+        QString error;
+        if(val.isEmpty()){
+            error="请输入查询关键字";
             tflash(error);
             redirect(urla("index"));
             return;
         }
-    }else{
-            redirect(urla("showsearch", val));}
-}
 
-void MarketingunitController::showsearch(const QString &pk){
-    auto marketingunit = Marketingunit::get(pk.toInt());
-    texport(marketingunit);
-    render();
-}
-
+        QList<Marketingunit> list1;
+        TSqlQuery query;
+        query.exec("SELECT * FROM CMS.marketingunit WHERE MUid LIKE '%"+val+"%';");
+        while(query.next()){
+            Marketingunit a;
+            a.setMuid(query.value(0).toInt());
+            a.setMuname(query.value(1).toString());
+            a.setMusname(query.value(2).toString());
+            a.setMuvalue(query.value(3).toInt());
+            a.setMudate(query.value(4).toDate());
+            a.setSrcUnitID(query.value(5).toInt());
+            a.setDestUnitID(query.value(6).toInt());
+            a.setOperatorID(query.value(7).toString());
+            list1.append(a);
+        }
+        QList<Marketingunit> list2;
+        TSqlQuery query2;
+        query2.exec("SELECT * FROM CMS.marketingunit WHERE MUsname LIKE '%"+val+"%';");
+        while(query2.next()){
+            Marketingunit b;
+            b.setMuid(query2.value(0).toInt());
+            b.setMuname(query2.value(1).toString());
+            b.setMusname(query2.value(2).toString());
+            b.setMuvalue(query2.value(3).toInt());
+            b.setMudate(query2.value(4).toDate());
+            b.setSrcUnitID(query2.value(5).toInt());
+            b.setDestUnitID(query2.value(6).toInt());
+            b.setOperatorID(query2.value(7).toString());
+            list2.append(b);
+        }
+        if(list1.isEmpty()&&list2.isEmpty()){
+            error="can't find";
+            tflash(error);
+            redirect(urla("index"));
+            return;
+        }else{
+            texport(list1);
+            texport(list2);
+            render();
+        }
+        }
 void MarketingunitController::reportform(){
-    QList<Marketingunit> marketingunitList = Marketingunit::getAll();
-    texport(marketingunitList);
-    render();
+  render();
 }
 
-void MarketingunitController::showform(const QString &pk){
-    QString b,c;
-     TSqlQuery query;
-     query.exec("SELECT srcUnitID,destUnitID FROM CMS.marketingunit WHERE MUid = '"+pk+"';");
-       while (query.next()){
-           b=query.value(0).toString();
-           c=query.value(1).toString();
-           }
-     auto asunit=AssetsUnit::get(b.toInt());
-     auto marketingunit = Marketingunit::get(pk.toInt());
-     auto assunit=AssetsUnit::get(c.toInt());
-     texport(marketingunit);
-     texport(asunit);
-     texport(assunit);
-     render();
+void MarketingunitController::showform(){
+    QString start = httpRequest().formItemValue("start");
+    QString end = httpRequest().formItemValue("end");
+     QString error;
+    if(start.isEmpty()||end.isEmpty()){
+        error="请输入日期";
+        tflash(error);
+        redirect(urla("reportform"));
+        return;
+    }
+
+     if(start>end){
+        error="起始日期应小于截止日期";
+        tflash(error);
+        redirect(urla("reportform"));
+        return;
+    }
+    int c=0;
+    QList<Marketingunit> list;
+    TSqlQuery query;
+    query.exec("SELECT * FROM CMS.marketingunit WHERE MUdate BETWEEN '"+start+"' AND '"+end+"' ORDER BY MUdate;");
+    while(query.next()){
+        Marketingunit a;
+        a.setMuid(query.value(0).toInt());
+        a.setMuvalue(query.value(1).toInt());
+        a.setMusname(query.value(2).toString());
+        a.setMuname(query.value(3).toString());
+
+
+        a.setMudate(query.value(4).toDate());
+        a.setSrcUnitID(query.value(5).toInt());
+        a.setDestUnitID(query.value(6).toInt());
+        a.setOperatorID(query.value(7).toString());
+        c=a.muvalue()+c;
+        list.append(a);
+    }
+    texport(list);
+    texport(c);
+    render();
 }
 
 

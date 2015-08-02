@@ -1,13 +1,13 @@
 <!doctype html>
 <%#include "marketingunit.h" %>
  <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="/common.css">
-	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
-	<style type="text/css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/common.css">
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <style type="text/css">
 #customers
   {
   width:510px;
@@ -55,8 +55,8 @@
 <th>编辑</th>
 </tr>
 
-<% tfetch(QList<Marketingunit>, marketingunitList); %>
-<% for (const auto &i : marketingunitList) { %>
+<% tfetch(QList<Marketingunit>, list1); %>
+<% for (const auto &i : list1) { %>
   <tr>
     <td><%= i.muid() %></td>
     <td><%= i.muvalue() %></td>
@@ -66,17 +66,27 @@
     <td><%= i.srcUnitID() %></td>
     <td><%= i.destUnitID() %></td>
     <td><%= i.operatorID() %></td>
-    <td>
-      <%== linkTo("Edit", urla("edit", i.muid())) %>
-    </td>
   </tr>
 <% } %>
-</table>	
+<% tfetch(QList<Marketingunit>, list2); %>
+<% for (const auto &i : list2) { %>
+  <tr>
+    <td><%= i.muid() %></td>
+    <td><%= i.muvalue() %></td>
+    <td><%= i.musname() %></td>
+    <td><%= i.muname() %></td>
+    <td><%= i.mudate() %></td>
+    <td><%= i.srcUnitID() %></td>
+    <td><%= i.destUnitID() %></td>
+    <td><%= i.operatorID() %></td>
+  </tr>
+<% } %>
+</table>    
   </div>  
   </div>
   <div style="margin-top:4px">
     <ul type="none">
-      <li style="float:left;"><a href="/marketingunit/index/" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;">刷新</a></li>
+      <li style="float:left;"><a href="/marketingunit/index/" class="easyui-linkbutton" data-options="iconCls:'icon-back'" style="width:80px;">返回</a></li>
            <%== formTag(urla("searching"), Tf::Post) %>
   <p>
     <li style="float:left;margin-left:4px;">
@@ -88,7 +98,7 @@
       </li>
     </ul>
   </div>
-<p style="color: red"><%=$ error %></p>
+
 </body>
 </html>
 

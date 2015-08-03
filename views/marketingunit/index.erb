@@ -88,6 +88,16 @@
       </li>
     </ul>
   </div>
+   <%== formTag(urla("index"), Tf::Post) %>
+  <p>
+    <li style="float:left;margin-left:4px;">
+    <input   class="easyui-searchbox" data-options="prompt:'页号'" type="text" name="page" style="width:343px;height:26px;"/></label>
+    <li style="float:left;margin-left:4px;">
+    <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
+  </p>
+</form>
+<% tfetch(int, tpage); %>
+<p><%= tpage %></p>
 <p style="color: red"><%=$ error %></p>
 </body>
 </html>

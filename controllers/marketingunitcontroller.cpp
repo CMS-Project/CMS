@@ -17,7 +17,42 @@ MarketingunitController::MarketingunitController(const MarketingunitController &
 
 void MarketingunitController::index()
 {
-    QList<Marketingunit> marketingunitList = Marketingunit::getAll();
+    QString hpage = httpRequest().formItemValue("page");
+    int tpage=0,trec=0,spage,epage,page;
+    QString spage1,epage1;
+    TSqlQuery query;
+    query.exec("SELECT * FROM CMS.marketingunit;");
+    while(query.next()){
+     trec=trec+1;
+    }
+    tpage=trec/5;
+    if(tpage*5<trec)tpage=tpage+1;
+    if(hpage.isNull()){
+        page=1;
+    }else{
+        page=hpage.toInt();
+    }
+
+    epage=page*5;
+    spage=epage-5;
+    spage1=QString::number(spage);
+    epage1=QString::number(epage);
+    QList<Marketingunit> marketingunitList;
+    TSqlQuery query2;
+    query2.exec("SELECT * FROM CMS.marketingunit  LIMIT "+spage1+","+epage1+";");
+    while(query2.next()){
+        Marketingunit b;
+        b.setMuid(query2.value(0).toInt());
+        b.setMuname(query2.value(1).toString());
+        b.setMusname(query2.value(2).toString());
+        b.setMuvalue(query2.value(3).toInt());
+        b.setMudate(query2.value(4).toDate());
+        b.setSrcUnitID(query2.value(5).toInt());
+        b.setDestUnitID(query2.value(6).toInt());
+        b.setOperatorID(query2.value(7).toString());
+        marketingunitList.append(b);
+    }
+    texport(tpage);
     texport(marketingunitList);
     render();
 }
@@ -87,11 +122,11 @@ void MarketingunitController::save(const QString &pk)
     auto form = httpRequest().formItems("marketingunit");
     marketingunit.setProperties(form);
     if (marketingunit.save()) {
-        QString notice = "Updated successfully.";
+        QString notice = "修改成功.";
         tflash(notice);
         redirect(urla("show", pk));
     } else {
-        error = "Failed to update.";
+        error = "修改失败.";
         texport(error);
         renderEdit(form);
     }
@@ -155,7 +190,7 @@ void MarketingunitController::searching(){
             list2.append(b);
         }
         if(list1.isEmpty()&&list2.isEmpty()){
-            error="can't find";
+            error="无对应记录";
             tflash(error);
             redirect(urla("index"));
             return;
@@ -204,6 +239,12 @@ void MarketingunitController::showform(){
         a.setOperatorID(query.value(7).toString());
         c=a.muvalue()+c;
         list.append(a);
+    }
+    if(list.isEmpty()){
+        error="所选日期内无记录";
+        tflash(error);
+        redirect(urla("reportform"));
+        return;
     }
     texport(list);
     texport(c);

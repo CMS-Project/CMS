@@ -1,4 +1,5 @@
 #include <TreeFrogModel>
+#include <QSqlTableModel>
 #include "marketingunit.h"
 #include "marketingunitobject.h"
 

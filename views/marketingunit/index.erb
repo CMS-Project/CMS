@@ -52,7 +52,7 @@
 <th>源单元编号</th>
 <th>目标单元编号</th>
 <th>操作员编号</th>
-<th>编辑</th>
+<th>操作</th>
 </tr>
 
 <% tfetch(QList<Marketingunit>, marketingunitList); %>
@@ -67,7 +67,7 @@
     <td><%= i.destUnitID() %></td>
     <td><%= i.operatorID() %></td>
     <td>
-      <%== linkTo("Edit", urla("edit", i.muid())) %>
+      <%== linkTo("编辑", urla("edit", i.muid())) %>
     </td>
   </tr>
 <% } %>
@@ -79,8 +79,8 @@
       <li style="float:left;"><a href="/marketingunit/index/" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;">刷新</a></li>
            <%== formTag(urla("searching"), Tf::Post) %>
   <p>
-    <li style="float:left;margin-left:4px;">
-    <input   class="easyui-searchbox" data-options="prompt:'编号或简称'" type="text" name="search" style="width:343px;height:26px;"/></label>
+    <li style="float:left;margin-left:5px;">
+    <input   class="easyui-searchbox" data-options="prompt:'请输入编号或简称'" type="text" name="search" style="width:343px;height:26px;"/></label>
     <li style="float:left;margin-left:4px;">
     <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
   </p>

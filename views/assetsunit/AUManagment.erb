@@ -13,6 +13,22 @@
             display:inline-block;
             width:80px;
         }
+        .ftitle{
+            font-size:14px;
+            font-weight:bold;
+            padding:5px 0;
+            margin-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .fitem1{
+            margin-bottom:5px;
+        }
+        .fitem1 label{
+            display:inline-block;
+            width:85px;
+        }
+
+	
     </style>
 </head>
 <body style="padding:4px">
@@ -103,6 +119,7 @@
 					</div>
 				</form>
 			</div>
+			<div>
 			<div id="dlg-buttons">
 				<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveMU()" style="width:90px">保存</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">取消</a>
@@ -110,8 +127,71 @@
 		</li>
 		<li style="margin-left:10x;margin-top:10px;">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;" onClick="javascript:$('.easyui-datagrid').datagrid('reload')">刷新</a>
+			<a href="#" class="easyui-linkbutton"  style="width:100px;" onClick="Allot()">资金调拨</a>
+			<a href="#" class="easyui-linkbutton"  style="width:100px;" onClick="Transfer()">资金划转</a>
+			
 		</li>
 	</ul>
+        <div>
+        	<div id="dlg2" class="easyui-dialog" title="资金划转" style="width:410px;height:auto;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons" >
+		    <div class="ftitle">账户信息</div>
+              <form id="form2" method="post" novalidate>
+                <div class="fitem1">
+                    <label>资产单元:</label>
+                      <input name="assetsTransfer[srcUnitID]" class="easyui-textbox" style="width:238px"  validType="number">
+                </div>
+			<div class="ftitle">资金划转</div>
+					<div class="fitem1">
+						<label>划转金额:</label>
+						<input id="input_zr" class="easyui-textbox" type="text" value="  ↑转入↑" style="width:60px;" />
+						<input name="assetsTransfer[muvalue]"  class="easyui-textbox" style="width:173px;" required="true" validType="number" />
+					</div>
+					<div class="fitem1">
+						<label>对象帐号:</label>
+						<input name="assetsTransfer[destUnitID]"  class="easyui-textbox" style="width:238px;" required="true" validType="number" />
+					</div>
+					<div class="fitem1">
+						<label>交易单元简称：</label>
+						<input name="assetsTransfer[musname]"  class="easyui-textbox" style="width:238px;" required="true" validType="text" />
+					</div>
+					<div class="fitem1">
+						<label>交易单元全称：</label>
+						<input name="assetsTransfer[muname]"  class="easyui-textbox" style="width:238px;" />
+					</div>
+			</div>
+		</form>
+		<div id="dlg-buttons">
+          <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="assetsTransfer()" style="width:90px">确定</a>
+          <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg2').dialog('close')" style="width:90px">取消</a>
+         </div>
+       </div>
+         <div id="dlg3" class="easyui-dialog" title="资金调拨" style="width:410px;height:auto;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons" >
+		  <div class="ftitle">账户信息</div>
+          <form id="form1" method="post" novalidate>
+            <div class="fitem1">
+                <label>资产单元:</label>
+                <input name="assetsTransfer[srcUnitID]" class="easyui-textbox"  style="width:238px"  validType="number" />
+            </div>  
+			
+			<div class="ftitle">资金调拨</div>
+				<div class="fitem1">
+					<input id="input_tz" class="easyui-textbox"  type="text" value="调整到" style="width:85px;" />
+					<input name="assetsTransfer[amount]" class="easyui-textbox" style="width:243px;" />
+				</div>
+				<div class="fitem1">
+					<label>备注:</label>
+					<input name="assetsTransfer[remarks]" class="easyui-textbox" style="width:243px;" />
+				</div>
+			</div>
+          </form>
+       </div>
+        <div id="dlg-buttons">
+          <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="assetsAllot()" style="width:90px">确定</a>
+          <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg3').dialog('close')" style="width:90px">取消</a>
+         </div>
+    </div>
 	<script>
 		var url;
 
@@ -217,6 +297,61 @@
 					$('#table2').datagrid('reload');    // reload the user data	
                 }
             });
+		}
+		function Transfer(){
+             var row = $('#table1').datagrid('getSelected');
+			if(row){
+				$('#dlg2').dialog('open');
+				$('#form2').form('clear');
+				$('#form2').form('load',{
+					'assetsTransfer[srcUnitID]':row['assetsUnitID'],
+					
+				});
+				// $('#input_zr').combobox('disable');
+			}else{
+				alert('未选择资产单元');
+
+			}
+		}
+		function Allot(){
+			 var row = $('#table1').datagrid('getSelected');
+			if(row){
+				$('#dlg3').dialog('open');
+				$('#form1').form('clear');
+				$('#form1').form('load',{
+					'assetsTransfer[srcUnitID]':row['assetsUnitID'],
+					
+				});
+				// $('#input_tz').combobox('disable');
+			}else{
+				alert('未选择资产单元');
+			}
+		}
+		function assetsTransfer(){ 
+			$('#form2').form('submit',{
+				url:'/AssetsUnit/assetsTransfer',
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+					$('#dlg2').dialog('close');        // close the dialog
+                }
+            });
+		}
+		function assetsAllot(){
+           	$('#form1').form('submit',{
+				url:'/AssetsUnit/assetsTransfer',
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+					$('#dlg3').dialog('close');        // close the dialog
+                }
+            });
+		}
+		function loadData(){
+			alert('load');
+		
 		}
 	</script>
  </body>

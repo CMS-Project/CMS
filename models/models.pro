@@ -35,3 +35,6 @@ SOURCES += assetsunit.cpp
 HEADERS += sqlobjects/marketingunitobject.h
 HEADERS += marketingunit.h
 SOURCES += marketingunit.cpp
+HEADERS += sqlobjects/auoperationrecordobject.h
+HEADERS += auoperationrecord.h
+SOURCES += auoperationrecord.cpp

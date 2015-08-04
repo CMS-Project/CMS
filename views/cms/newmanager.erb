@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%#include "cms.h"%>
+<%#include "assetsunitmanager.h" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<style type="text/css">
+#maxDiv{
+  position: absolute;
+  width: 350px;
+  height: 30px;
+  left: 305px;
+  top: 62px;
+  }
+#apDiv1 {
+  position: absolute;
+  width: 742px;
+  height: 322px;
+  z-index: 1;
+  left: 305px;
+  top: 116px;
+}
+#apDiv2 {
+  position: absolute;
+  width: 313px;
+  height: 321px;
+  z-index: 1;
+}
+#apDiv3 {
+  position: absolute;
+  width: 344px;
+  height: 121px;
+  z-index: 2;
+  left: 339px;
+  top: 37px;
+}
+#buttonstyle{
+  border:1px #93bee2 dotted;
+  background-color: #E0E0E0;
+  color: #138AD9;
+}
+a{
+  color: #0033FF;
+  font-size: 15px;
+  text-decoration:none;
+}
+a:hover{
+  text-decoration:none;
+}
+</style>
+<script type="text/javascript">
+function checkID()
+{
+  var managerID = document.getElementById("managerID").value;
+  var ID = document.getElementById("ID");
+  if(managerID == "")
+  {
+    ///document.form2.ID.value = "用户名不能为空!";
+    ID.innerHTML = "<font color='red'>不能为空!</font>";
+    return false;
+    }else{
+      ID.innerHTML = "<font color='green'>√</font>";
+      //document.form2.ID.value = "√";
+      return true;
+      }
+    
+  }
+  
+function checkSN()
+{
+  var managerShortname = document.getElementById("managerShortname").value;
+  var shortname = document.getElementById("shortname");
+  if(managerShortname == "")
+  {
+    shortname.innerHTML = "<font color='red'>不能为空!</font>";
+    return false;
+    }else{
+      shortname.innerHTML = "<font color='green'>√</font>";
+      return true;
+      }
+  }
+  
+function checkName()
+{
+  var managerName = document.getElementById("managerName").value;
+  var name = document.getElementById("name");
+  if(managerName == "")
+  {
+    name.innerHTML = "<font color='red'>不能为空!</font>";
+    return false;
+    }else{
+      name.innerHTML = "<font color='green'>√</font>";
+      return true;
+      }   
+  }
+
+function checkState(element)
+{
+  var managerState = document.getElementById("managerState").value;
+  var status1 = "可用";
+  var status2 = "冻结";
+  var state = document.getElementById("state");
+  if(managerState == "")
+  {
+    state.innerHTML = "<font color='red'>不能为空</font>";
+    return false;
+    }else if(managerState == status1 || managerState == status2){
+      state.innerHTML = "<font color='green'>√</font>";
+      return true;
+      }else{
+        state.innerHTML = "<font color='red'>输入不正确</font>";
+        return false;
+      }
+  }
+function checkAll()
+{
+  if(checkID() && checkSN() && checkName() && checkState())
+  {
+   return true;
+  }else{
+    return false;
+    } 
+}
+</script>
+</head>
+<body>
+<div id="maxDiv">
+<p style="color: red" align="center"><%=$ error %></p>
+</div>
+<div id="apDiv1">
+  <div id="apDiv2">
+  <%== formTag(urla("createmanager"), Tf::Post) %>
+      <table width="348" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="35" colspan="2" align="center" bgcolor="#66FFCC" style="font-size: 18px; font-family: 'Arial Black', Gadget, sans-serif; color: #0033FF;"><span style="text-align: center"></span><span style="text-align: left"></span>新建资产管理人</td>
+        </tr>
+        <tr>
+          <td width="130" height="30" style="font-size: 14px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;">资产管理人编号：</td>
+          <td width="218"><label for="managerID"></label>
+          <input name="assetsunitmanager[managerID]" type="text" id="managerID" size="25" maxlength="20" onblur="checkID();"/></td>
+        </tr>
+        <tr>
+          <td height="30" style="font-size: 14px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;">资产管理人简称：</td>
+          <td><label for="managerShortName"></label>
+          <input name="assetsunitmanager[managerShortname]" type="text" id="managerShortname" size="25" maxlength="20" onblur="checkSN();"/></td>
+        </tr>
+        <tr>
+          <td height="30" style="font-size: 14px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;">资产管理人全称：</td>
+          <td><label for="managerName"></label>
+          <input name="assetsunitmanager[managerName]" type="text" id="managerName" size="25" maxlength="20" onblur="checkName();"/></td>
+        </tr>
+        <tr>
+          <td height="30" style="font-size: 14px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;">状态(可用/冻结)：</td>
+          <td><label for="managerState"></label>
+          <input name="assetsunitmanager[managerState]" type="text" id="managerState" size="25" maxlength="5" onblur="checkState();"/></td>
+        </tr>
+        <tr>
+          <td height="20" colspan="2" bgcolor="#66FFCC"></td>
+        </tr>
+        <tr>
+          <td height="30" colspan="2" align="center"><input type="submit" name="tijiao" id="buttonstyle" value="提交" onclick="return checkAll();"/>
+          　
+            <input type="reset" name="chongzhi" id="buttonstyle" value="重置" /></td>
+        </tr>
+        <tr>
+          <td height="30" colspan="2" align="center"><a href="/Cms/list_manager">返回</a></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div id="apDiv3">
+    <table width="331" height="118" border="0" cellpadding="0" cellspacing="0">
+      <tr id="ID">
+        <td height="30"></td>
+      </tr>
+      <tr id="shortname">
+        <td height="30"></td>
+      </tr>
+      <tr id="name">
+        <td height="30"></td>
+      </tr>
+      <tr id="state">
+        <td height="30"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

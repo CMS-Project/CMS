@@ -11,10 +11,57 @@
 #form1 table tr td {
   font-size: small;
 }
+#maxDiv{
+  position: absolute;
+  width: 550px;
+  height: 55px;
+  left: 372px;
+  top: 23px;
+  }
+#apDiv1{
+  position: absolute;
+  width: 550px;
+  height: 389px;
+  left: 371px;
+  top: 84px;
+}
 </style>
+<script>
+function checkAll()
+{
+  var operatorID = document.getElementById("operators[operatorID]").value;
+  var operatorName = document.getElementById("operators[operatorName]").value;
+  var operatorNickname = document.getElementById("operators[operatorNickname]").value;
+  var operatorPassword = document.getElementById("operators[operatorPassword]").value;
+  var operatorPhone = document.getElementById("operators[operatorPhone]").value;
+  var ID = document.getElementById("operators[id]").value;
+  var operatorRole = document.getElementById("operators[operatorRole]").value;
+  var operatorStatus = document.getElementById("operators[operatorStatus]").value;
+  operatorID = operatorID.replace(/^\s+|\s+$/g, "");
+  operatorName = operatorName.replace(/^\s+|\s+$/g, "");
+  operatorNickname = operatorNickname.replace(/^\s+|\s+$/g, "");
+  operatorPassword = operatorPassword.replace(/^\s+|\s+$/g, "");
+  operatorPhone = operatorPhone.replace(/^\s+|\s+$/g, "");
+  ID = ID.replace(/^\s+|\s+$/g, "");
+  operatorRole = operatorRole.replace(/^\s+|\s+$/g, "");
+  operatorStatus = operatorStatus.replace(/^\s+|\s+$/g, "");
+  
+  if(operatorID == "" || operatorName == "" || operatorNickname == "" || operatorPassword == "" || operatorPhone == "" || 
+     ID == "" || operatorRole == "" || operatorStatus == ""){
+       alert("所有项必须填写!");
+      return false;
+    }else{
+      return true;
+      } 
+  }
+</script>
 </head>
 
 <body>
+<div id="maxDiv">
+<p style="color: red" align="center"><%=$ error %></p>
+</div>
+<div id="apDiv1">
 <%== formTag(urla("create"), Tf::Post) %>
   <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
@@ -64,7 +111,7 @@
       <td height="25" colspan="2" align="right" bgcolor="#FFFF33">&nbsp;</td>
     </tr>
     <tr>
-      <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" name="tijiao" id="tijiao" value="提交" />
+      <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" name="tijiao" id="tijiao" value="提交" onclick="return checkAll();"/>
         　
           <input type="reset" name="chongxie" id="chongxie" value="重写" /></td>
     </tr>
@@ -73,5 +120,6 @@
     </tr>
   </table>
 </form>
+</div>
 </body>
 </html>

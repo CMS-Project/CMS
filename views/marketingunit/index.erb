@@ -9,96 +9,98 @@
 	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
 	<style type="text/css">
 #customers
-  {
-  width:510px;
-  border-collapse:collapse;
-  empty-cells: hide;
-  white-space: nowrap;
-  }
+          {
+          width:510px;
+          border-collapse:collapse;
+          empty-cells: hide;
+          white-space: nowrap;
+          }
 
 #customers td, #customers th 
-  {
-  font-size:0.7em;
-  border:1px solid #95B8E7;
-  padding:3px 7px 2px 7px;
-  }
+          {
+          font-size:0.7em;
+          border:1px solid #95B8E7;
+          padding:3px 7px 2px 7px;
+          }
 
 #customers th 
-  {
-  font-size:0.7em;
-  text-align:center;
-  padding-top:5px;
-  padding-bottom:4px;
-  background-color:#F3F3F3;
-  color:black;
-  }
+          {
+          font-size:0.7em;
+          text-align:center;
+          padding-top:5px;
+          padding-bottom:4px;
+          background-color:#F3F3F3;
+          color:black;
+          }
 
 #customers tr, #customers td
-  {
-  color:#000000;
-  }
+          {
+          color:#000000;
+          }
 </style>
 </head>
- <body style="margin-top:4px;padding-left:4px;">
-  <div class="easyui-tabs" style="width:100%;height:360px;" >
-    <div title="交易单元管理" style="width:600px;height:100%;padding:10px;">
-<table id="customers">
-<tr>
-<th>编号</th>
-<th>估值</th>
-<th>简称</th>
-<th>长名称</th>
-<th>日期</th>
-<th>源单元编号</th>
-<th>目标单元编号</th>
-<th>操作员编号</th>
-<th>操作</th>
-</tr>
+    <body style="margin-top:4px;padding-left:4px;">
+      <div class="easyui-tabs" style="width:100%;height:444px;" >
+        <div title="交易单元管理" style="width:600px;height:100%;padding:10px;">
+          <table id="customers">
+            <tr>
+                <th>编号</th>
+                <th>估值</th>
+                <th>简称</th>
+                <th>长名称</th>
+                <th>日期</th>
+                <th>源单元编号</th>
+                <th>目标单元编号</th>
+                <th>操作员编号</th>
+                <th>操作</th>
+            </tr>
 
-<% tfetch(QList<Marketingunit>, marketingunitList); %>
-<% for (const auto &i : marketingunitList) { %>
-  <tr>
-    <td><%= i.muid() %></td>
-    <td><%= i.muvalue() %></td>
-    <td><%= i.musname() %></td>
-    <td><%= i.muname() %></td>
-    <td><%= i.mudate() %></td>
-    <td><%= i.srcUnitID() %></td>
-    <td><%= i.destUnitID() %></td>
-    <td><%= i.operatorID() %></td>
-    <td>
-      <%== linkTo("编辑", urla("edit", i.muid())) %>
-    </td>
-  </tr>
-<% } %>
-</table>	
-  </div>  
-  </div>
+                <% tfetch(QList<Marketingunit>, marketingunitList); %>
+                <% for (const auto &i : marketingunitList) { %>
+            <tr>
+                <td><%= i.muid() %></td>
+                <td><%= i.muvalue() %></td>
+                <td><%= i.musname() %></td>
+                <td><%= i.muname() %></td>
+                <td><%= i.mudate() %></td>
+                <td><%= i.srcUnitID() %></td>
+                <td><%= i.destUnitID() %></td>
+                <td><%= i.operatorID() %></td>
+                <td><%== linkTo("编辑", urla("edit", i.muid())) %></td>
+            </tr>
+                                                            <% } %>
+
+        </table>	
+    </div>  
+</div>
   <div style="margin-top:4px">
     <ul type="none">
       <li style="float:left;"><a href="/marketingunit/index/" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px;">刷新</a></li>
            <%== formTag(urla("searching"), Tf::Post) %>
-  <p>
-    <li style="float:left;margin-left:5px;">
-    <input   class="easyui-searchbox" data-options="prompt:'请输入编号或简称'" type="text" name="search" style="width:343px;height:26px;"/></label>
-    <li style="float:left;margin-left:4px;">
-    <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
-  </p>
-</form>
+                  <p>
+                    <li style="float:left;margin-left:5px;">
+                    <input   class="easyui-searchbox" data-options="prompt:'请输入编号或简称'" type="text" name="search" style="width:343px;height:26px;"/></label>
+                    <li style="float:left;margin-left:4px;">
+                    <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
+                  </p>
+          </form>
       </li>
     </ul>
   </div>
-   <%== formTag(urla("index"), Tf::Post) %>
-  <p>
-    <li style="float:left;margin-left:4px;">
-    <input   class="easyui-searchbox" data-options="prompt:'页号'" type="text" name="page" style="width:343px;height:26px;"/></label>
-    <li style="float:left;margin-left:4px;">
-    <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
-  </p>
-</form>
-<% tfetch(int, tpage); %>
-<p><%= tpage %></p>
-<p style="color: red"><%=$ error %></p>
+
+      <div>
+         <%== formTag(urla("index"), Tf::Post) %>
+        <p>
+            <li style="float:left;margin-left:4px;">
+            <input   class="easyui-searchbox" data-options="prompt:'页号'" type="text" name="page" style="width:343px;height:26px;"/></label>
+            <li style="float:left;margin-left:4px;">
+            <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
+        </p>
+            </form>
+            <% tfetch(int, tpage); %>
+            <p><%= tpage %></p>
+            <p style="color: red"><%=$ error %></p>
+      </div>
 </body>
 </html>
 

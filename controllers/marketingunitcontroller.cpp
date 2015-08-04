@@ -207,24 +207,26 @@ void MarketingunitController::reportform(){
 void MarketingunitController::showform(){
     QString start = httpRequest().formItemValue("start");
     QString end = httpRequest().formItemValue("end");
-     QString error;
-    if(start.isEmpty()||end.isEmpty()){
+    QString error;
+    QList<Marketingunit> list;
+    TSqlQuery query;
+    int c=0;
+    if(start.isEmpty()&&end.isEmpty()){
+        query.exec("SELECT * FROM CMS.marketingunit ORDER BY MUdate;");
+    }else if(start.isEmpty()||end.isEmpty()){
         error="请输入日期";
         tflash(error);
         redirect(urla("reportform"));
         return;
-    }
-
-     if(start>end){
+    }else if(start>end){
         error="起始日期应小于截止日期";
         tflash(error);
         redirect(urla("reportform"));
         return;
+    }else{
+        query.exec("SELECT * FROM CMS.marketingunit WHERE MUdate BETWEEN '"+start+"' AND '"+end+"' ORDER BY MUdate;");
     }
-    int c=0;
-    QList<Marketingunit> list;
-    TSqlQuery query;
-    query.exec("SELECT * FROM CMS.marketingunit WHERE MUdate BETWEEN '"+start+"' AND '"+end+"' ORDER BY MUdate;");
+
     while(query.next()){
         Marketingunit a;
         a.setMuid(query.value(0).toInt());

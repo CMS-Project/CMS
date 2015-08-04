@@ -27,6 +27,12 @@ public slots:
     void getMarketingUnitList();
     void editMarketingUnit();
     void assetsTransfer();
+
+private:
+    void operationLog(QString type, QString result, QString remarks);
+
+protected:
+    bool preFilter();
 };
 
 T_DECLARE_CONTROLLER(AssetsunitController, assetsunitcontroller)

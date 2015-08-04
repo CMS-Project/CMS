@@ -5,6 +5,7 @@
 #include <QDate>
 #include <TSqlQuery>
 #include <TActionController>
+#include <auoperationrecord.h>
 
 AssetsunitController::AssetsunitController(const AssetsunitController &)
     : ApplicationController()
@@ -100,11 +101,16 @@ void AssetsunitController::createAssetsUnit()
 
     auto form = httpRequest().formItems("assetsUnit");
     auto assetsunit = AssetsUnit::create(form);
+    QString result;
 
     if (!assetsunit.isNull()) {
-		renderText("Ok");
+        result = "成功";
     } else {
+        result = "失败";
     }
+
+    operationLog("资产单元添加", result, "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称变更: " + form["assetsUnitShortname"].toString());
+    renderText(QString("创建" + result));
 }
 
 void AssetsunitController::editAssetsUnit()
@@ -117,14 +123,18 @@ void AssetsunitController::editAssetsUnit()
     int id = assetsUnit["assetsUnitID"].toInt();
     QString name = assetsUnit["assetsUnitShortname"].toString();
     AssetsUnit au = AssetsUnit::get(id);
+    QString result;
 
     au.setAssetsUnitShortname(name);
 
     if(au.save()) {
-        renderText("Ok");
+        result = "成功";
     }else{
-
+        result = "失败";
     }
+
+    operationLog("资产单元修改", result, "修改资产单元: ID: " + QString(id) + ", 名称更改: " + name);
+    renderText(QString("修改" + result));
 }
 
 void AssetsunitController::removeAssetsUnit()
@@ -135,12 +145,18 @@ void AssetsunitController::removeAssetsUnit()
 
     QString id = httpRequest().formItemValue("assetsUnitID");
     AssetsUnit au = AssetsUnit::get(id.toInt());
-    if(au.remove()) {
-        renderText("Ok");
-    }else {
+    QString result;
 
+    if(au.remove()) {
+        result = "成功";
+    }else {
+        result = "失败";
     }
+
+    operationLog("资产单元删除", result, "删除资产单元: ID: " + QString(id));
+    renderText(QString("删除" + result));
 }
+
 void AssetsunitController::getMarketingUnitList(){
     QJsonArray array;
     QJsonObject json;
@@ -186,15 +202,20 @@ void AssetsunitController::editMarketingUnit(){
     int id = marketingUnit["marketingUnitID"].toInt();
     QString name = marketingUnit["marketingUnitShortname"].toString();
     Marketingunit mu = Marketingunit::get(id);
+    QString result;
 
     mu.setMusname(name);
 
     if(mu.save()) {
-        renderText("Ok");
+        result = "成功";
     }else{
-
+        result = "失败";
     }
+
+    operationLog("交易单元修改", result, "修改交易单元: ID: " + QString(id) + ", 名称变更: " + name);
+    renderText(QString("修改" + result));
 }
+
 void AssetsunitController::assetsTransfer(){
     if (httpRequest().method() != Tf::Post) {
         return;
@@ -204,12 +225,35 @@ void AssetsunitController::assetsTransfer(){
     if(form["muname"].isNull()) form["muname"] = "";
 	form["operaotrID"] = session()["operatorID"].toInt();
     Marketingunit marketingunit = Marketingunit::create(form);
+    QString result;
 
     if(!marketingunit.isNull()){
-        renderText("Ok");
+        result = "成功";
     }else{
-        renderText("Failed");
+        result = "失败";
     }
+
+    operationLog("资产调拨", result, "从资产单元 " + form["srcUnitID"].toString() + "到 " + form["destUnitID"].toString() + ", 金额: " + form["muvalue"].toString());
+    renderText(QString("调拨" + result));
+}
+
+void AssetsunitController::operationLog(QString type, QString result, QString remarks)
+{
+    QString operatorID = session()["operatorID"].toString();
+
+    AuoperationRecord::create(operatorID, type, result, remarks);
+}
+
+bool AssetsunitController::preFilter()
+{
+    QString operatorID = session()["operatorID"].toString();
+
+    if(operatorID.isNull() || operatorID.isEmpty()){
+        redirect(url("cms", "index"));
+        return false;
+    }
+
+    return true;
 }
 
 // Don't remove below this line

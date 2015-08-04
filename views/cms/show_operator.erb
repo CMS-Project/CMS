@@ -13,7 +13,7 @@
   top: 106px;
   left: 350px;
   width: 460px;
-  height: 378px;
+  height: 330px;
   } 
 .div1{
   position: absolute;
@@ -22,23 +22,22 @@
   }
 .div3{
   position: absolute;
-  top: 104px;
+  top: 74px;
   left: 0px;
   width: 460;
   height: 180px;
-  border: 1px solid #429fff;
-  overflow-y: scroll;
+  border:1px solid #429fff;
   }
 .div4{
   position: absolute;
-  top: 290px;
+  top: 260px;
   left: 0px;
   width: 314px;
   }
 .fanhui{
   position: absolute;
   left: 392px;
-  top: 329px;
+  top: 299px;
   width: 50px;
   }     
 .table1{
@@ -80,6 +79,14 @@ a{
   }
 a:hover{
   text-decoration:none;
+}
+#apDiv1 {
+  position: absolute;
+  width: 129px;
+  height: 37px;
+  z-index: 1;
+  left: 514px;
+  top: 51px;
 }
 </style>
 <script language="javascript">
@@ -125,14 +132,8 @@ function tichu(){
 <div class="div1">
 <table class="table1">
     <caption>
-    操作员列表
+    操作员查询结果
     </caption>
-    <tr>
-      <th height="30" colspan="4" align="center" ><%== formTag(urla("search_operator"), Tf::Post) %>
-        <label for="search"></label>
-        <input name="operators[operatorID]" type="text" id="operators[operatorID]" size="60" />
-      </form></th>
-      </tr>
     <tr>
       <th width="135" height="30" align="center" >操作员管理人编号</th>
       <th width="115" align="center">操作员编号</th>
@@ -142,34 +143,33 @@ function tichu(){
   </table>
   <div class="div3">
   <table class="intable1"> 
-<% tfetch(QList<Operators>,operator_list);%>
-<% for(const auto &i : operator_list) {%>
+<% tfetch(Operators, operators); %>
+<% if(operators.operatorID() != ""){%>
     <tr height="30px" onclick="do_onclick(this)">
     <td width="151" align="center" valign="top" ><%= adminID%></td>
-    <td width="127" align="left"><%= i.operatorID() %></td>
-    <td width="127" align="left"><%= i.operatorNickname()  %></td>
-    <td width="55" align="left"><%= i.operatorStatus() %></td>
+    <td width="127" align="left"><%= operators.operatorID() %></td>
+    <td width="127" align="left"><%= operators.operatorNickname()  %></td>
+    <td width="55" align="left"><%= operators.operatorStatus() %></td>
     </tr> 
-<% } %>
+    <% } %>
   </table>
   </div>
   <div class="div4">
-  <table width="304" border="1" cellpadding="3" class="table2">
+  <table width="243" height="66" border="1" cellpadding="3" class="table2">
     <tr>
-      <td width="90" align="center"><a href="/Cms/entry">新建</a></td>
+      <td width="90" align="center"><a href="" id="tichu"  onclick="tichu();"/>剔除</td>
       <td width="90" align="center"><a href="" id="xiugai" onclick="xiugai();"/>修改</a></td>
-      <td width="90" align="center"><a href="" onclick="www.location.reload()">刷新</a></td>
-    </tr>
+      </tr>
     <tr>
-      <td align="center"><a href="" id="dongjie"  onclick="dongjie();"/>冻结/解冻</a></td>
-      <td align="center"><a href="" id="shanchu"  onclick="shanchu();"/>删除</a></td>
-      <td align="center"><a href="" id="tichu"    onclick="tichu();"/>剔除</td>
-    </tr>
+      <td align="center" width="90"><a href="" id="dongjie"  onclick="dongjie();"/>冻结/解冻</a></td>
+      <td align="center" width="90"><a href="" id="shanchu"  onclick="shanchu();"/>删除</a></td>
+      </tr>
   </table>
   </div>
 </div>
 <div class="fanhui">
-  <a href="/Cms/admin_center/<%=adminID%>">上一页</a>
+  <a href="/Cms/list_operator/<%=adminID%>">返回</a>
   </div>
 </div>
+<div id="apDiv1"><p style="color: red"><%=$ error %></p></div>
 </html>

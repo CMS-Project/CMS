@@ -2,6 +2,7 @@
 #include "cms.h"
 #include "cmsobject.h"
 #include "operators.h"
+#include "assetsunitmanager.h"
 
 Cms::Cms()
     : TAbstractModel(), d(new CmsObject)
@@ -144,6 +145,18 @@ bool Cms::operatorlogin(const QVariantMap &values)
     return false;
 }
 
+bool Cms::checkoperatorID(const QString &operatorID)
+{
+    TSqlQuery query;
+    query.exec("SELEXT operatorID FROM operators where operatorID = '"+operatorID+"'");
+    if(query.next()){
+        return false;
+    }else{
+        return true;
+    }
+
+}
+
 bool Cms::insert_connection(const QString &adminID, const QString &operatorID)
 {
     TSqlQuery query;
@@ -201,6 +214,40 @@ bool Cms::change_status(const QString &operatorID)
     }else{
         return false;
     }
+}
+
+bool Cms::cgstatus(const QString  &managerID)
+{
+
+    QString status = "";
+    TSqlQuery query;
+    query.exec("SELECT managerState FROM assetsunitmanager WHERE managerID = '"+managerID+"'");
+    if(query.next()){
+        status = query.value(0).toString();
+        if(status.compare("可用") == 0){
+            status = "冻结";
+        }else{
+            status  = "可用";
+        }
+        if( query.exec("UPDATE assetsunitmanager set managerState = '"+status+"' WHERE  managerID = '"+managerID+"'") )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+//    QString name = "可用";
+//    QString sn = "er";
+//    TSqlQuery query;
+//    if(query.exec("UPDATE assetsunitmanager set managerState = '"+name+"' WHERE managerID = '1'"))
+//    {
+//        return true;
+//    }else{
+//        return false;
+//    }
+
 }
 
 //void Cms::list_operator(const QString &adminID)

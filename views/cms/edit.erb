@@ -12,6 +12,33 @@
   font-size: small;
 }
 </style>
+<script>
+function checkAll()
+{
+  var operatorName = document.getElementById("operators[operatorName]").value;
+  var operatorNickname = document.getElementById("operators[operatorNickname]").value;
+  var operatorPassword = document.getElementById("operators[operatorPassword]").value;
+  var operatorPhone = document.getElementById("operators[operatorPhone]").value;
+  var ID = document.getElementById("operators[id]").value;
+  var operatorRole = document.getElementById("operators[operatorRole]").value;
+  var operatorStatus = document.getElementById("operators[operatorStatus]").value;
+  operatorName = operatorName.replace(/^\s+|\s+$/g, "");
+  operatorNickname = operatorNickname.replace(/^\s+|\s+$/g, "");
+  operatorPassword = operatorPassword.replace(/^\s+|\s+$/g, "");
+  operatorPhone = operatorPhone.replace(/^\s+|\s+$/g, "");
+  ID = ID.replace(/^\s+|\s+$/g, "");
+  operatorRole = operatorRole.replace(/^\s+|\s+$/g, "");
+  operatorStatus = operatorStatus.replace(/^\s+|\s+$/g, "");
+  
+  if(operatorName == "" || operatorNickname == "" || operatorPassword == "" || operatorPhone == "" || 
+     ID == "" || operatorRole == "" || operatorStatus == ""){
+       alert("所有项必须填写!");
+      return false;
+    }else{
+      return true;
+      } 
+  }
+</script>
 </head>
 <body>
 <p style="color: red"><%=$ error %></p>
@@ -66,12 +93,12 @@
       <td height="25" colspan="2" align="right" bgcolor="#FFFF33">&nbsp;</td>
     </tr>
     <tr>
-      <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" name="tijiao" id="tijiao" value="提交" />
+      <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" name="tijiao" id="tijiao" value="提交" onclick="return checkAll();"/>
         　
           <input type="reset" name="chongxie" id="chongxie" value="重写" /></td>
     </tr>
     <tr>
-      <td height="25" colspan="2" align="center" valign="bottom"><%== linkTo("Back", urla("list_operator",adminID)) %></td>
+      <td height="25" colspan="2" align="center" valign="bottom"><%== linkTo("返回", urla("list_operator",adminID)) %></td>
     </tr>
   </table>
 </form>

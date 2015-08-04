@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
 <style type="text/css">
 #apDiv1 {
 	position: absolute;
@@ -18,8 +18,9 @@
 }
 #span1{
 	position: absolute;
-	left: 5px;
-	top: 0px;	
+	left: 4px;
+	top: -9px;
+	width: 300px;
 }
 #span2{
 	position: absolute;
@@ -32,13 +33,27 @@
 	position: absolute;
 	left: 230px;
 	top: 94px;
-	}
+}
+#span4{
+	position: absolute;
+	left: 713px;
+	top: -1px;
+	width: 80px;
+	}	
 #p2{
 	font-family: "Comic Sans MS", cursive;
 	text-align: center;
 	font-size: 30px;
 	color: #3333FF;
 	font-style: italic;
+}
+a{
+	color: #0033FF;
+	font-size: 15px;
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
 }
 li{
 	list-style-type:none;
@@ -49,7 +64,10 @@ li{
 <body>
 <div id="apDiv1">
 <span id="span1">
-<p style="text-align: left;color: #003399; font-size: 14px;" align="left">欢迎您，<%=adminID%></p>
+<p style="vertical-align: text-top; text-align: left; color: #003399; font-size: 14px;" align="left">欢迎您，<%=adminID%></p>
+<span  id="span4">
+<p style="vertical-align: text-top;text-align: right; color: #003399; font-size: 14px;" align="right"><a href="/Cms/index/">退出</a></p>
+</span>
 </span>
 <span id="span2">
 <p id="p2">管理员中心</p>
@@ -58,6 +76,9 @@ li{
 <ul>
 <li>
 <a href="/Cms/list_operator/<%=adminID%>">操作员管理</a>
+</li>
+<li>
+<a href="/Cms/list_manager">资产管理人管理</a>
 </li>
 </ul>
 </span>

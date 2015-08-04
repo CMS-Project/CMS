@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%#include "cms.h" %>
+<%#include "assetsunitmanager.h" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+<style type="text/css">
+#apDiv1 {
+  position: absolute;
+  width: 605px;
+  height: 325px;
+  z-index: 1;
+  left: 282px;
+  top: 100px;
+  border: 1px solid #429FFF;
+  background-color: #96EDFE;
+}
+#apDiv2{
+  position: absolute;
+  top: 3px;
+  width: 600px;
+  height: 77px;
+  left: 2px;
+  border: 1px solid #429FFF;
+}
+input{
+  border:none;
+  }
+#apDiv3 {
+  position: absolute;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 600px;
+  height: 194px;
+  z-index: 1;
+  left: 2px;
+  top: 80px;
+  border: 1px solid #429FFF;
+}
+#apDiv4 {
+  position: absolute;
+  width: 300px;
+  height: 35px;
+  z-index: 2;
+  left: 303px;
+  top: 280px;
+}
+#title{
+  height:42px;
+  font-family: Tahoma,Verdana,Arial;
+  background-color:#66FFFF;
+  font-size: 20px;
+  text-align:left;
+  vertical-align:top;
+}
+.intable td{
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+  vertical-align:bottom;  
+  } 
+#a{
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+}
+.table3{
+  border-collapse:collapse;
+  } 
+.table3 td{
+  background-color: #E0E0E0;
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+  vertical-align:bottom;  
+}
+a{
+  color: #0033FF;
+  font-size: 15px;
+  text-decoration:none;
+}
+a:hover{
+  text-decoration:none;
+}
+#apDiv5 {
+  position: absolute;
+  width: 200px;
+  height: 45px;
+  z-index: 3;
+  left: 3px;
+  top: 280px;
+}
+#apDiv6 {
+  position: absolute;
+  width: 200px;
+  height: 49px;
+  z-index: 2;
+  top: 44px;
+  left: 475px;
+}
+.ta{
+  border-collapse:collapse;
+}
+.ta td{
+  font-family:Tahoma,Verdana,Arial;
+  font-size: small;
+  height:20px;
+  vertical-align:bottom;
+ }
+</style>
+<script language="javascript">
+ var curtab = null;
+ var str = null;
+ function do_onclick(tab){
+   if(curtab != null) curtab.style.backgroundColor = " #96EDFE"; 
+    tab.style.backgroundColor = "#E0E0E0";
+    curtab = tab; 
+    var tds = curtab.cells;
+        str =  tds[0].innerHTML;  
+ }
+function  xiugai(){
+  if(str != null)
+    document.getElementById('xiugai').href = "/Cms/changemanager/"+str;
+
+}
+
+ function dongjie(){
+   if(str != null)
+       document.getElementById('dongjie').href = "/Cms/cgstatus/"+str;
+ }
+</script>
+</head>
+
+<body>
+<div id="apDiv6"><p style="color: red"><%=$ error %></p></div>
+<div id="apDiv1">
+<div id="apDiv2">
+  <table width="600" height="75" border="0" cellpadding="0" cellspacing="0" class="ta">
+    <tr>
+      <td height="40" colspan="4" id="title">资产管理人查询列表</td>
+    </tr>
+    <tr>
+      <td width="116" id="a">资产管理人编号</td>
+      <td width="124" id="a">资产管理人简称</td>
+      <td width="175" id="a">资产管理人全称</td>
+      <td width="175" height="25" id="a">状态</td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv3">
+  <table class="intable">
+<% tfetch(Assetsunitmanager, assetsunitmanager); %>
+<% if(assetsunitmanager.managerShortname() != "") {%>
+    <tr onclick="do_onclick(this)">
+      <td width="111" align="center"><%=assetsunitmanager.managerID()%></td>
+      <td width="123"><%=assetsunitmanager.managerShortname()%></td>
+      <td width="171"><%=assetsunitmanager.managerName()%></td>
+      <td width="175"><%=assetsunitmanager.managerState()%></td>
+    </tr>
+    <% } %>
+  </table>
+</div>
+<div id="apDiv4">
+  <table width="300" height="25" border="1" cellpadding="0" cellspacing="0" class="table3">
+    <tr>
+      <td width="75" align="center"><a href="" id="xiugai" onclick="xiugai();">修改</a></td>
+      <td width="75" align="center"><a href="" onclick="www.location.reload()">刷新</a></td>
+      <td width="75" align="center"><a href="" id="dongjie" onclick="dongjie();">冻结/解冻</a></td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv5">
+<a href="/Cms/list_manager">返回</a></div>
+</div>
+</body>
+</html>

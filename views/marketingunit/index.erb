@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/common.css">
 	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+  
 	<style type="text/css">
 #customers
           {
@@ -89,15 +90,27 @@
   </div>
 
       <div>
-         <%== formTag(urla("index"), Tf::Post) %>
+        <% tfetch(int, page); %>
+         <% tfetch(int, tpage); %>
+          
+
         <p>
             <li style="float:left;margin-left:4px;">
+              <%== formTag(urla("index"), Tf::Post) %>
+                <input name="page" type="hidden" value="<%= page - 1 %>">
+                <input type="submit" value="上一页">
+              </form>
+              <%== formTag(urla("index"), Tf::Post) %>
+                 <input name="page" type="hidden" value="<%= page + 1 %>">
+                 <input type="submit" value="下一页">
+              </form>
+          
             <input   class="easyui-searchbox" data-options="prompt:'页号'" type="text" name="page" style="width:343px;height:26px;"/></label>
             <li style="float:left;margin-left:4px;">
             <input class="easyui-linkbutton" type="submit" value="查找" style="width:80px;height:29px;" />
         </p>
-            </form>
-            <% tfetch(int, tpage); %>
+         
+           
             <p><%= tpage %></p>
             <p style="color: red"><%=$ error %></p>
       </div>

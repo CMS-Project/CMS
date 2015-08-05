@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<%#include "assetsunitmanager.h" %>
+<% tfetch(QVariantMap, assetsunitmanager); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Assetsunitmanager</h1>
+
+<%== formTag(urla("save", assetsunitmanager["managerID"]), Tf::Post) %>
+  <p>
+    <label>ManagerID<br /><input type="text" name="assetsunitmanager[managerID]" value="<%= assetsunitmanager["managerID"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>ManagerName<br /><input type="text" name="assetsunitmanager[managerName]" value="<%= assetsunitmanager["managerName"] %>" /></label>
+  </p>
+  <p>
+    <label>ManagerShortname<br /><input type="text" name="assetsunitmanager[managerShortname]" value="<%= assetsunitmanager["managerShortname"] %>" /></label>
+  </p>
+  <p>
+    <label>ManagerState<br /><input type="text" name="assetsunitmanager[managerState]" value="<%= assetsunitmanager["managerState"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", assetsunitmanager["managerID"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

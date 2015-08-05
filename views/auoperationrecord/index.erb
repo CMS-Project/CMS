@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%#include "auoperationrecord.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Auoperation Record</h1>
+
+<%== linkTo("New entry", urla("entry")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>OpID</th>
+    <th>OperatorID</th>
+    <th>Type</th>
+    <th>Result</th>
+    <th>Time</th>
+    <th>Remarks</th>
+  </tr>
+<% tfetch(QList<AuoperationRecord>, auoperationRecordList); %>
+<% for (const auto &i : auoperationRecordList) { %>
+  <tr>
+    <td><%= i.opID() %></td>
+    <td><%= i.operatorID() %></td>
+    <td><%= i.type() %></td>
+    <td><%= i.result() %></td>
+    <td><%= i.time() %></td>
+    <td><%= i.remarks() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.opID())) %>
+      <%== linkTo("Edit", urla("edit", i.opID())) %>
+      <%== linkTo("Remove", urla("remove", i.opID()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<%#include "assetsunitmanager.h" %>
+<% tfetch(Assetsunitmanager, assetsunitmanager); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Assetsunitmanager</h1>
+<dt>ManagerID</dt><dd><%= assetsunitmanager.managerID() %></dd><br />
+<dt>ManagerName</dt><dd><%= assetsunitmanager.managerName() %></dd><br />
+<dt>ManagerShortname</dt><dd><%= assetsunitmanager.managerShortname() %></dd><br />
+<dt>ManagerState</dt><dd><%= assetsunitmanager.managerState() %></dd><br />
+
+<%== linkTo("Edit", urla("edit", assetsunitmanager.managerID())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

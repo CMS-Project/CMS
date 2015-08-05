@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<%#include "auoperationrecord.h" %>
+<% tfetch(AuoperationRecord, auoperationRecord); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Showing Auoperation Record</h1>
+<dt>OpID</dt><dd><%= auoperationRecord.opID() %></dd><br />
+<dt>OperatorID</dt><dd><%= auoperationRecord.operatorID() %></dd><br />
+<dt>Type</dt><dd><%= auoperationRecord.type() %></dd><br />
+<dt>Result</dt><dd><%= auoperationRecord.result() %></dd><br />
+<dt>Time</dt><dd><%= auoperationRecord.time() %></dd><br />
+<dt>Remarks</dt><dd><%= auoperationRecord.remarks() %></dd><br />
+
+<%== linkTo("Edit", urla("edit", auoperationRecord.opID())) %> |
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

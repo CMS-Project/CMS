@@ -27,3 +27,7 @@ SOURCES += assetsunitcontroller.cpp
 #SOURCES += assetsunitmmanagercontroller.cpp
 HEADERS += marketingunitcontroller.h
 SOURCES += marketingunitcontroller.cpp
+HEADERS += assetsunitmanagercontroller.h
+SOURCES += assetsunitmanagercontroller.cpp
+HEADERS += auoperationrecordcontroller.h
+SOURCES += auoperationrecordcontroller.cpp

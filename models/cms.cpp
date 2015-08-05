@@ -159,7 +159,18 @@ bool Cms::checkoperatorID(const QString &operatorID)
 
 bool Cms::insert_connection(const QString &adminID, const QString &operatorID)
 {
-    TSqlQuery query;
+    TSqlQuery query1,query;
+    QString role = "操作员";
+    QString way = "新建";
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+    query1.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+    query1.bindValue(":adminID",adminID);
+    query1.bindValue(":userID",operatorID);
+    query1.bindValue(":role",role);
+    query1.bindValue(":time",now_time);
+    query1.bindValue(":way",way);
+    query1.exec();
     query.prepare("INSERT INTO connection (adminID,operatorID)  VALUE (:adminID, :operatorID)");
     query.bindValue(":adminID",adminID);
     query.bindValue(":operatorID",operatorID);
@@ -169,21 +180,88 @@ bool Cms::insert_connection(const QString &adminID, const QString &operatorID)
         return false;
 }
 
-bool Cms::remove_connection(const QString &adminID, const QString &operatorID)
+bool Cms::update_operator(const QString &adminID, const QString &operatorID)
 {
     TSqlQuery query;
-    bool result = query.exec("DELETE FROM connection WHERE adminID = '"+adminID+"' AND operatorID = '"+operatorID+"'");
-    return result;
+    QString role = "操作员";
+    QString way = "修改";
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+    query.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+    query.bindValue(":adminID",adminID);
+    query.bindValue(":userID",operatorID);
+    query.bindValue(":role",role);
+    query.bindValue(":time",now_time);
+    query.bindValue(":way",way);
+    if(query.exec())
+        return true;
+    else
+        return false;
 
 }
 
-bool Cms::delete_operator(const QString &operatorID)
+bool Cms::update_manager(const QString &adminID, const QString &managerID)
 {
     TSqlQuery query;
+    QString role = "资产管理人";
+    QString way = "修改";
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+    query.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+    query.bindValue(":adminID",adminID);
+    query.bindValue(":userID",managerID);
+    query.bindValue(":role",role);
+    query.bindValue(":time",now_time);
+    query.bindValue(":way",way);
+    if(query.exec())
+        return true;
+    else
+        return false;
+
+}
+
+
+bool Cms::remove_connection(const QString &adminID, const QString &operatorID)
+{
+    TSqlQuery query,query1;
+   if( query.exec("DELETE FROM connection WHERE adminID = '"+adminID+"' AND operatorID = '"+operatorID+"'"))
+   {
+       QString role = "操作员";
+       QString way = "踢除";
+       QDateTime current_date_time = QDateTime::currentDateTime();
+       QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+       query1.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+       query1.bindValue(":adminID",adminID);
+       query1.bindValue(":userID",operatorID);
+       query1.bindValue(":role",role);
+       query1.bindValue(":time",now_time);
+       query1.bindValue(":way",way);
+       query1.exec();
+       return true;
+   }else{
+       return false;
+   }
+
+}
+
+bool Cms::delete_operator(const QString &adminID,const QString &operatorID)
+{
+    TSqlQuery query,query1;
     if( query.exec("DELETE FROM connection WHERE operatorID = '"+operatorID+"'") )
     {
       if( query.exec("DELETE FROM operators WHERE operatorID = '"+operatorID+"'") )
       {
+          QString role = "操作员";
+          QString way = "删除";
+          QDateTime current_date_time = QDateTime::currentDateTime();
+          QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+          query1.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+          query1.bindValue(":adminID",adminID);
+          query1.bindValue(":userID",operatorID);
+          query1.bindValue(":role",role);
+          query1.bindValue(":time",now_time);
+          query1.bindValue(":way",way);
+          query1.exec();
           return true;
       }else{
           return false;
@@ -193,10 +271,10 @@ bool Cms::delete_operator(const QString &operatorID)
     }
 }
 
-bool Cms::change_status(const QString &operatorID)
+bool Cms::change_status(const QString &adminID, const QString &operatorID)
 {
     QString status = "";
-    TSqlQuery query;
+    TSqlQuery query,query1;
     query.exec("SELECT operatorStatus FROM operators WHERE operatorID = '"+operatorID+"'");
     if(query.next()){
         status = query.value(0).toString();
@@ -207,6 +285,19 @@ bool Cms::change_status(const QString &operatorID)
         }
         if( query.exec("UPDATE operators set operatorStatus = '"+status+"' WHERE operatorID = '"+operatorID+"'") )
         {
+            QString role = "操作员";
+            if(status.compare("正常") == 0){
+                status = "解冻";
+            }
+            QDateTime current_date_time = QDateTime::currentDateTime();
+            QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+            query1.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+            query1.bindValue(":adminID",adminID);
+            query1.bindValue(":userID",operatorID);
+            query1.bindValue(":role",role);
+            query1.bindValue(":time",now_time);
+            query1.bindValue(":way",status);
+            query1.exec();
             return true;
         }else{
             return false;
@@ -216,11 +307,11 @@ bool Cms::change_status(const QString &operatorID)
     }
 }
 
-bool Cms::cgstatus(const QString  &managerID)
+bool Cms::cgstatus(const QString  &adminID,const QString  &managerID)
 {
 
     QString status = "";
-    TSqlQuery query;
+    TSqlQuery query,query1;
     query.exec("SELECT managerState FROM assetsunitmanager WHERE managerID = '"+managerID+"'");
     if(query.next()){
         status = query.value(0).toString();
@@ -231,23 +322,26 @@ bool Cms::cgstatus(const QString  &managerID)
         }
         if( query.exec("UPDATE assetsunitmanager set managerState = '"+status+"' WHERE  managerID = '"+managerID+"'") )
         {
+            QString role = "资产管理人";
+            if(status.compare("可用") == 0){
+                status = "解冻";
+            }
+            QDateTime current_date_time = QDateTime::currentDateTime();
+            QString now_time= current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+            query1.prepare("INSERT INTO log (adminID,userID,role,time,way)  VALUE (:adminID, :userID, :role, :time, :way)");
+            query1.bindValue(":adminID",adminID);
+            query1.bindValue(":userID",managerID);
+            query1.bindValue(":role",role);
+            query1.bindValue(":time",now_time);
+            query1.bindValue(":way",status);
+            query1.exec();
             return true;
         }else{
             return false;
         }
-    }else{
-        return false;
-    }
-//    QString name = "可用";
-//    QString sn = "er";
-//    TSqlQuery query;
-//    if(query.exec("UPDATE assetsunitmanager set managerState = '"+name+"' WHERE managerID = '1'"))
-//    {
-//        return true;
-//    }else{
-//        return false;
-//    }
-
+        }else{
+            return false;
+        }
 }
 
 //void Cms::list_operator(const QString &adminID)

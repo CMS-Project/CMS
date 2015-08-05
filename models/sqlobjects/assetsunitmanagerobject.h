@@ -8,7 +8,7 @@
 class T_MODEL_EXPORT AssetsunitmanagerObject : public TSqlObject, public QSharedData
 {
 public:
-    int managerID;
+    QString managerID;
     QString managerName;
     QString managerShortname;
     QString managerState;
@@ -26,8 +26,8 @@ public:
 
 private:    /*** Don't modify below this line ***/
     Q_OBJECT
-    Q_PROPERTY(int managerID READ getmanagerID WRITE setmanagerID)
-    T_DEFINE_PROPERTY(int, managerID)
+    Q_PROPERTY(QString managerID READ getmanagerID WRITE setmanagerID)
+    T_DEFINE_PROPERTY(QString, managerID)
     Q_PROPERTY(QString managerName READ getmanagerName WRITE setmanagerName)
     T_DEFINE_PROPERTY(QString, managerName)
     Q_PROPERTY(QString managerShortname READ getmanagerShortname WRITE setmanagerShortname)

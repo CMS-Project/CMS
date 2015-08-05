@@ -112,7 +112,8 @@
          
            
             <p><%= tpage %></p>
-            <p style="color: red"><%=$ error %></p>
+            <% tfetch(QString, warning); %>
+            <p><%= warning %></p>
       </div>
 </body>
 </html>

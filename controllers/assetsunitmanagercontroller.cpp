@@ -1,6 +1,5 @@
 #include "assetsunitmanagercontroller.h"
 #include "assetsunitmanager.h"
-#include "cmscontroller.h"
 
 
 AssetsunitmanagerController::AssetsunitmanagerController(const AssetsunitmanagerController &)
@@ -16,7 +15,7 @@ void AssetsunitmanagerController::index()
 
 void AssetsunitmanagerController::show(const QString &pk)
 {
-    auto assetsunitmanager = Assetsunitmanager::get(pk.toInt());
+    auto assetsunitmanager = Assetsunitmanager::get(pk);
     texport(assetsunitmanager);
     render();
 }
@@ -35,9 +34,9 @@ void AssetsunitmanagerController::create()
     auto form = httpRequest().formItems("assetsunitmanager");
     auto assetsunitmanager = Assetsunitmanager::create(form);
     if (!assetsunitmanager.isNull()) {
-       QString notice = "Created successfully.";
+        QString notice = "Created successfully.";
         tflash(notice);
-        redirect(urla("Cms/list_manager"));
+        redirect(urla("show", assetsunitmanager.managerID()));
     } else {
         QString error = "Failed to create.";
         texport(error);
@@ -53,7 +52,7 @@ void AssetsunitmanagerController::renderEntry(const QVariantMap &assetsunitmanag
 
 void AssetsunitmanagerController::edit(const QString &pk)
 {
-    auto assetsunitmanager = Assetsunitmanager::get(pk.toInt());
+    auto assetsunitmanager = Assetsunitmanager::get(pk);
     if (!assetsunitmanager.isNull()) {
         renderEdit(assetsunitmanager.toVariantMap());
     } else {
@@ -68,7 +67,7 @@ void AssetsunitmanagerController::save(const QString &pk)
     }
 
     QString error;
-    auto assetsunitmanager = Assetsunitmanager::get(pk.toInt());
+    auto assetsunitmanager = Assetsunitmanager::get(pk);
     if (assetsunitmanager.isNull()) {
         error = "Original data not found. It may have been updated/removed by another transaction.";
         tflash(error);
@@ -101,7 +100,7 @@ void AssetsunitmanagerController::remove(const QString &pk)
         return;
     }
 
-    auto assetsunitmanager = Assetsunitmanager::get(pk.toInt());
+    auto assetsunitmanager = Assetsunitmanager::get(pk);
     assetsunitmanager.remove();
     redirect(urla("index"));
 }

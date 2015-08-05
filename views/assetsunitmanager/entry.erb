@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<%#include "assetsunitmanager.h" %>
+<% tfetch(QVariantMap, assetsunitmanager); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>New Assetsunitmanager</h1>
+
+<%== formTag(urla("create"), Tf::Post) %>
+  <p>
+    <label>ManagerID<br /><input name="assetsunitmanager[managerID]" value="<%= assetsunitmanager["managerID"] %>" /></label>
+  </p>
+  <p>
+    <label>ManagerName<br /><input name="assetsunitmanager[managerName]" value="<%= assetsunitmanager["managerName"] %>" /></label>
+  </p>
+  <p>
+    <label>ManagerShortname<br /><input name="assetsunitmanager[managerShortname]" value="<%= assetsunitmanager["managerShortname"] %>" /></label>
+  </p>
+  <p>
+    <label>ManagerState<br /><input name="assetsunitmanager[managerState]" value="<%= assetsunitmanager["managerState"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+<%== linkTo("Back", urla("index")) %>
+
+</body>
+</html>

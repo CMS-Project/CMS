@@ -33,6 +33,7 @@ public slots:
     void operatorlogin();
     void operator_center(const QString &operatorID);
     void list_operator(const QString &adminID);
+    void list_log(const QString &adminID);
     void search_operator();
     void search_manager();
     void list_manager();

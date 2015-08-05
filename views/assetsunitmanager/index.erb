@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<%#include "assetsunitmanager.h" %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+
+<h1>Listing Assetsunitmanager</h1>
+
+<%== linkTo("New entry", urla("entry")) %><br />
+<br />
+<table border="1" cellpadding="5" style="border: 1px #d0d0d0 solid; border-collapse: collapse;">
+  <tr>
+    <th>ManagerID</th>
+    <th>ManagerName</th>
+    <th>ManagerShortname</th>
+    <th>ManagerState</th>
+  </tr>
+<% tfetch(QList<Assetsunitmanager>, assetsunitmanagerList); %>
+<% for (const auto &i : assetsunitmanagerList) { %>
+  <tr>
+    <td><%= i.managerID() %></td>
+    <td><%= i.managerName() %></td>
+    <td><%= i.managerShortname() %></td>
+    <td><%= i.managerState() %></td>
+    <td>
+      <%== linkTo("Show", urla("show", i.managerID())) %>
+      <%== linkTo("Edit", urla("edit", i.managerID())) %>
+      <%== linkTo("Remove", urla("remove", i.managerID()), Tf::Post, "confirm('Are you sure?')") %>
+    </td>
+  </tr>
+<% } %>
+</table>
+
+</body>
+</html>

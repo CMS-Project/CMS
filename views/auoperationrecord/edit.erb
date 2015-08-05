@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%#include "auoperationrecord.h" %>
+<% tfetch(QVariantMap, auoperationRecord); %>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+</head>
+<body>
+<p style="color: red"><%=$ error %></p>
+<p style="color: green"><%=$ notice %></p>
+
+<h1>Editing Auoperation Record</h1>
+
+<%== formTag(urla("save", auoperationRecord["opID"]), Tf::Post) %>
+  <p>
+    <label>OpID<br /><input type="text" name="auoperationRecord[opID]" value="<%= auoperationRecord["opID"] %>" readonly="readonly" /></label>
+  </p>
+  <p>
+    <label>OperatorID<br /><input type="text" name="auoperationRecord[operatorID]" value="<%= auoperationRecord["operatorID"] %>" /></label>
+  </p>
+  <p>
+    <label>Type<br /><input type="text" name="auoperationRecord[type]" value="<%= auoperationRecord["type"] %>" /></label>
+  </p>
+  <p>
+    <label>Result<br /><input type="text" name="auoperationRecord[result]" value="<%= auoperationRecord["result"] %>" /></label>
+  </p>
+  <p>
+    <label>Time<br /><input type="text" name="auoperationRecord[time]" value="<%= auoperationRecord["time"] %>" /></label>
+  </p>
+  <p>
+    <label>Remarks<br /><input type="text" name="auoperationRecord[remarks]" value="<%= auoperationRecord["remarks"] %>" /></label>
+  </p>
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+</form>
+
+<%== linkTo("Show", urla("show", auoperationRecord["opID"])) %> |
+<%== linkTo("Back", urla("index")) %>
+</body>
+</html>

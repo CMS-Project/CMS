@@ -6,7 +6,7 @@ AssetsUnit::AssetsUnit()
     : TAbstractModel(), d(new AssetsUnitObject)
 {
     d->assetsUnitID = 0;
-    d->managerID = 0;
+    d->assetsBalance = 0;
 }
 
 AssetsUnit::AssetsUnit(const AssetsUnit &other)
@@ -33,12 +33,12 @@ void AssetsUnit::setAssetsUnitID(int assetsUnitID)
     d->assetsUnitID = assetsUnitID;
 }
 
-int AssetsUnit::managerID() const
+QString AssetsUnit::managerID() const
 {
     return d->managerID;
 }
 
-void AssetsUnit::setManagerID(int managerID)
+void AssetsUnit::setManagerID(const QString &managerID)
 {
     d->managerID = managerID;
 }
@@ -53,18 +53,29 @@ void AssetsUnit::setAssetsUnitShortname(const QString &assetsUnitShortname)
     d->assetsUnitShortname = assetsUnitShortname;
 }
 
+double AssetsUnit::assetsBalance() const
+{
+    return d->assetsBalance;
+}
+
+void AssetsUnit::setAssetsBalance(double assetsBalance)
+{
+    d->assetsBalance = assetsBalance;
+}
+
 AssetsUnit &AssetsUnit::operator=(const AssetsUnit &other)
 {
     d = other.d;  // increments the reference count of the data
     return *this;
 }
 
-AssetsUnit AssetsUnit::create(int assetsUnitID, int managerID, const QString &assetsUnitShortname)
+AssetsUnit AssetsUnit::create(int assetsUnitID, const QString &managerID, const QString &assetsUnitShortname, double assetsBalance)
 {
     AssetsUnitObject obj;
     obj.assetsUnitID = assetsUnitID;
     obj.managerID = managerID;
     obj.assetsUnitShortname = assetsUnitShortname;
+    obj.assetsBalance = assetsBalance;
     if (!obj.create()) {
         return AssetsUnit();
     }

@@ -23,10 +23,12 @@ public:
 
     int assetsUnitID() const;
     void setAssetsUnitID(int assetsUnitID);
-    int managerID() const;
-    void setManagerID(int managerID);
+    QString managerID() const;
+    void setManagerID(const QString &managerID);
     QString assetsUnitShortname() const;
     void setAssetsUnitShortname(const QString &assetsUnitShortname);
+    double assetsBalance() const;
+    void setAssetsBalance(double assetsBalance);
     AssetsUnit &operator=(const AssetsUnit &other);
 
     bool create() { return TAbstractModel::create(); }
@@ -34,7 +36,7 @@ public:
     bool save()   { return TAbstractModel::save(); }
     bool remove() { return TAbstractModel::remove(); }
 
-    static AssetsUnit create(int assetsUnitID, int managerID, const QString &assetsUnitShortname);
+    static AssetsUnit create(int assetsUnitID, const QString &managerID, const QString &assetsUnitShortname, double assetsBalance);
     static AssetsUnit create(const QVariantMap &values);
     static AssetsUnit get(int assetsUnitID);
     static int count();

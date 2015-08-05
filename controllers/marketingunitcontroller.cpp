@@ -19,7 +19,7 @@ void MarketingunitController::index()
 {
     QString hpage = httpRequest().formItemValue("page");
     int tpage=0,trec=0,spage,epage,page;
-    QString spage1,epage1;
+    QString spage1,epage1,warning;
     TSqlQuery query;
     query.exec("SELECT * FROM CMS.marketingunit;");
     while(query.next()){
@@ -31,6 +31,13 @@ void MarketingunitController::index()
         page=1;
     }else{
         page=hpage.toInt();
+    }
+    if(page<1){
+        page=1;
+        warning="当前为最前页";
+    }else if(page>tpage){
+        page=tpage;
+        warning="当前为最后页";
     }
 
     epage=page*5;
@@ -52,6 +59,8 @@ void MarketingunitController::index()
         b.setOperatorID(query2.value(7).toString());
         marketingunitList.append(b);
     }
+    texport(warning);
+    texport(page);
     texport(tpage);
     texport(marketingunitList);
     render();

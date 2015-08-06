@@ -23,16 +23,6 @@ void AssetsunitController::AUManagment()
     render("AUManagment");
 }
 
-void AssetsunitController::AUAccountManagment()
-{
-    // write code
-}
-
-void AssetsunitController::AUView()
-{
-    // write code
-}
-
 void AssetsunitController::AUTransfer()
 {
     render("AUTransfer");
@@ -40,17 +30,7 @@ void AssetsunitController::AUTransfer()
 
 void AssetsunitController::AUOptLog()
 {
-    // write code
-}
-
-void AssetsunitController::AUStatisticsReport()
-{
-    // write code
-}
-
-void AssetsunitController::AURiskControl()
-{
-    // write code
+    render("AUOptLog");
 }
 
 void AssetsunitController::getAssetsUnitManagerList()
@@ -120,9 +100,9 @@ void AssetsunitController::editAssetsUnit()
     }
 
     QVariantMap assetsUnit = httpRequest().formItems("assetsUnit");
-    int id = assetsUnit["assetsUnitID"].toInt();
+    QString id = assetsUnit["assetsUnitID"].toString();
     QString name = assetsUnit["assetsUnitShortname"].toString();
-    AssetsUnit au = AssetsUnit::get(id);
+    AssetsUnit au = AssetsUnit::get(id.toInt());
     QString result;
 
     au.setAssetsUnitShortname(name);
@@ -133,7 +113,7 @@ void AssetsunitController::editAssetsUnit()
         result = "失败";
     }
 
-    operationLog("资产单元修改", result, "修改资产单元: ID: " + QString(id) + ", 名称更改: " + name);
+    operationLog("资产单元修改", result, "修改资产单元: ID: " + id + ", 名称更改: " + name);
     renderText(QString("修改" + result));
 }
 
@@ -199,9 +179,9 @@ void AssetsunitController::editMarketingUnit(){
     }
 
     QVariantMap marketingUnit = httpRequest().formItems("marketingUnit");
-    int id = marketingUnit["marketingUnitID"].toInt();
+    QString id = marketingUnit["marketingUnitID"].toString();
     QString name = marketingUnit["marketingUnitShortname"].toString();
-    Marketingunit mu = Marketingunit::get(id);
+    Marketingunit mu = Marketingunit::get(id.toInt());
     QString result;
 
     mu.setMusname(name);
@@ -212,7 +192,7 @@ void AssetsunitController::editMarketingUnit(){
         result = "失败";
     }
 
-    operationLog("交易单元修改", result, "修改交易单元: ID: " + QString(id) + ", 名称变更: " + name);
+    operationLog("交易单元修改", result, "修改交易单元: ID: " + id + ", 名称变更: " + name);
     renderText(QString("修改" + result));
 }
 
@@ -233,7 +213,7 @@ void AssetsunitController::assetsTransfer(){
         result = "失败";
     }
 
-    operationLog("资产调拨", result, "从资产单元 " + form["srcUnitID"].toString() + "到 " + form["destUnitID"].toString() + ", 金额: " + form["muvalue"].toString());
+    operationLog("资产调拨", result, "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
     renderText(QString("调拨" + result));
 }
 
@@ -254,6 +234,35 @@ bool AssetsunitController::preFilter()
     }
 
     return true;
+}
+
+void AssetsunitController::getAUOptLogList()
+{
+    int page = httpRequest().queryItemValue("page").toInt();
+    int rows = httpRequest().queryItemValue("rows").toInt();
+
+    TSqlQuery query;
+    QJsonArray array;
+    QJsonObject json;
+
+    query.prepare("select * from CMS.AUOperationRecord limit :offset, :rows;");
+    query.bind(":offset", (page - 1) * rows).bind(":rows", rows);
+    query.exec();
+
+    while (query.next()) {
+        QJsonObject obj;
+        obj.insert("operatorID", query.value(1).toInt());
+        obj.insert("type", query.value(2).toString());
+        obj.insert("result", query.value(3).toString());
+        obj.insert("time", query.value(4).toString());
+        obj.insert("remarks", query.value(5).toString());
+        array.append(obj);
+    }
+
+    json.insert("total", AuoperationRecord::count());
+    json.insert("rows", array);
+
+    renderJson(json);
 }
 
 // Don't remove below this line

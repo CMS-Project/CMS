@@ -5,6 +5,7 @@
 #include "assetsunitmanagercontroller.h"
 #include "assetsunitmanager.h"
 #include "operatorscontroller.h"
+#include "log.h"
 #include <QSqlQuery>
 #include <qsqlquery.h>
 #include <QDateTime>
@@ -149,10 +150,15 @@ void CmsController::operatorlogin()
     }
     auto form = httpRequest().formItems("cms");
     Cms cms;
-    if(cms.operatorlogin(form)){
+    int c = cms.operatorlogin(form);
+    if(c == 1){
         a = form["numberID"].toString();
         session().insert("operatorID",a);
         redirect(url("assetsunit","index"));
+    }else if(c == 2){
+        QString error = "账号已被冻结";
+        tflash(error);
+        redirect(urla("operator_login"));
     }else{
         QString error = "NumberID or Password Error";
         tflash(error);
@@ -194,7 +200,9 @@ void CmsController::list_operator(const QString &adminID)
 
 void CmsController::list_log(const QString &adminID)
 {
-
+    Log log;
+    QList<Log> log_list = log.list_log(adminID);
+    texport(log_list);
     texport(adminID);
     render("list_log");
 }

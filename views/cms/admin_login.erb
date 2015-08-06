@@ -5,76 +5,115 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
-<style>
-.div1{
-  position: absolute;
-  top: 150px;
-  width: 180px;
-  height: 250px;
-  left: 460px;
-  }
-.login{
-  position: absolute;
-  border: 1px solid #429fff;
-  background-image: url("/BG/loginbg.jpg");
-  top: 30px;
-  width: 142px;
-  height: 192px;
-  left: 18px;
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
 }
 body{
-  font-family: Tahoma, Verdana, Arial;
-  color: #06C;
-  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  color: #000E41;
+  background-color:rgb(227,247,254);
+  font-size: 20px;
 }
-#txtstyle{
-  background-color: #CCCCFF;
-  border:#6666FF 1px solid;
-  color:#0066FF;
+
+.login {
+  width: 530px;
+  height: 300px;
+  background: url("/BG/back2.jpg") no-repeat;
+  margin-top: 130px;
+  position: relative;
+}
+.input {
+  float: left;
+  margin-left: 30px;
+  margin-top: 90px;
+}
+.user {
+  position: relative;
+}
+.pass {
+  position: relative;
+  margin-top: 15px;
+}
+.username, .password {
+  font-size: 20px;
+  position: relative;
+  top: 4px;
+}
+.remember {
+  float: right;
+  margin-top: 11px;
+}
+.LR {
+  height: 25px;
+  position: absolute;
+  left: 90px;
+  bottom: 45px;
+}
+.L {
+  width: 96px;
+  height: 25px;
+  float: left;
+  position: absolute;
+}
+.R {
+  width: 96px;
+  height: 25px;
+  float: left;
+  position:absolute;
+  left: 140px;
+}
+.L:active {
+  position: relative;
+  top: 1px;
+  left: 1px;
+  border-left: 1px solid #666;
+  border-top: 1px solid #666;
+  border-right: 2px solid #333;
+  border-bottom: 1px solid #333;
+}
+.R:active {
+  position: relative;
+  left: 141px;
+  top: 1px;
+  border-left: 1px solid #666;
+  border-top: 1px solid #666;
+  border-right: 2px solid #333;
+  border-bottom: 1px solid #333;
 }
 #buttonstyle{
   border:1px #93bee2 dotted;
   background-color: #E0E0E0;
-  color: #138AD9;
+  width:100px;
+  height:25px;
+
 }
+
 </style>
 </head>
 
 <body>
-<%== formTag(urla("adminlogin"), Tf::Post) %>
-<div class="div1">
-<p style="color: red" align="center"><%=$ error %></p>
-<div class="login">
-<span>
-  <table width="107" border="0" align="center"  cellpadding="0" cellspacing="0">
-    <tr>
-      <td height="50" align="left" style="font-size:20px;color:blue">管理员登录</td>
-    </tr>
-    <tr>
-      <td>管理员编号：</td>
-    </tr>
-    <tr>
-      <td height="25"><label for="cms[numberID]"></label>
-      <input name="cms[numberID]" type="text" id="txtstyle" size="15" maxlength="10" /></td>
-    </tr>
-    <tr>
-      <td>密　　　码：</td>
-    </tr>
-    <tr>
-      <td height="25"><label for="cms[password]"></label>
-      <input name="cms[password]" type="password" id="txtstyle" size="15" maxlength="15" /></td>
-    </tr>
-    <tr>
-      <td height="30" align="center" valign="bottom"><input type="submit" name="tijiao" id="buttonstyle" value="提交" />
-      <input type="reset" name="chongzhi" id="buttonstyle" value="重置" /></td>
-    </tr>
-    <tr>
-      <td height="30" align="center" valign="middle"><%== linkTo("返回", urla("index")) %></td>
-    </tr>
-  </table>
-  </span>
-</div>
-</div>
-  </form>
+  <%== formTag(urla("adminlogin"), Tf::Post) %>
+<center>
+  <div class="login">
+    <p style="color: red" align="center"><%=$ error %></p>
+    <div class="input">
+      <div class="user">
+        <label>管理员编号:</label>
+        <input type="text" name="cms[numberID]" class="username"/>
+      </div>
+      <div class="pass">
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+        <input type="password" name="cms[password]" class="password" />
+      </div>
+    </div>
+    <div class="LR">
+      <div class="L"><input type="submit" name="tijiao" id="buttonstyle" value="提交" /></div>
+      <div class="R"><input type="reset" name="chongzhi" value="重置" id="buttonstyle"/></div>
+    </div>
+  </div>
+</center>
 </body>
 </html>

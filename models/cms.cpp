@@ -133,16 +133,24 @@ bool Cms::adminlogin(const QVariantMap &values)
     return false;
 }
 
-bool Cms::operatorlogin(const QVariantMap &values)
+int Cms::operatorlogin(const QVariantMap &values)
 {
+    QString status = "正常";
     QString t = values["numberID"].toString();
     QString b = values["password"].toString();
     TSqlQuery query;
-    query.exec("SELECT * FROM operators WHERE operatorID = '"+t+"' AND operatorPassword = '"+b+"' ");
+    query.exec("SELECT * FROM operators WHERE operatorID = '"+t+"' AND operatorPassword = '"+b+"' AND operatorStatus = '"+status+"'");
    if(query.next()){
-       return true;
-    }
-    return false;
+       return 1;
+    }else{
+       status = "冻结";
+       query.exec("SELECT * FROM operators WHERE operatorID = '"+t+"' AND operatorPassword = '"+b+"' AND operatorStatus = '"+status+"'");
+       if(query.next()){
+           return 2;
+       }else{
+           return 3;
+       }
+   }
 }
 
 bool Cms::checkoperatorID(const QString &operatorID)
@@ -154,6 +162,28 @@ bool Cms::checkoperatorID(const QString &operatorID)
     }else{
         return true;
     }
+
+}
+
+bool Cms::new_manager(const QString &adminID, const QString &managerID)
+{
+    QSqlQuery query;
+    QString role = "资产管理人";
+    QString way = "新建";
+    QDateTime a = QDateTime::currentDateTime();
+    QString time = a.toString("yyy-MM-dd hh:mm:ss");
+    query.prepare("INSERT INTO connection (adminID,operatorID) VALUE (:adminID, :operatorID)");
+    query.bindValue(":adminID","000001");
+    query.bindValue(":operatorID","123");
+//    query.bindValue(":role",role);
+//    query.bindValue(":time",time);
+//    query.bindValue(":way",way);
+    if(query.exec()){
+        return true;
+    }else{
+        return false;
+    }
+
 
 }
 

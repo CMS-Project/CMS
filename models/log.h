@@ -41,6 +41,7 @@ public:
     static Log create(const QString &adminID, const QString &userID, const QString &role, const QString &time, const QString &way);
     static Log create(const QVariantMap &values);
     static Log get(const QString &adminID, const QString &userID, const QString &role, const QString &time, const QString &way);
+    static QList<Log> list_log(const QString &adminID);
     static int count();
     static QList<Log> getAll();
     static QJsonArray getAllJson();

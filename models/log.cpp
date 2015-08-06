@@ -118,6 +118,41 @@ int Log::count()
     return mapper.findCount();
 }
 
+QList<Log> Log::list_log(const QString &adminID)
+{
+//    QList<Operators> operator_list;
+//    TSqlQuery query;
+//    query.exec("SELECT * FROM operators join connection on operators.operatorID = connection.operatorID WHERE connection.adminID = '"+adminID+"' AND connection.operatorID = '"+operatorID+"'");
+//    while(query.next()){
+//        Operators a;  //建立一个对象a
+//        a.setOperatorID(query.value(0).toString());
+//        a.setOperatorName(query.value(1).toString());
+//        a.setOperatorNickname(query.value(2).toString());
+//        a.setOperatorPassword(query.value(3).toString());
+//       // a.setOperatorNumber(query.value(4).toString());
+//        a.setOperatorPhone(query.value(4).toString());
+//        a.setId(query.value(5).toString());
+//        a.setOperatorRole(query.value(6).toString());
+//        a.setOperatorStatus(query.value(7).toString());  //设置对象a中的相关值
+
+//        operator_list.append(a); //将a插入链表中
+//    }
+//    return operator_list;
+    QList<Log> log_list;
+    TSqlQuery query;
+    query.exec("SELECT * FROM log where adminID = '"+adminID+"' ORDER BY time DESC");
+    while(query.next()){
+        Log a;
+        a.setAdminID(query.value(0).toString());
+        a.setUserID(query.value(1).toString());
+        a.setRole(query.value(2).toString());
+        a.setTime(query.value(3).toString());
+        a.setWay(query.value(4).toString());
+        log_list.append(a);
+    }
+    return log_list;
+}
+
 QList<Log> Log::getAll()
 {
     return tfGetModelListByCriteria<Log, LogObject>(TCriteria());

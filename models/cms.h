@@ -49,7 +49,7 @@ public:
     static Cms create(const QString &numberID, const QString &name, const QString &nickname, const QString &password, const QString &id, double phone, const QString &belong, const QString &userNumber, double role);
     static Cms create(const QVariantMap &values);
     static bool adminlogin(const QVariantMap &values);
-    static bool operatorlogin(const QVariantMap &values);
+    static int operatorlogin(const QVariantMap &values);
     static bool insert_connection(const QString &adminID, const QString &operatorID);
     static bool update_operator(const QString &adminID, const QString &operatorID);
     static bool update_manager(const QString &adminID, const QString &managerID);
@@ -58,6 +58,8 @@ public:
     static bool change_status(const QString &adminID, const QString &operatorID);
     static bool cgstatus(const QString &adminID, const QString &managerID);
     static bool checkoperatorID(const QString &operatorID);
+    static bool new_manager(const QString &adminID,const QString &managerID);
+    //static bool checkmanagerID(const QString &adminID,const QString &managerID);
     static Cms get(const QString &numberID);
     static int count();
     static QList<Cms> getAll();

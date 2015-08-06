@@ -14,12 +14,8 @@ public:
 public slots:
     void index();
     void AUManagment();
-    void AUAccountManagment();
-    void AUView();
     void AUTransfer();
     void AUOptLog();
-    void AUStatisticsReport();
-    void AURiskControl();
     void getAssetsUnitManagerList();
     void createAssetsUnit();
     void editAssetsUnit();
@@ -27,6 +23,7 @@ public slots:
     void getMarketingUnitList();
     void editMarketingUnit();
     void assetsTransfer();
+    void getAUOptLogList();
 
 private:
     void operationLog(QString type, QString result, QString remarks);

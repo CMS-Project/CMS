@@ -6,6 +6,8 @@
 #include <TSqlQuery>
 #include <TActionController>
 #include <auoperationrecord.h>
+#include <assetsunitmanager.h>
+#include <operators.h>
 
 AssetsunitController::AssetsunitController(const AssetsunitController &)
     : ApplicationController()
@@ -41,30 +43,32 @@ void AssetsunitController::getAssetsUnitManagerList()
 
     QString category = httpRequest().queryItemValue("category");
     QString value = httpRequest().queryItemValue("value");
-    QString sort = httpRequest().queryItemValue("order");
-    sort = sort.isNull() ? "" : " order by aum.managerID " + sort;
 
     TSqlQuery query;
     if(value.isNull() || value.isEmpty()) {
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname,assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
-                   where aum.managerID = au.managerID" + sort);  // Query execution
+        query.prepare("select aum.managerID, assetsUnitID, assetsUnitShortname, assetsBalance from assetsunitmanager as aum left join assetsUnit as au \
+                   on aum.managerID = au.managerID order by aum.managerID asc");  // Query execution
     }else if(category == "managerID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
-                   where aum.managerID = au.managerID and aum.managerID = " + value);
+        query.prepare("select managerID, assetsUnitID, assetsUnitShortname, assetsBalance from assetsUnit where managerID = :value order by managerID asc");
+        query.bind(":value", value);
     }else if(category == "assetsUnitID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
-                   where aum.managerID = au.managerID and assetsUnitID = " + value);
+        query.prepare("select aum.managerID, assetsUnitID, assetsUnitShortname, assetsBalance from assetsunitmanager as aum, assetsUnit as au \
+                    where aum.managerID=au.managerID and assetsUnitID = :value order by aum.managerID asc");
+        query.bind(":value", value);
     }else if(category == "assetsUnitShortname"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
-                   where aum.managerID = au.managerID and assetsUnitShortname = '" + value + "'");
+        query.prepare("select managerID, assetsUnitID, assetsUnitShortname, assetsBalance from assetsUnit \
+                   where assetsUnitShortname like :value order by managerID asc");
+        value.prepend("%").append("%");
+        query.bind(":value", value);
     }
 
+    query.exec();
     while (query.next()) {
         QJsonObject obj;
         obj.insert("managerID", query.value(0).toInt());
-        obj.insert("assetsUnitID", query.value(1).toInt());
+        obj.insert("assetsUnitID", query.value(1).isNull() ? "" : query.value(1).toString());
         obj.insert("assetsUnitShortname", query.value(2).toString());
-        obj.insert("assetsBalance",query.value(3).toDouble());
+        obj.insert("assetsBalance", query.value(3).isNull() ? "" : query.value(3).toString());
         array.insert(i++, obj);
     }
 
@@ -82,10 +86,18 @@ void AssetsunitController::createAssetsUnit()
 
     auto form = httpRequest().formItems("assetsUnit");
 
-    if(form["assetsBalance"].toInt()>=0)
-   { auto assetsunit = AssetsUnit::create(form);
-    QString result;
-    if (!assetsunit.isNull()) {
+    Assetsunitmanager am = Assetsunitmanager::get(form["managerID"].toString());
+    if(am.managerState() != "可用"){
+        operationLog("资产单元创建", "失败", "资产管理人managerID: " + am.managerID() + "不可用");
+        renderText(QString("资产管理人不可用"));
+        return;
+    }
+
+    if(form["assetsBalance"].toInt() >= 0) {
+        auto assetsunit = AssetsUnit::create(form);
+        QString result;
+
+        if (!assetsunit.isNull()) {
             result = "成功";
         } else {
             result = "失败";
@@ -93,14 +105,10 @@ void AssetsunitController::createAssetsUnit()
 
         operationLog("资产单元添加", result, "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称: " + form["assetsUnitShortname"].toString()+",资金："+form["assetsBalance"].toInt());
         renderText(QString("创建" + result));
-    }
-    else {
+    }else {
         operationLog("资产单元添加", "失败", "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称: " + form["assetsUnitShortname"].toString()+",资金："+form["assetsBalance"].toInt());
         renderText(QString("创建失败，请填写正确的资产单元资金金额。" ));
-        return;
     }
-
-
 }
 
 void AssetsunitController::editAssetsUnit()
@@ -110,20 +118,31 @@ void AssetsunitController::editAssetsUnit()
     }
 
     QVariantMap assetsUnit = httpRequest().formItems("assetsUnit");
-    QString id = assetsUnit["assetsUnitID"].toString();
+    QString auID = assetsUnit["assetsUnitID"].toString();
+    QString mgID = assetsUnit["managerID"].toString();
     QString name = assetsUnit["assetsUnitShortname"].toString();
-    AssetsUnit au = AssetsUnit::get(id.toInt());
+
+    if(Assetsunitmanager::get(mgID).managerState() != "可用"){
+        operationLog("资产单元修改", "失败", "资产管理人managerID: " + mgID + "不可用");
+        renderText(QString("资产管理人不可用"));
+        return;
+    }
+
     QString result;
+    TSqlQuery query;
 
-    au.setAssetsUnitShortname(name);
+    query.prepare("update assetsUnit set assetsUnitShortname = :name where assetsUnitID = :auID and managerID = :mgID");
+    query.bind(":name", name).bind(":auID", auID).bind(":mgID", mgID);
+    query.exec();
 
-    if(au.save()) {
+    if(query.numRowsAffected() == 1) {
         result = "成功";
     }else{
+        rollbackTransaction();
         result = "失败";
     }
 
-    operationLog("资产单元修改", result, "修改资产单元: ID: " + id + ", 名称更改: " + name);
+    operationLog("资产单元修改", result, "修改资产单元: ID: " + auID + ", managerID: " + mgID + ", 名称更改: " + name);
     renderText(QString("修改" + result));
 }
 
@@ -133,17 +152,23 @@ void AssetsunitController::removeAssetsUnit()
         return;
     }
 
-    QString id = httpRequest().formItemValue("assetsUnitID");
-    AssetsUnit au = AssetsUnit::get(id.toInt());
+    QString auID = httpRequest().formItemValue("assetsUnitID");
+    QString mgID = httpRequest().formItemValue("managerID");
     QString result;
+    TSqlQuery query;
 
-    if(au.remove()) {
+    query.prepare("delete from assetsUnit where assetsUnitID = :auID and managerID = :mgID");
+    query.bind(":auID", auID).bind(":mgID", mgID);
+    query.exec();
+
+    if(query.numRowsAffected() == 1) {
         result = "成功";
     }else {
+        rollbackTransaction();
         result = "失败";
     }
 
-    operationLog("资产单元删除", result, "删除资产单元: ID: " + QString(id));
+    operationLog("资产单元删除", result, "删除资产单元: ID: " + auID + ", managerID: " + mgID);
     renderText(QString("删除" + result));
 }
 
@@ -211,6 +236,7 @@ void AssetsunitController::assetsTransfer(){
         return;
     }
 
+    // TODO  需要修改
     QVariantMap form = httpRequest().formItems("assetsTransfer");
     //if(form["muname"].isNull()) form["muname"] = "";
 	form["operaotrID"] = session()["operatorID"].toInt();
@@ -260,7 +286,7 @@ bool AssetsunitController::preFilter()
 {
     QString operatorID = session()["operatorID"].toString();
 
-    if(operatorID.isNull() || operatorID.isEmpty()){
+    if(operatorID.isNull() || operatorID.isEmpty() || Operators::get(operatorID).operatorStatus() != "正常"){
         redirect(url("cms", "index"));
         return false;
     }

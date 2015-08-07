@@ -37,7 +37,7 @@
 					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getAssetsUnitManagerList',method:'get',toolbar:'#tb1'">
 				<thead>
 					<tr>
-						<th data-options="field:'managerID',width:90,sortable:true">资产管理人</th>
+						<th data-options="field:'managerID',width:90">资产管理人</th>
 						<th data-options="field:'assetsUnitID',width:90">资产单元ID</th>
 						<th data-options="field:'assetsUnitShortname',width:90">资产单元简称</th>
 						<th data-options="field:'assetsBalance',width:90">资产单元资金</th>
@@ -74,7 +74,7 @@
 					</div>
 					<div class="fitem">
 						<label>资产单元资金:</label>
-						<input name="assetsUnit[assetsBalance]" validType="text" class="easyui-textbox" required="true">
+						<input id="input_ab" name="assetsUnit[assetsBalance]" validType="number" class="easyui-textbox" required="true">
 					</div>
 				</form>
 			</div>
@@ -217,6 +217,7 @@
 
 				$('#input_m').textbox('readonly');
 				$('#input_au').textbox('readonly', false);
+				$('#input_ab').textbox('readonly', false);
 			}else{
 				alert('未选择资产管理人');
 			}
@@ -224,7 +225,7 @@
 		function editManager(){
 			url = '/AssetsUnit/editAssetsUnit';
 			var row = $('#table1').datagrid('getSelected');
-			if(row){
+			if(row && row['assetsUnitID'] != ""){
 				$('#dlg').dialog('open').dialog('setTitle','资产单元管理');
 				$('#fm').form('clear');
 
@@ -237,6 +238,7 @@
 
 				$('#input_m').textbox('readonly');
 				$('#input_au').textbox('readonly');
+				$('#input_ab').textbox('readonly');
 			}else{
 				alert('未选择资产单元');
 			}
@@ -256,13 +258,13 @@
 		}
 		function deleteManager(){
             var row = $('#table1').datagrid('getSelected');
-            if (row){
+            if (row && row['assetsUnitID'] != ""){
 				$.messager.defaults.ok='确定'
 				$.messager.defaults.cancel='取消';
                 $.messager.confirm('删除','是否删除该资产单元?',function(r){
                     if (r){
                         $.post('/Assetsunit/removeAssetsUnit/',
-							{assetsUnitID:row['assetsUnitID']},
+							{managerID:row['managerID'],assetsUnitID:row['assetsUnitID']},
 							function(result){
 								$('#response', parent.document).text(result);
                                 $('#table1').datagrid('reload');    // reload the user data
@@ -304,7 +306,7 @@
 		}
 		function Transfer(){
              var row = $('#table1').datagrid('getSelected');
-			if(row){
+			if(row && row['assetsUnitID'] != ""){
 				$('#dlg2').dialog('open');
 				$('#form2').form('clear');
 				$('#form2').form('load',{

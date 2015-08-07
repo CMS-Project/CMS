@@ -53,12 +53,12 @@ void AssetsUnit::setAssetsUnitShortname(const QString &assetsUnitShortname)
     d->assetsUnitShortname = assetsUnitShortname;
 }
 
-double AssetsUnit::assetsBalance() const
+int AssetsUnit::assetsBalance() const
 {
     return d->assetsBalance;
 }
 
-void AssetsUnit::setAssetsBalance(double assetsBalance)
+void AssetsUnit::setAssetsBalance(int assetsBalance)
 {
     d->assetsBalance = assetsBalance;
 }
@@ -69,7 +69,7 @@ AssetsUnit &AssetsUnit::operator=(const AssetsUnit &other)
     return *this;
 }
 
-AssetsUnit AssetsUnit::create(int assetsUnitID, const QString &managerID, const QString &assetsUnitShortname, double assetsBalance)
+AssetsUnit AssetsUnit::create(int assetsUnitID, const QString &managerID, const QString &assetsUnitShortname, int assetsBalance)
 {
     AssetsUnitObject obj;
     obj.assetsUnitID = assetsUnitID;
@@ -96,6 +96,19 @@ AssetsUnit AssetsUnit::get(int assetsUnitID)
 {
     TSqlORMapper<AssetsUnitObject> mapper;
     return AssetsUnit(mapper.findByPrimaryKey(assetsUnitID));
+}
+
+AssetsUnit AssetsUnit::get(int assetsUnitID, const QString &managerID)
+{
+    TSqlORMapper<AssetsUnitObject> mapper;
+    mapper.find();
+    TSqlORMapperIterator<AssetsUnitObject> i(mapper);
+    while (i.hasNext()) {
+        AssetsUnitObject obj = i.next();
+        if(obj.managerID == managerID && obj.assetsUnitID == assetsUnitID)
+            return AssetsUnit(obj);
+    }
+    return AssetsUnit();
 }
 
 int AssetsUnit::count()

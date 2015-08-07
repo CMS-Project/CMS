@@ -46,16 +46,16 @@ void AssetsunitController::getAssetsUnitManagerList()
 
     TSqlQuery query;
     if(value.isNull() || value.isEmpty()) {
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname,assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID" + sort);  // Query execution
     }else if(category == "managerID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and aum.managerID = " + value);
     }else if(category == "assetsUnitID"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and assetsUnitID = " + value);
     }else if(category == "assetsUnitShortname"){
-        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
+        query.exec("select aum.managerID, assetsUnitID, assetsUnitShortname assetsBalance from CMS.assetsunitmanager as aum, CMS.assetsUnit as au \
                    where aum.managerID = au.managerID and assetsUnitShortname = '" + value + "'");
     }
 
@@ -64,6 +64,7 @@ void AssetsunitController::getAssetsUnitManagerList()
         obj.insert("managerID", query.value(0).toInt());
         obj.insert("assetsUnitID", query.value(1).toInt());
         obj.insert("assetsUnitShortname", query.value(2).toString());
+        obj.insert("assetsBalance",query.value(3).toDouble());
         array.insert(i++, obj);
     }
 
@@ -80,17 +81,26 @@ void AssetsunitController::createAssetsUnit()
     }
 
     auto form = httpRequest().formItems("assetsUnit");
-    auto assetsunit = AssetsUnit::create(form);
-    QString result;
 
+    if(form["assetsBalance"].toInt()>=0)
+   { auto assetsunit = AssetsUnit::create(form);
+    QString result;
     if (!assetsunit.isNull()) {
-        result = "成功";
-    } else {
-        result = "失败";
+            result = "成功";
+        } else {
+            result = "失败";
+        }
+
+        operationLog("资产单元添加", result, "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称: " + form["assetsUnitShortname"].toString()+",资金："+form["assetsBalance"].toInt());
+        renderText(QString("创建" + result));
+    }
+    else {
+        operationLog("资产单元添加", "失败", "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称: " + form["assetsUnitShortname"].toString()+",资金："+form["assetsBalance"].toInt());
+        renderText(QString("创建失败，请填写正确的资产单元资金金额。" ));
+        return;
     }
 
-    operationLog("资产单元添加", result, "创建资产单元: ID: " + form["assetsUnitID"].toString() + ", 名称变更: " + form["assetsUnitShortname"].toString());
-    renderText(QString("创建" + result));
+
 }
 
 void AssetsunitController::editAssetsUnit()
@@ -202,19 +212,41 @@ void AssetsunitController::assetsTransfer(){
     }
 
     QVariantMap form = httpRequest().formItems("assetsTransfer");
-    if(form["muname"].isNull()) form["muname"] = "";
+    //if(form["muname"].isNull()) form["muname"] = "";
 	form["operaotrID"] = session()["operatorID"].toInt();
-    Marketingunit marketingunit = Marketingunit::create(form);
     QString result;
 
-    if(!marketingunit.isNull()){
-        result = "成功";
-    }else{
-        result = "失败";
-    }
+    int SassetsUnit =form["srcUnitID"].toInt();
+    int DassetsUnit=form["destUnitID"].toInt();
+    int muvalue=form["muvalue"].toInt();
+    AssetsUnit srcAU = AssetsUnit::get(SassetsUnit);
+    AssetsUnit destAU = AssetsUnit::get(DassetsUnit);
+    double srcValue=srcAU.assetsBalance();
+    double destValue=destAU.assetsBalance();
+    if(muvalue<=srcValue){
+        Marketingunit marketingunit = Marketingunit::create(form);
+        if(!marketingunit.isNull()){
+            result = "成功";
 
-    operationLog("资产调拨", result, "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
-    renderText(QString("调拨" + result));
+            double nowSvalue =double(srcValue-muvalue);
+            srcAU.setAssetsBalance(nowSvalue);
+            if(srcAU.save()){
+                double nowDvalue =double(destValue+muvalue);
+                destAU.setAssetsBalance(nowDvalue);
+                if(destAU.save()) result = "成功";
+                else result = "失败";
+            }else
+                result = "失败";
+        }else{
+            result = "失败";
+        }
+
+        operationLog("资产调拨", result, "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
+        renderText(QString("调拨" + result));
+    }else{
+        operationLog("资产调拨", "失败", "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
+        renderText(QString("金额超过资产单元资金，调拨失败，请输入正确调拨金额。"));
+    }
 }
 
 void AssetsunitController::operationLog(QString type, QString result, QString remarks)

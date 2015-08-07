@@ -37,9 +37,10 @@
 					data-options="fitColumns:true,rownumbers:true,singleSelect:true,url:'/Assetsunit/getAssetsUnitManagerList',method:'get',toolbar:'#tb1'">
 				<thead>
 					<tr>
-						<th data-options="field:'managerID',width:110,sortable:true">资产管理人</th>
-						<th data-options="field:'assetsUnitID',width:110">资产单元ID</th>
-						<th data-options="field:'assetsUnitShortname',width:110">资产单元简称</th>
+						<th data-options="field:'managerID',width:90,sortable:true">资产管理人</th>
+						<th data-options="field:'assetsUnitID',width:90">资产单元ID</th>
+						<th data-options="field:'assetsUnitShortname',width:90">资产单元简称</th>
+						<th data-options="field:'assetsBalance',width:90">资产单元资金</th>
 					</tr>
 				</thead>
 			</table>
@@ -55,7 +56,7 @@
 				</div>
 			</div>
 
-			<div id="dlg" class="easyui-dialog" style="width:315px;height:215px;padding:10px 20px"
+			<div id="dlg" class="easyui-dialog" style="width:315px;height:auto;padding:10px 20px"
             closed="true" buttons="#dlg-buttons">
 				<div class="ftitle">资产单元</div>
 				<form id="fm" method="post">
@@ -70,6 +71,10 @@
 					<div class="fitem">
 						<label>资产单元简称:</label>
 						<input name="assetsUnit[assetsUnitShortname]" validType="text" class="easyui-textbox" required="true">
+					</div>
+					<div class="fitem">
+						<label>资产单元资金:</label>
+						<input name="assetsUnit[assetsBalance]" validType="text" class="easyui-textbox" required="true">
 					</div>
 				</form>
 			</div>
@@ -142,7 +147,7 @@
 				<div class="ftitle">资金划转</div>
 					<div class="fitem1">
 						<label>划转金额:</label>
-						<input id="input_zr" class="easyui-textbox" value="↑转入↑" style="width:60px;" />
+						<label id="input_zr" style="width:60px; " />↑转入↑</label>
 						<input name="assetsTransfer[muvalue]"  class="easyui-textbox" style="width:173px;" required="true" validType="number" />
 					</div>
 					<div class="fitem1">
@@ -175,7 +180,7 @@
 			
 			<div class="ftitle">资金调拨</div>
 				<div class="fitem1">
-					<input id="input_tz" class="easyui-textbox" value="调整到" style="width:85px;" />
+					<label id="input_tz" style="width:85px;" >调整到</label>
 					<input name="assetsTransfer[amount]" class="easyui-textbox" style="width:243px;" />
 				</div>
 				<div class="fitem1">
@@ -226,7 +231,8 @@
 				$('#fm').form('load',{
 					'assetsUnit[managerID]':row['managerID'],
 					'assetsUnit[assetsUnitID]':row['assetsUnitID'],
-					'assetsUnit[assetsUnitShortname]':row['assetsUnitShortname']
+					'assetsUnit[assetsUnitShortname]':row['assetsUnitShortname'],
+					'assetsUnit[assetsBalance]':row['assetsBalance']
 				});
 
 				$('#input_m').textbox('readonly');
@@ -300,6 +306,7 @@
              var row = $('#table1').datagrid('getSelected');
 			if(row){
 				$('#dlg2').dialog('open');
+				$('#form2').form('clear');
 				$('#form2').form('load',{
 					'assetsTransfer[srcUnitID]':row['assetsUnitID'],
 				});
@@ -312,6 +319,7 @@
 			 var row = $('#table1').datagrid('getSelected');
 			if(row){
 				$('#dlg3').dialog('open');
+				$('#form1').form('clear');
 				$('#form1').form('load',{
 					'assetsTransfer[srcUnitID]':row['assetsUnitID'],				
 				});

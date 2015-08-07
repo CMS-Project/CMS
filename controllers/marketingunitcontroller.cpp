@@ -25,8 +25,8 @@ void MarketingunitController::index()
     while(query.next()){
      trec=trec+1;
     }
-    tpage=trec/5;
-    if(tpage*5<trec)tpage=tpage+1;
+    tpage=trec/20;
+    if(tpage*20<trec)tpage=tpage+1;
     if(hpage.isNull()){
         page=1;
     }else{
@@ -40,8 +40,8 @@ void MarketingunitController::index()
         warning="当前为最后页";
     }
 
-    epage=page*5;
-    spage=epage-5;
+    epage=page*20;
+    spage=epage-20;
     spage1=QString::number(spage);
     epage1=QString::number(epage);
     QList<Marketingunit> marketingunitList;
@@ -225,12 +225,12 @@ void MarketingunitController::showform(){
     }else if(start.isEmpty()||end.isEmpty()){
         error="请输入日期";
         tflash(error);
-        redirect(urla("reportform"));
+        redirect(urla("showform"));
         return;
     }else if(start>end){
         error="起始日期应小于截止日期";
         tflash(error);
-        redirect(urla("reportform"));
+        redirect(urla("showform"));
         return;
     }else{
         query.exec("SELECT * FROM CMS.marketingunit WHERE MUdate BETWEEN '"+start+"' AND '"+end+"' ORDER BY MUdate;");
@@ -254,7 +254,7 @@ void MarketingunitController::showform(){
     if(list.isEmpty()){
         error="所选日期内无记录";
         tflash(error);
-        redirect(urla("reportform"));
+        redirect(urla("showform"));
         return;
     }
     texport(list);
@@ -262,6 +262,16 @@ void MarketingunitController::showform(){
     render();
 }
 
+bool MarketingunitController::preFilter(){
+    QString operatorID = session()["operatorID"].toString();
+
+    if(operatorID.isNull() || operatorID.isEmpty()){
+        redirect(url("cms", "index"));
+        return false;
+    }
+
+    return true;
+}
 
 // Don't remove below this line
 T_REGISTER_CONTROLLER(marketingunitcontroller)

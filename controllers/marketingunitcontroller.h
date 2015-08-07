@@ -26,6 +26,8 @@ public slots:
 private:
     void renderEntry(const QVariantMap &marketingunit = QVariantMap());
     void renderEdit(const QVariantMap &marketingunit = QVariantMap());
+protected:
+    bool preFilter();
 };
 
 T_DECLARE_CONTROLLER(MarketingunitController, marketingunitcontroller)

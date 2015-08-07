@@ -150,13 +150,13 @@ function  xiugai(){
 </div>
 <div id="apDiv3">
   <table class="intable">
-<% tfetch(Assetsunitmanager, assetsunitmanager); %>
-<% if(assetsunitmanager.managerShortname() != "") {%>
+<% tfetch(QList<Assetsunitmanager>, b); %>
+<% for(const auto &i : b) {%>
     <tr onclick="do_onclick(this)">
-      <td width="111" align="center"><%=assetsunitmanager.managerID()%></td>
-      <td width="123"><%=assetsunitmanager.managerShortname()%></td>
-      <td width="171"><%=assetsunitmanager.managerName()%></td>
-      <td width="175"><%=assetsunitmanager.managerState()%></td>
+      <td width="111" align="center"><%=i.managerID()%></td>
+      <td width="123"><%=i.managerShortname()%></td>
+      <td width="171"><%=i.managerName()%></td>
+      <td width="175"><%=i.managerState()%></td>
     </tr>
     <% } %>
   </table>

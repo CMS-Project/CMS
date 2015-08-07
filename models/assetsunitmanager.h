@@ -41,6 +41,7 @@ public:
     static Assetsunitmanager get(const QString &managerID);
     static bool check_managerID(const QString &managerID);
     static bool new_manager(const QString &adminID,const QString &managerID);
+    static QList<Assetsunitmanager> searching(const QString &managerID);
     static int count();
     static QList<Assetsunitmanager> list_manager();
     static QList<Assetsunitmanager> getAll();

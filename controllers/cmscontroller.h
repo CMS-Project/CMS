@@ -17,8 +17,8 @@ public:
 
 public slots:
     void index();
-    void show_operator(const QString &pk);
-    void show_manager(const QString &pk);
+    void show_operator(const QString &operatorID);
+    void show_manager(const QString &managerID);
     void entry();
     void newmanager();
     void createmanager();

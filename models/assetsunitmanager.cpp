@@ -145,6 +145,79 @@ bool Assetsunitmanager::new_manager(const QString &adminID, const QString &manag
         return false;
 }
 
+QList<Assetsunitmanager> Assetsunitmanager::searching(const QString &managerID)
+{
+    QList<Assetsunitmanager> manager_list;
+    TSqlQuery query;
+    query.exec("SELECT * FROM CMS.assetsunitmanager WHERE managerID LIKE '%"+managerID+"%';");
+    while(query.next()){
+        Assetsunitmanager a;  
+        a.setManagerID(query.value(0).toString());
+        a.setManagerName(query.value(1).toString());
+        a.setManagerShortname(query.value(2).toString());
+        a.setManagerState(query.value(3).toString());
+        manager_list.append(a); //将a插入链表中
+    }
+    query.exec("SELECT * FROM CMS.assetsunitmanager WHERE assetsunitmanager.managerName LIKE '%"+managerID+"%'");
+    while(query.next()){
+        Assetsunitmanager a;
+        a.setManagerID(query.value(0).toString());
+        a.setManagerName(query.value(1).toString());
+        a.setManagerShortname(query.value(2).toString());
+        a.setManagerState(query.value(3).toString());
+            int j = 0;
+            for(const auto &i : manager_list){
+               if(i.managerID() == a.managerID()){
+                break;
+               }else{
+                   j = j +1;
+               }
+            }
+            if(j == manager_list.length()){
+                manager_list.append(a); //将a插入链表中
+        }//遍历链表，查找该对象是否已经存在，如果存在则不再插入链表，否则插入
+    }
+    query.exec("SELECT * FROM CMS.assetsunitmanager WHERE assetsunitmanager.managerShortname LIKE '%"+managerID+"%'");
+    while(query.next()){
+        Assetsunitmanager a;
+        a.setManagerID(query.value(0).toString());
+        a.setManagerName(query.value(1).toString());
+        a.setManagerShortname(query.value(2).toString());
+        a.setManagerState(query.value(3).toString());
+            int j = 0;
+            for(const auto &i : manager_list){
+               if(i.managerID() == a.managerID()){
+                break;
+               }else{
+                   j = j +1;
+               }
+            }
+            if(j == manager_list.length()){
+                manager_list.append(a); //将a插入链表中
+        }//遍历链表，查找该对象是否已经存在，如果存在则不再插入链表，否则插入
+    }
+    query.exec("SELECT * FROM assetsunitmanager WHERE assetsunitmanager.managerState LIKE '%"+managerID+"%'");
+    while(query.next()){
+        Assetsunitmanager a;
+        a.setManagerID(query.value(0).toString());
+        a.setManagerName(query.value(1).toString());
+        a.setManagerShortname(query.value(2).toString());
+        a.setManagerState(query.value(3).toString());
+            int j = 0;
+            for(const auto &i : manager_list){
+               if(i.managerID() == a.managerID()){
+                break;
+               }else{
+                   j = j +1;
+               }
+            }
+            if(j == manager_list.length()){
+                manager_list.append(a); //将a插入链表中
+        }//遍历链表，查找该对象是否已经存在，如果存在则不再插入链表，否则插入
+    }
+    return manager_list;
+
+}
 int Assetsunitmanager::count()
 {
     TSqlORMapper<AssetsunitmanagerObject> mapper;

@@ -136,8 +136,14 @@ void CmsController::adminlogin()
 void CmsController::admin_center(const QString &adminID)
 {
     //if(session.value("adminID").toString() == "")
-    texport(adminID);
-    render("admin_center"); //在该页面能够正常显示adminID
+    QString ID = session().value("adminID").toString();
+    if(adminID.compare(ID) == 0)
+    {
+        texport(adminID);
+        render("admin_center"); //在该页面能够正常显示adminID
+    }else{
+        redirect(urla("index"));
+    }
 }
 
 void CmsController::operator_login()

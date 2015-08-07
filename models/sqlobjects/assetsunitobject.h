@@ -11,7 +11,7 @@ public:
     int assetsUnitID;
     QString managerID;
     QString assetsUnitShortname;
-    double assetsBalance;
+    int assetsBalance;
 
     enum PropertyIndex {
         AssetsUnitID = 0,
@@ -32,8 +32,8 @@ private:    /*** Don't modify below this line ***/
     T_DEFINE_PROPERTY(QString, managerID)
     Q_PROPERTY(QString assetsUnitShortname READ getassetsUnitShortname WRITE setassetsUnitShortname)
     T_DEFINE_PROPERTY(QString, assetsUnitShortname)
-    Q_PROPERTY(double assetsBalance READ getassetsBalance WRITE setassetsBalance)
-    T_DEFINE_PROPERTY(double, assetsBalance)
+    Q_PROPERTY(int assetsBalance READ getassetsBalance WRITE setassetsBalance)
+    T_DEFINE_PROPERTY(int, assetsBalance)
 };
 
 #endif // ASSETSUNITOBJECT_H

@@ -1,90 +1,59 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"> 
 <%#include "cms.h" %>
 <% tfetch(QString, adminID); %>
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
-<style type="text/css">
-#apDiv1 {
-	position: absolute;
-	background-image: url("/BG/centerbg.jpg");
-	width: 800px;
-	height: 360px;
-	z-index: 1;
-	left: 281px;
-	top: 100px;
-	border: 1px solid #00CCFF;
-}
-#span1{
-	position: absolute;
-	left: 4px;
-	top: -9px;
-	width: 300px;
-}
-#span2{
-	position: absolute;
-	left: 227px;
-	top: 0px;
-	width: 274px;
-	height: 71px;
-}
-#span3{
-	position: absolute;
-	left: 230px;
-	top: 94px;
-}
-#span4{
-	position: absolute;
-	left: 713px;
-	top: -1px;
-	width: 80px;
-	}	
-#p2{
-	font-family: "Comic Sans MS", cursive;
-	text-align: center;
-	font-size: 30px;
-	color: #3333FF;
-	font-style: italic;
-}
-a{
-	color: #0033FF;
-	font-size: 15px;
-	text-decoration:none;
-}
-a:hover{
-	text-decoration:underline;
-}
-li{
-	list-style-type:none;
-}
-</style>
+	<meta charset="UTF-8">
+	<title><%= controller()->name() + ": " + controller()->activeAction() %></title>
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="/common.css">
+	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/index.js"></script>
+	<script type="text/javascript" src="/index2.js"></script>
+	<style>
+		#menuTab li {margin:4px; width:140px; height:30px; border:1px solid #bbb; line-height:30px; text-align:left;}
+		#menuTab a {margin-left:5px;}
+	</style>
 </head>
+ <body style="background-color:rgb(227,247,254);">
+	<div id="adminID_show">
+		<a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+                         data-options="menu:'#mm',iconCls:'icon-edit'" style="line-height:20px;text-align:center;">adminID: <%=adminID%></a>
+        <div id="mm" style="width:100px;line-height:20px;text-align:center;">
+        	<a href="/Cms/index" >退出</a>
+        </div>
 
-<body>
-<div id="apDiv1">
-<span id="span1">
-<p style="vertical-align: text-top; text-align: left; color: #003399; font-size: 14px;" align="left">欢迎您，<%=adminID%></p>
-<span  id="span4">
-<p style="vertical-align: text-top;text-align: right; color: #003399; font-size: 14px;" align="right"><a href="/Cms/index/">退出</a></p>
-</span>
-</span>
-<span id="span2">
-<p id="p2">管理员中心</p>
-</span>
-<span id="span3">
-<ul>
-<li>
-<a href="/Cms/list_operator/<%=adminID%>">操作员管理</a>
-</li>
-<li>
-<a href="/Cms/list_manager">资产管理人管理</a>
-</li>
-<li>
-<a href="/Cms/list_log/<%=adminID%>">操作日志</a>
-</li>
-</ul>
-</span>
-</div>
-</body>
+        <!--<label style="line-height:20px;text-align:center;">adminID: <%=adminID%></label> -->
+    </div>
+	<div class="easyui-tabs" style="width:100%;height:600px;" data-options="tools:'#adminID_show'">
+		<div title="后台服务配置" style="width:700px;height:100%;padding:10px;">
+						<div class="easyui-layout" data-options="fit:true">
+				<!-- left -->
+				<div region="west" title="后台服务配置" split="true" style="width:200px;padding:1px;overflow:hidden;">
+					<div id="menuTab" class="easyui-accordion" fit="true" border="false">  
+						<ul type="none" style="padding-left:22px;padding-top:10px;">  
+							<li><a href="javascript:addTab_BSC('操作员管理','/Cms/list_operator/<%=adminID%>')">操作员管理</a></li>
+							<li><a href="javascript:addTab_BSC('资产管理人管理','/Cms/list_manager/')">资产管理人管理</a></li>
+							<li><a href="javascript:addTab_BSC('操作日志','/Cms/list_log/<%=adminID%>')">操作日志</a></li>
+						</ul>  
+					</div>  
+				</div> 
+				<!-- right -->
+				<div region="center" style="overflow:hidden;">
+					<!-- content tabs -->
+					<div class="easyui-tabs" id="ContentTab_BSC" fit="true" border="false" style="height:100%;overflow:hidden;">  
+						<div title="欢迎页" data-options="closable:true" style="padding:20px;overflow:hidden;">   
+							<div style="margin-top:20px;">  
+								<h3>欢迎来到后台服务配置界面！</h3>  
+							</div>  
+						</div>  
+					</div>  
+				</div>  
+			</div>
+		</div>
+		<!-- tab3 -->
+	</div>
+ </body>
 </html>

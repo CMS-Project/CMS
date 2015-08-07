@@ -31,8 +31,8 @@
   }
 .div4{
   position: absolute;
-  top: 290px;
-  left: 0px;
+  top: 292px;
+  left: 80px;
   width: 314px;
   }
 .fanhui{
@@ -130,8 +130,9 @@ function tichu(){
     <tr>
       <th height="30" colspan="4" align="center" ><%== formTag(urla("search_operator"), Tf::Post) %>
         <label for="search"></label>
-        <input name="operators[operatorID]" type="text" id="operators[operatorID]" size="60" />
-      </form></th>
+        <input name="operators[operatorID]" type="text" id="operators[operatorID]" size="50" />
+        <input type="submit" name="button" id="button" value="查询" /></th>
+      </form>
       </tr>
     <tr>
       <th width="135" height="30" align="center" >操作员管理人编号</th>
@@ -168,8 +169,5 @@ function tichu(){
   </table>
   </div>
 </div>
-<div class="fanhui">
-  <a href="/Cms/admin_center/<%=adminID%>">上一页</a>
-  </div>
 </div>
 </html>

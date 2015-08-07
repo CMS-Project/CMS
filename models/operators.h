@@ -48,6 +48,7 @@ public:
     static Operators create(const QVariantMap &values);
     static Operators get(const QString &operatorID);
     static QList<Operators> list_operator(const QString &adminID);
+    static QList<Operators> search_operator(const QString &operatorID,const QString &adminID);
     static int count();
     static QList<Operators> getAll();
     static QJsonArray getAllJson();

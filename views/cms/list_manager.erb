@@ -44,8 +44,8 @@ input{
   width: 300px;
   height: 35px;
   z-index: 2;
-  left: 303px;
-  top: 300px;
+  left: 124px;
+  top: 299px;
 }
 #title{
   height:42px;
@@ -119,9 +119,9 @@ function  xiugai(){
     <tr>
       <td height="25" colspan="4" align="center"><%== formTag(urla("search_manager"), Tf::Post) %>
         <label for="search"></label>
-        <input name="assetsunitmanager[managerID]" type="text" id="assetsunitmanager[managerID]" size="80" />
+        <input name="assetsunitmanager[managerID]" type="text" id="assetsunitmanager[managerID]" size="70" />
+        <input type="submit" name="button" id="button" value="查询" /></td>
       </form>
-        </td>
     </tr>
     <tr>
       <td width="116" id="a">资产管理人编号</td>
@@ -153,9 +153,6 @@ function  xiugai(){
       <td width="75" align="center"><a href="" id="dongjie" onclick="dongjie();">冻结/解冻</a></td>
     </tr>
   </table>
-</div>
-<div id="apDiv5">
-<a href="/Cms/admin_center/<%=adminID%>">返回</a></div>
 </div>
 </body>
 </html>

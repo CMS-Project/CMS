@@ -143,13 +143,13 @@ function tichu(){
   </table>
   <div class="div3">
   <table class="intable1"> 
-<% tfetch(Operators, operators); %>
-<% if(operators.operatorID() != ""){%>
+<% tfetch(QList<Operators>, operator_list ); %>
+<% for(const auto &i : operator_list) {%>
     <tr height="30px" onclick="do_onclick(this)">
     <td width="151" align="center" valign="top" ><%= adminID%></td>
-    <td width="127" align="left"><%= operators.operatorID() %></td>
-    <td width="127" align="left"><%= operators.operatorNickname()  %></td>
-    <td width="55" align="left"><%= operators.operatorStatus() %></td>
+    <td width="127" align="left"><%= i.operatorID() %></td>
+    <td width="127" align="left"><%= i.operatorNickname()  %></td>
+    <td width="55" align="left"><%= i.operatorStatus() %></td>
     </tr> 
     <% } %>
   </table>

@@ -22,36 +22,38 @@ void CmsController::index()
     render();
 }
 
-void CmsController::show_operator(const QString &pk)
+void CmsController::show_operator(const QString &operatorID)
 {
-    auto operators = Operators::get(pk);
     QString adminID = session().value("adminID").toString();
-    if(operators.isNull()){
-        QString error = "该操作员不存在!";
+    Operators a;
+    QList<Operators> operator_list = a.search_operator(operatorID,adminID);
+    if(operator_list.isEmpty()){
+        QString error = "无相关操作员!";
         texport(error);
         texport(adminID);
-        texport(operators);
+        texport(operator_list);
         render();
     }else{
         texport(adminID);
-        texport(operators);
-        render();
+        texport(operator_list);
+        render("show_operator");
     }
+
 }
 
-void CmsController::show_manager(const QString &pk)
+void CmsController::show_manager(const QString &managerID)
 {
-    auto assetsunitmanager = Assetsunitmanager::get(pk);
-    if(assetsunitmanager.isNull()){
+    Assetsunitmanager a;
+    QList<Assetsunitmanager> b = a.searching(managerID);
+    if(b.isEmpty()){
         QString error = "该资产管理人不存在!";
         texport(error);
-        texport(assetsunitmanager);
+        texport(b);
         render();
     }else{
-        texport(assetsunitmanager);
+        texport(b);
         render();
-    }
-
+        }
 }
 
 void CmsController::entry()
@@ -75,8 +77,7 @@ void CmsController::createmanager()
    Assetsunitmanager a;
    auto assetsunitmanager = a.create(form);
    if(!assetsunitmanager.isNull() && a.new_manager(adminID,managerID)){
-      // QString adminID = session().value("adminID").toString();
-           redirect(urla("list_manager"));
+       redirect(urla("list_manager"));
    }else{
        QString error = "资产管理人编号已经存在!";
        texport(error);
@@ -134,6 +135,7 @@ void CmsController::adminlogin()
 
 void CmsController::admin_center(const QString &adminID)
 {
+    //if(session.value("adminID").toString() == "")
     texport(adminID);
     render("admin_center"); //在该页面能够正常显示adminID
 }
@@ -212,10 +214,10 @@ void CmsController::search_operator()
     if(httpRequest().method() != Tf::Post){
         return;
     }
+    //QString operatorID = httpRequest().formItemValue("operators");
     auto form = httpRequest().formItems("operators");
     QString operatorID = form["operatorID"].toString();
     redirect(urla("show_operator", operatorID));
-
 
 }
 

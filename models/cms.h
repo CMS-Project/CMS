@@ -58,7 +58,7 @@ public:
     static bool change_status(const QString &adminID, const QString &operatorID);
     static bool cgstatus(const QString &adminID, const QString &managerID);
     static bool checkoperatorID(const QString &operatorID);
-    static bool new_manager(const QString &adminID,const QString &managerID);
+   // static bool new_manager(const QString &adminID,const QString &managerID);
     //static bool checkmanagerID(const QString &adminID,const QString &managerID);
     static Cms get(const QString &numberID);
     static int count();

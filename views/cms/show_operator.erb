@@ -9,7 +9,7 @@
 <style>
 .maxdiv{
   position: absolute;
-  background-color: #96EDFE;
+  background-color: rgb(227,247,254);
   top: 106px;
   left: 350px;
   width: 460px;
@@ -26,7 +26,8 @@
   left: 0px;
   width: 460;
   height: 180px;
-  border:1px solid #429fff;
+  overflow-y:auto;
+  border:1px solid rgb(227,247,254);
   }
 .div4{
   position: absolute;
@@ -41,7 +42,7 @@
   width: 50px;
   }     
 .table1{
-  border:1px solid #429fff;
+  border:1px solid rgb(227,247,254);
   border-collapse:collapse;
   }
 .intable1{
@@ -50,15 +51,15 @@
 caption{
   height:42px;
   font-family: Tahoma,Verdana,Arial;
-  background-color:#66FFFF;
+  background-color:rgb(227,247,254);
   font-size: 20px;
   text-align:left;
   vertical-align:top;
   }
 th{
   font-family:Tahoma,Verdana,Arial;
-  border: 1px solid #00FF33;
-  background-color: #66FF99;
+  border: 1px solid rgb(227,247,254);
+  background-color: rgb(227,247,254);
   font-size: 15px;
   font-weight: normal;
   }
@@ -93,7 +94,7 @@ a:hover{
  var curtab = null;
  var str = null;
  function do_onclick(tab){
-   if(curtab != null) curtab.style.backgroundColor = "#96EDFE"; 
+   if(curtab != null) curtab.style.backgroundColor = "rgb(227,247,254)"; 
     tab.style.backgroundColor = "#E0E0E0";
     curtab = tab; 
     var tds = curtab.cells;

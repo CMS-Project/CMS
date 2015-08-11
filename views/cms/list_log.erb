@@ -13,20 +13,20 @@
   height: 400px;
   left: 291px;
   top: 76px;
-  background-color: #66FFFF;
+  background-color: rgb(227,247,254);
   }
 caption{
   height:42px;
   font-family: Tahoma,Verdana,Arial;
-  background-color:#66FFFF;
+  background-color:rgb(227,247,254);
   font-size: 20px;
   text-align:left;
   vertical-align:top;
   }
 th{
   font-family:Tahoma,Verdana,Arial;
-  border: 1px solid #00FF33;
-  background-color: #66FF99;
+  border: 1px solid rgb(227,247,254);
+  background-color: #FFFFFF ;
   font-size: 16px;
   font-weight: normal;
   }
@@ -194,7 +194,7 @@ window.onload = function(){
   <caption>
     　操作日志列表
     </caption>
-<tr style="background-color:#CCCCCC;">
+<tr style="background-color:rgb(227,247,254);">
   <th width="136" height="30" align="left" style="cursor:pointer;">管理员编号</th>
   <th width="187" align="left" style="cursor:pointer;">时间</th>
   <th width="283" align="left" style="cursor:pointer;">事件</th>
@@ -203,7 +203,7 @@ window.onload = function(){
 <tbody id="group_one">
 <% tfetch(QList<Log>,log_list);%>
 <% for(const auto &i : log_list) {%> 
-  <tr style="background-color:#f3f3f3">
+  <tr style="background-color:rgb(227,247,254)">
       <td height="20"><%= adminID%></td>
     <td><%= i.time() %></td>
     <td><%= i.way() %><%= i.role() %><%= i.userID() %></td>
@@ -223,6 +223,7 @@ window.onload = function(){
     <td width="127">第
     <input id="pageno" value="" style="width:20px"/>
     页/<a href="#" onclick="page.aimPage();">跳转</a></td>
+    <td width="127"><a href="" onclick="www.location.reload()">刷新</a></td>
 </tr>
 </table>
 </div>

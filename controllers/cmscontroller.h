@@ -31,6 +31,7 @@ public slots:
     void admin_center(const QString &adminID);
     void operator_login();
     void operatorlogin();
+    void operatorlogout();
     void operator_center(const QString &operatorID);
     void list_operator(const QString &adminID);
     void list_log(const QString &adminID);

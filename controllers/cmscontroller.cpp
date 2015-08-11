@@ -173,6 +173,12 @@ void CmsController::operatorlogin()
         redirect(urla("operator_login"));
     }
 }
+void CmsController::operatorlogout(){
+
+   session().remove("operatorID");
+   redirect(url("Cms","index"));
+}
+
 
 void CmsController::operator_center(const QString &operatorID)
 {

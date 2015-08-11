@@ -16,7 +16,11 @@
 </head>
  <body style="background-color:rgb(227,247,254);">
 	<div id="operatorID_show">
-        <label style="line-height:20px;text-align:center;">operatorID: <% tehex(operatorID); %></label>
+         <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'"  style="line-height:20px;text-align:center;">操作员ID: <% tehex(operatorID); %></a>
+    </div>
+    <div id="mm1" style="line-height:20px;text-align:center;">
+    	<div><a href="#">修改密码</a></div>
+    	<div><a href="/Cms/operatorlogout">退出登录</a></div>
     </div>
 	<div class="easyui-tabs" style="width:100%;height:600px;" data-options="tools:'#operatorID_show'">
 		<div title="欢迎页" data-options="closable:true" style="padding:20px;overflow:hidden;">   

@@ -123,6 +123,16 @@ Operators Operators::create(const QString &operatorID, const QString &operatorNa
     return Operators(obj);
 }
 
+Operators Operators::create(const QVariantMap &values)
+{
+    Operators model;
+    model.setProperties(values);
+    if (!model.d->create()) {
+        model.d->clear();
+    }
+    return model;
+}
+
 QList<Operators> Operators::list_operator(const QString &adminID)
 {
     QList<Operators> operator_list;
@@ -217,15 +227,6 @@ QList<Operators>  Operators::search_operator(const QString &operatorID, const QS
      return operator_list;
 }
 
-Operators Operators::create(const QVariantMap &values)
-{
-    Operators model;
-    model.setProperties(values);
-    if (!model.d->create()) {
-        model.d->clear();
-    }
-    return model;
-}
 
 Operators Operators::get(const QString &operatorID)
 {

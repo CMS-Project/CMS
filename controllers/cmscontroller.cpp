@@ -88,23 +88,29 @@ void CmsController::createmanager()
 
 void CmsController::create()
 {
+    QString adminID = session().value("adminID").toString();
     if (httpRequest().method() != Tf::Post) {
         return;
     }
 
-    auto form = httpRequest().formItems("operators");
-    QString ID = form["operatorID"].toString();
-    auto operators = Operators::create(form);
     Cms cms;
-    if (!operators.isNull() && cms.checkoperatorID(ID)) {
-        QString adminID = session().value("adminID").toString();
-        QString notice  = form["operatorID"].toString();
 
-       if(cms.insert_connection(adminID,notice)){
+    auto form = httpRequest().formItems("operators");
+   QString notice  = form["operatorID"].toString();
+     //   QString ID = form["operatorID"].toString();
+    Operators a;
+    auto operators = a.create(form);
+  //  Cms cms;
+    if (!operators.isNull()&& cms.insert_connection(adminID,notice)) {
+//        QString adminID = session().value("adminID").toString();
+//        QString notice  = form["operatorID"].toString();
+
+//       if(cms.insert_connection(adminID,notice)){
             redirect(urla("list_operator", adminID));
-       }
+       //}
     } else {
         QString error = "操作员编号已经存在!";
+    //QString error = ID;
         texport(error);
         renderEntry(form);
     }
@@ -173,12 +179,6 @@ void CmsController::operatorlogin()
         redirect(urla("operator_login"));
     }
 }
-void CmsController::operatorlogout(){
-
-   session().remove("operatorID");
-   redirect(url("Cms","index"));
-}
-
 
 void CmsController::operator_center(const QString &operatorID)
 {

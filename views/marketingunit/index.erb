@@ -39,8 +39,25 @@
           color:#000000;
           }
 </style>
+<script language="javascript">
+ var curtab = null;
+ var str = null;
+ function do_onclick(tab){
+   if(curtab != null) curtab.style.backgroundColor = "white"; 
+    tab.style.backgroundColor = "#E0E0E0";
+    curtab = tab; 
+    var tds = curtab.cells;
+        str =  tds[0].innerHTML;  
+ }
+function  xiugai(){
+  if(str != null)
+    document.getElementById('xiugai').href = "/marketingunit/edit/"+str;
+
+}
+</script>
 </head>
     <body style="position: relative;left: 30px; top: 20px;">
+      <p style="color: red"><%=$ error %></p>
           <table id="customers">
             <tr>
                 <th>编号</th>
@@ -51,12 +68,10 @@
                 <th>源单元编号</th>
                 <th>目标单元编号</th>
                 <th>操作员编号</th>
-                <th>操作</th>
             </tr>
-
                 <% tfetch(QList<Marketingunit>, marketingunitList); %>
                 <% for (const auto &i : marketingunitList) { %>
-            <tr>
+            <tr onclick="do_onclick(this)">
                 <td><%= i.muid() %></td>
                 <td><%= i.muvalue() %></td>
                 <td><%= i.musname() %></td>
@@ -65,7 +80,6 @@
                 <td><%= i.srcUnitID() %></td>
                 <td><%= i.destUnitID() %></td>
                 <td><%= i.operatorID() %></td>
-                <td><%== linkTo("编辑", urla("edit", i.muid())) %></td>
             </tr>
                                                             <% } %>
 
@@ -119,10 +133,10 @@
       <div style="margin-top:4px" >
          
         
-            <a>当前为第<%= page %>页</a>
-            <h>共<%= tpage %>页</h>
+            <a>第<%= page %>页/共<%= tpage %>页</a>
             <% tfetch(QString, warning); %>
             <p><%= warning %></p>
+            <a href="" id="xiugai" onclick="xiugai();"/>编辑</a>
       </div>
 </body>
 </html>

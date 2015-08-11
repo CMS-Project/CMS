@@ -10,6 +10,7 @@
 #include <TAbstractModel>
 #include <TSqlQuery>
 #include <TActionController>
+#include <operators.h>
 
 MarketingunitController::MarketingunitController(const MarketingunitController &)
     : ApplicationController()
@@ -25,9 +26,9 @@ void MarketingunitController::index()
     while(query.next()){
      trec=trec+1;
     }
-    tpage=trec/20;
-    if(tpage*20<trec)tpage=tpage+1;
-    if(hpage.isNull()){
+    tpage=trec/18;
+    if(tpage*18<trec)tpage=tpage+1;
+    if(hpage.isEmpty()){
         page=1;
     }else{
         page=hpage.toInt();
@@ -40,8 +41,8 @@ void MarketingunitController::index()
         warning="当前为最后页";
     }
 
-    epage=page*20;
-    spage=epage-20;
+    epage=page*18;
+    spage=epage-18;
     spage1=QString::number(spage);
     epage1=QString::number(epage);
     QList<Marketingunit> marketingunitList;
@@ -50,9 +51,9 @@ void MarketingunitController::index()
     while(query2.next()){
         Marketingunit b;
         b.setMuid(query2.value(0).toInt());
-        b.setMuname(query2.value(1).toString());
+        b.setMuvalue(query2.value(1).toInt());
         b.setMusname(query2.value(2).toString());
-        b.setMuvalue(query2.value(3).toInt());
+        b.setMuname(query2.value(3).toString());
         b.setMudate(query2.value(4).toDate());
         b.setSrcUnitID(query2.value(5).toInt());
         b.setDestUnitID(query2.value(6).toInt());
@@ -109,7 +110,7 @@ void MarketingunitController::edit(const QString &pk)
     if (!marketingunit.isNull()) {
         renderEdit(marketingunit.toVariantMap());
     } else {
-        redirect(urla("entry"));
+        redirect(urla("index"));
     }
 }
 
@@ -223,7 +224,7 @@ void MarketingunitController::showform(){
     if(start.isEmpty()&&end.isEmpty()){
         query.exec("SELECT * FROM CMS.marketingunit ORDER BY MUdate;");
     }else if(start.isEmpty()||end.isEmpty()){
-        error="请输入日期";
+        error="请输入完整日期";
         tflash(error);
         redirect(urla("showform"));
         return;
@@ -265,7 +266,7 @@ void MarketingunitController::showform(){
 bool MarketingunitController::preFilter(){
     QString operatorID = session()["operatorID"].toString();
 
-    if(operatorID.isNull() || operatorID.isEmpty()){
+    if(operatorID.isNull() || operatorID.isEmpty() || Operators::get(operatorID).operatorStatus() != "正常"){
         redirect(url("cms", "index"));
         return false;
     }

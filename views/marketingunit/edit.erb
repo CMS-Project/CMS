@@ -7,7 +7,9 @@
   <title><%= controller()->name() + ": " + controller()->activeAction() %></title>
 	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="common.css">
+	<link rel="stylesheet" type="text/css" href="/common.css">
+  <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+  <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
 	<style type="text/css">
 #customers
   {
@@ -47,7 +49,7 @@
     <div title="编辑交易单元列表" style="width:600px;height:100%;padding:10px;">
       <p style="color: red"><%=$ error %></p>
       <p style="color: green"><%=$ notice %></p>
-      <h1>编辑交易单元列表</h1>
+      <h3>编辑交易单元列表</h3>
 <table id="customers">
   <%== formTag(urla("save", marketingunit["muid"]), Tf::Post) %>
   <tr>
@@ -91,13 +93,14 @@
   </tr>
 
 </table>	
-    </div>  
-  </div>
+    
          <p>
-          <input type="submit" value="保存" />
+          <input type="submit" value="保存" class="easyui-linkbutton" style="width:81px;height:28px;" />
          </p>
 </form>
-        <%== linkTo("返回", urla("index")) %>
+        <li style="float:left;"><a href="/marketingunit/index/" class="easyui-linkbutton" style="width:80px;">返回</a></li>
+        </div>  
+  </div>
 </body>
 </html>
 

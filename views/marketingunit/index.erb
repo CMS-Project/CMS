@@ -124,6 +124,14 @@ function  xiugai(){
             <input class="easyui-linkbutton" type="submit" value="跳转" style="width:50px;height:29px;" />
             </form>
             </td>
+
+              
+            <td>
+               <li style="float:left;"><a href="" id="xiugai" onclick="xiugai()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="width:60px;height:29px;"/>编辑</a></li>
+            </td>
+
+
+
             </tr>
             </table>
       </li>
@@ -136,7 +144,6 @@ function  xiugai(){
             <a>第<%= page %>页/共<%= tpage %>页</a>
             <% tfetch(QString, warning); %>
             <p><%= warning %></p>
-            <a href="" id="xiugai" onclick="xiugai();"/>编辑</a>
       </div>
 </body>
 </html>

@@ -30,71 +30,68 @@
  <body>
   <div id="dlg" class="easyui-dialog" title="资产单元调拨" style="width:410px;height:auto;padding:10px 20px"
             closed="false" buttons="#dlg-buttons">
-		<div class="ftitle">账户信息</div>
-        <form id="form" method="post">
+		<div class="ftitle">调拨类型</div>
+        <div>
             <div class="fitem">
-                <label>资产单元:</label>
-                <input id="au" class="easyui-textbox" validType="number" required="true">
-				<select id="select_type" class="easyui-combobox" name="type" style="width:auto;">
-					<option value="2">资金划转</option>
-					<option value="1">资金调拨</option>
-				</select>
-				<script type="text/javascript">
-					$('#select_type').combobox({onChange:function(newVal, oldVal) {show(newVal);}});
-				</script>
+				<input type="radio" name="rd" onChange="show(2)" checked="true">资金划转</input><span style="width:160px"/>
+				<input type="radio" name="rd" onChange="show(1)">资金调拨</input>
             </div>
 
 			<div style="display:none" id="form2">
 				<div class="ftitle">资金划转</div>
-					<div class="fitem" style="display:none">
+				<form  id="fm2" method="post">				
+					<div class="fitem">
 						<label>资产单元:</label>
-						<input id="at_au" name="assetsTransfer[srcUnitID]"  class="easyui-textbox" validType="number">
+						<input name="assetsTransfer[srcUnitID]" class="easyui-textbox" style="width:238px;" required="true" validType="number"/>
 					</div>
 					<div class="fitem">
 						<label>资产管理人:</label>
-						<input name="assetsTransfer[srcAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number">
+						<input name="assetsTransfer[srcAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number"/>
 					</div>
 					<div class="fitem">
 						<label>划转金额:</label>
-						<input class="easyui-textbox" value="  ↑转入↑" style="width:60px;">
-						<input name="assetsTransfer[muvalue]"  class="easyui-textbox" style="width:173px;" required="true" validType="number">
+						<label style="width:60px;">↑转入↑</label>
+						<input name="assetsTransfer[muvalue]"  class="easyui-textbox" style="width:173px;" required="true" validType="number"/>
 					</div>
 					<div class="fitem">
 						<label>目标管理人:</label>
-						<input name="assetsTransfer[destAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number">
+						<input name="assetsTransfer[destAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number"/>
 					</div>
 					<div class="fitem">
 						<label>交易单元简称：</label>
-						<input name="assetsTransfer[musname]"  class="easyui-textbox" style="width:238px;" required="true" validType="text">
+						<input name="assetsTransfer[musname]"  class="easyui-textbox" style="width:238px;" required="true" validType="text"/>
 					</div>
 					<div class="fitem">
 						<label>交易单元全称：</label>
-						<input name="assetsTransfer[muname]"  class="easyui-textbox" style="width:238px;">
+						<input name="assetsTransfer[muname]"  class="easyui-textbox" style="width:238px;" validType="text"/>
 					</div>
+				</form>
 			</div>
 			<div id="form1">
 				<div class="ftitle">资金调拨</div>
-				<div class="fitem">
-					<label>资产管理人:</label>
-					<input name="assetsAllot[managerID]"  class="easyui-textbox" style="width:238px;" required="true" validType="number">
-				</div>
-				<div class="fitem" style="display:none">
-					<label>资产单元:</label>
-					<input id="aa_au" name="assetsAllot[assetsUnitID]"  class="easyui-textbox" validType="number">
-				</div>
-				<div class="fitem">
-					<input class="easyui-textbox" value="调整到" style="width:85px;">
-					<input name="assetsAllot[value]" class="easyui-textbox" style="width:243px;" required="true" validType="number">
-				</div>
-				<div class="fitem">
-					<label>备注:</label>
-					<input name="assetsAllot[remarks]" class="easyui-textbox" style="width:243px;">
-				</div>
+				<form id="fm1" method="post" novalidate>
+					<div class="fitem">
+						<label>资产管理人:</label>
+						<input name="assetsAllot[managerID]"  class="easyui-textbox" style="width:243px;" required="true" validType="text"/>
+					</div>
+					<div class="fitem">
+						<label>资产单元:</label>
+						<input name="assetsAllot[assetsUnitID]" class="easyui-textbox" style="width:243px;" required="true" validType="number"/>
+					</div>
+					<div class="fitem">
+						<label>调整到:</label>
+						<input name="assetsAllot[value]" class="easyui-textbox" style="width:243px;" required="true" validType="number"/>
+					</div>
+					<div class="fitem">
+						<label>备注:</label>
+						<input name="assetsAllot[remarks]" class="easyui-textbox" style="width:243px;"/>
+					</div>
+				</form>
 			</div>
-        </form>
+        </div>
     </div>
     <div id="dlg-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="javascript:assetsTransfer()" style="width:90px">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="assetsTransfer()" style="width:90px">确定</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
     </div>
     <script>
@@ -102,15 +99,16 @@
 		var val;
 		
 		function assetsTransfer(){ 
+			var form;
 			if(val == 1){
-				url = '/AssetsUnit/assetsAllot';
-				$('#aa_au').textbox('setValue', $('#au').textbox('getValue'));
-			}else{
 				url = '/AssetsUnit/assetsTransfer';
-				$('#at_au').textbox('setValue', $('#au').textbox('getValue'));
+				form = '#fm2';
+			}else{
+				url = '/AssetsUnit/assetsAllot';
+				form = '#fm1';
 			}
 
-			$('#form').form('submit',{
+			$(form).form('submit',{
 				url: url,
 				onSubmit: function(){
 					return $(this).form('validate');

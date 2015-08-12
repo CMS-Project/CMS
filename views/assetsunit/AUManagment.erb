@@ -143,6 +143,7 @@
                 <div class="fitem1">
                     <label>资产单元:</label>
                     <input name="assetsTransfer[srcUnitID]" class="easyui-textbox" style="width:238px"  validType="number" readonly>
+					<input name="assetsTransfer[srcAUManager]" style="display:none"  type="number">
                 </div>
 				<div class="ftitle">资金划转</div>
 					<div class="fitem1">
@@ -151,8 +152,8 @@
 						<input name="assetsTransfer[muvalue]"  class="easyui-textbox" style="width:173px;" required="true" validType="number" />
 					</div>
 					<div class="fitem1">
-						<label>对象帐号:</label>
-						<input name="assetsTransfer[destUnitID]"  class="easyui-textbox" style="width:238px;" required="true" validType="number" />
+						<label>资产管理人:</label>
+						<input name="assetsTransfer[destAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number" />
 					</div>
 					<div class="fitem1">
 						<label>交易单元简称：</label>
@@ -175,17 +176,18 @@
           <form id="form1" method="post" novalidate>
             <div class="fitem1">
                 <label>资产单元:</label>
-                <input name="assetsTransfer[srcUnitID]" class="easyui-textbox"  style="width:238px"  validType="number" readonly/>
+                <input name="assetsAllot[assetsUnitID]" class="easyui-textbox"  style="width:238px"  validType="number" readonly>
+				<input name="assetsAllot[managerID]" style="display:none"  type="number">
             </div>  
 			
 			<div class="ftitle">资金调拨</div>
 				<div class="fitem1">
 					<label id="input_tz" style="width:85px;" >调整到</label>
-					<input name="assetsTransfer[amount]" class="easyui-textbox" style="width:243px;" />
+					<input name="assetsAllot[value]" class="easyui-textbox" style="width:243px;" />
 				</div>
 				<div class="fitem1">
 					<label>备注:</label>
-					<input name="assetsTransfer[remarks]" class="easyui-textbox" style="width:243px;" />
+					<input name="assetsAllot[remarks]" class="easyui-textbox" style="width:243px;" />
 				</div>
 			</div>
           </form>
@@ -311,6 +313,7 @@
 				$('#form2').form('clear');
 				$('#form2').form('load',{
 					'assetsTransfer[srcUnitID]':row['assetsUnitID'],
+					'assetsTransfer[srcAUManager]':row['managerID']
 				});
 				
 			}else{
@@ -319,13 +322,13 @@
 		}
 		function Allot(){
 			 var row = $('#table1').datagrid('getSelected');
-			if(row){
+			if(row && row['assetsUnitID'] != ""){
 				$('#dlg3').dialog('open');
 				$('#form1').form('clear');
 				$('#form1').form('load',{
-					'assetsTransfer[srcUnitID]':row['assetsUnitID'],				
+					'assetsAllot[assetsUnitID]':row['assetsUnitID'],
+					'assetsAllot[managerID]':row['managerID']				
 				});
-			
 			}else{
 				alert('未选择资产单元');
 			}
@@ -337,18 +340,22 @@
                     return $(this).form('validate');
                 },
                 success: function(result){
+					$('#response', parent.document).text(result);
 					$('#dlg2').dialog('close');        // close the dialog
+					$('#table1').datagrid('reload');
                 }
             });
 		}
 		function assetsAllot(){
            	$('#form1').form('submit',{
-				url:'/AssetsUnit/assetsTransfer',
+				url:'/AssetsUnit/assetsAllot',
                 onSubmit: function(){
                     return $(this).form('validate');
                 },
                 success: function(result){
+					$('#response', parent.document).text(result);
 					$('#dlg3').dialog('close');        // close the dialog
+					$('#table1').datagrid('reload');
                 }
             });
 		}

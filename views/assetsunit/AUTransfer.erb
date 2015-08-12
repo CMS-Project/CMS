@@ -46,7 +46,7 @@
 					</div>
 					<div class="fitem">
 						<label>资产管理人:</label>
-						<input name="assetsTransfer[srcAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number"/>
+						<input name="assetsTransfer[srcAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="text"/>
 					</div>
 					<div class="fitem">
 						<label>划转金额:</label>
@@ -55,7 +55,7 @@
 					</div>
 					<div class="fitem">
 						<label>目标管理人:</label>
-						<input name="assetsTransfer[destAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="number"/>
+						<input name="assetsTransfer[destAUManager]"  class="easyui-textbox" style="width:238px;" required="true" validType="text"/>
 					</div>
 					<div class="fitem">
 						<label>交易单元简称：</label>
@@ -96,11 +96,11 @@
     </div>
     <script>
 		var url;
-		var val;
+		var form_val;
 		
 		function assetsTransfer(){ 
 			var form;
-			if(val == 1){
+			if(form_val == 1){
 				url = '/AssetsUnit/assetsTransfer';
 				form = '#fm2';
 			}else{
@@ -124,11 +124,11 @@
 			if(val==1){
 				$('#form1').css('display','');
 				$('#form2').css('display','none');
-				val = 1;
+				form_val = 2;
 			}else{
 				$('#form2').css('display','');
 				$('#form1').css('display','none');
-				val = 2;
+				form_val = 1;
 			}
 		}
 

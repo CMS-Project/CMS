@@ -93,6 +93,11 @@ void AssetsunitController::createAssetsUnit()
         return;
     }
 
+    if(!AssetsUnit::get(form["assetsUnitID"].toInt()).isNull()) {
+        renderText(QString("资产单元已存在"));
+        return;
+    }
+
     if(form["assetsBalance"].toInt() >= 0) {
         auto assetsunit = AssetsUnit::create(form);
         QString result;
@@ -236,42 +241,94 @@ void AssetsunitController::assetsTransfer(){
         return;
     }
 
-    // TODO  需要修改
     QVariantMap form = httpRequest().formItems("assetsTransfer");
-    //if(form["muname"].isNull()) form["muname"] = "";
-	form["operaotrID"] = session()["operatorID"].toInt();
-    QString result;
 
-    int SassetsUnit =form["srcUnitID"].toInt();
-    int DassetsUnit=form["destUnitID"].toInt();
-    int muvalue=form["muvalue"].toInt();
-    AssetsUnit srcAU = AssetsUnit::get(SassetsUnit);
-    AssetsUnit destAU = AssetsUnit::get(DassetsUnit);
-    double srcValue=srcAU.assetsBalance();
-    double destValue=destAU.assetsBalance();
-    if(muvalue<=srcValue){
-        Marketingunit marketingunit = Marketingunit::create(form);
-        if(!marketingunit.isNull()){
-            result = "成功";
+    form["destUnitID"] = form["srcUnitID"];
+    form["operatorID"] = session()["operatorID"].toString();
 
-            double nowSvalue =double(srcValue-muvalue);
-            srcAU.setAssetsBalance(nowSvalue);
-            if(srcAU.save()){
-                double nowDvalue =double(destValue+muvalue);
-                destAU.setAssetsBalance(nowDvalue);
-                if(destAU.save()) result = "成功";
-                else result = "失败";
-            }else
-                result = "失败";
-        }else{
-            result = "失败";
+    int unitID = form["srcUnitID"].toInt();
+    int muvalue = form["muvalue"].toInt();
+    AssetsUnit srcAU = AssetsUnit::get(unitID, form["srcAUManager"].toString());
+    AssetsUnit destAU = AssetsUnit::get(unitID, form["destAUManager"].toString());
+
+    if(!srcAU.isNull()) {
+        if(destAU.isNull()) {
+            AssetsUnit::create(unitID, form["destAUManager"].toString(), srcAU.assetsUnitShortname(), 0);
+            destAU = AssetsUnit::get(unitID, form["destAUManager"].toString());
         }
 
-        operationLog("资产调拨", result, "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
-        renderText(QString("调拨" + result));
+        int srcValue = srcAU.assetsBalance();
+        int destValue = destAU.assetsBalance();
+
+        if(muvalue <= srcValue && muvalue > 0) {
+            Marketingunit mu = Marketingunit::create(form);
+            QString result;
+            TSqlQuery query;
+
+            query.prepare("update assetsUnit set assetsBalance = :srcVal where assetsUnitID = :srcUnitID and managerID = :srcMgID; \
+                            update assetsUnit set assetsBalance = :destVal where assetsUnitID = :destUnitID and managerID = :destMgID;");
+            query.bind(":srcVal", srcValue - muvalue).bind(":srcUnitID", unitID).bind(":srcMgID", form["srcAUManager"].toString()).
+                  bind(":destVal", destValue + muvalue).bind(":destUnitID", unitID).bind(":destMgID", form["destAUManager"].toString());
+            query.exec();
+
+            if(!mu.isNull() && query.numRowsAffected() != 0) {
+                result = "成功";
+            }else{
+                result = "失败";
+                rollbackTransaction();
+            }
+
+            // WARN: Log失败
+            operationLog("资产划转", result, "资产划转：资产单元" + QString(unitID) + ", 从资产管理人: " + form["srcAUManager"].toString() + "到" + form["destAUManager"].toString() + ", 金额" + QString(muvalue));
+            renderText(QString("划转" + result));
+        }else{
+            operationLog("资产划转", "失败", "资产划转：资产单元" + QString(unitID) + ", 从资产管理人: " + form["srcAUManager"].toString() + "到" + form["destAUManager"].toString() + ", 金额" + QString(muvalue));
+            renderText(QString("金额非法"));
+        }
     }else{
-        operationLog("资产调拨", "失败", "从资产单元ID:" + form["srcUnitID"].toString() + "到ID:" + form["destUnitID"].toString() + ", 金额:" + form["muvalue"].toString());
-        renderText(QString("金额超过资产单元资金，调拨失败，请输入正确调拨金额。"));
+        operationLog("资产划转", "失败", "资产划转：资产单元" + QString(unitID) + ", 从资产管理人: " + form["srcAUManager"].toString() + "到" + form["destAUManager"].toString() + ", 金额" + QString(muvalue));
+        renderText(QString("划转失败"));
+    }
+}
+
+void AssetsunitController::assetsAllot()
+{
+    if (httpRequest().method() != Tf::Post) {
+        return;
+    }
+
+    QVariantMap form = httpRequest().formItems("assetsAllot");
+    QString auID = form["assetsUnitID"].toString();
+    QString mgID = form["managerID"].toString();
+    QString value = form["value"].toString();
+    QString remarks = form["remarks"].toString();
+
+    if(Assetsunitmanager::get(mgID).managerState() != "可用"){
+        operationLog("资产单元修改", "失败", "资产管理人managerID: " + mgID + "不可用");
+        renderText(QString("资产管理人不可用"));
+        return;
+    }
+
+    if(value.toInt() > 0) {
+        QString result;
+        TSqlQuery query;
+
+        query.prepare("update assetsUnit set assetsBalance = :value where assetsUnitID = :assetsUnitID and managerID = :managerID;");
+        query.bind(":value", value).bind(":assetsUnitID", auID).bind(":managerID", mgID);
+        query.exec();
+
+        if(query.numRowsAffected() == 1) {
+            result = "成功";
+        }else{
+            result = "失败";
+            rollbackTransaction();
+        }
+
+        operationLog("资产调拨", result, "资产调拨：资产单元" + auID + "资产管理人" + mgID + ", 金额调整到：" + value + "备注：" + remarks);
+        renderText("调拨" + result);
+    }else{
+        operationLog("资产调拨", "失败", "资产调拨：资产单元" + auID + "资产管理人" + mgID + ", 金额调整到：" + value + "备注：" + remarks);
+        renderText("金额非法");
     }
 }
 

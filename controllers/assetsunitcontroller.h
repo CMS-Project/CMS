@@ -23,6 +23,7 @@ public slots:
     void getMarketingUnitList();
     void editMarketingUnit();
     void assetsTransfer();
+    void assetsAllot();
     void getAUOptLogList();
 
 private:

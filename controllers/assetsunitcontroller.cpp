@@ -193,7 +193,7 @@ void AssetsunitController::getMarketingUnitList(){
                     order by SrcUnitID");  // Query execution
     }else if(category == "m_assetsUnitID"){
         query.exec("select SrcUnitID,MUid, MUsname from CMS.marketingunit as mu  \
-                   where  tr.SrcUnitID = " + value);
+                   where  mu.SrcUnitID = " + value);
     }else if(category == "marketingUnitID"){
         query.exec("select SrcUnitID,MUid, MUsname from CMS.marketingunit as mu \
                    where  mu.MUid = " + value);
